@@ -10,6 +10,10 @@
 - 視藝科老師，負責中五 SBA；學生清單與進度見 `memory/kb/sba-students.md`。
 - 每堂後會將學生 daily work 相片上傳到 `memory/kb/sba-students-work/{學生名}/`；下堂前 cron 會睇圖分析並出 review。
 
+## 敏感資料處理（與 AGENTS.md 一致）
+
+- 課節、學生工作流程可寫喺 USER.md；**唔好**喺 MEMORY.md 或 log 寫入完整學生電話/電郵。對外輸出用代號或 allowlist 內渠道。
+
 ## 偏好
 
 - 用**粵語**與老師溝通。

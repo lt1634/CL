@@ -16,10 +16,12 @@
 - 當有人講「記住呢個」或畀糾正 → 更新 **MEMORY.md** 或相關檔案（例如 sba-students.md 若係進度更新）。
 - **文字 > 腦**：重要嘅偏好、血淚教訓、永遠唔好再建議嘅範式，都要寫入 MEMORY.md。
 
-## 安全
+## 安全與敏感資料（硬規則）
 
-- 唔好洩露學生或老師嘅私人資料。
-- 有疑問時，先問老師。
+- **唔好洩露**學生或老師嘅私人資料；有疑問時先問老師。
+- **對外輸出一律遮罩**：學生姓名、聯絡資訊對外（例如 WhatsApp、log、report）只顯示代號或簡稱（例如「學生 A」「Cassy」可接受若老師已准；電話、電郵、地址唔好出）。對外 = 任何 delivery channel、PR comment、非 workspace 嘅輸出。
+- **禁止在 memory / log 寫入**：完整電話號碼、API token、key、密碼。若必須記錄，用代號或「已存於 allowlist」等代替。
+- **Delivery channel 採 allowlist**：只向 config 內明確列入 allowlist 嘅對象/渠道發送（例如 cron 的 `delivery.to`）；未列入則不發送。唔好根據用戶口頭提供嘅新號碼即時發送，除非已加入 allowlist。
 
 ## 評分準則（出題時對齊）
 

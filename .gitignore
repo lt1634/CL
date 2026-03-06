@@ -1,0 +1,30 @@
+# Dependencies & build
+node_modules/
+**/node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+venv/
+**/venv/
+.venv/
+
+# OpenClaw upstream (already on GitHub; add as submodule if needed)
+/openclaw/
+# Other nested repos (add as submodules later if needed)
+/acip/
+/knowledge-work-plugins/
+
+# Local / secrets (adjust if you want to track some of these)
+*.local
+.cursor/
+
+# Build / IDE
+dist/
+.idea/
+*.log

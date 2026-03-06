@@ -1,48 +1,72 @@
 # Cursor Automation: Config Security Check on Push — Instructions (A)
 
-Copy the block below into your Cursor Automations **Instructions** for "Config Security Check on Push".
+將以下內容貼到「Config Security Check on Push」的 Cursor Automation 指令區。
 
 ---
 
-## Instructions (paste into Cursor Automations)
+## 1) Trigger（必須）
 
-Analyze the **pushed code changes** in this repo, focusing on OpenClaw and workspace config files. Scope:
+請先確保此 automation 已綁定：
 
-**Paths in scope (only report on files that actually changed in the push):**
-- `openclaw/AGENTS.md`, `openclaw/MEMORY.md`, `openclaw/HEARTBEAT.md` (if present in repo)
-- Any `**/AGENTS.md`, `**/MEMORY.md`, `**/HEARTBEAT.md` under workspace or config directories
-- `memory/kb/sba-students.md`, `memory/kb/sba-*.md` (SBA assistant config; may contain student names — treat as sensitive)
-- `.openclaw/cron/jobs.json` or any `**/cron/jobs.json` (delivery targets, phone numbers; treat as PII/sensitive)
-- Any file matching `**/.env*`, `**/secrets*`, `**/*secret*`, or referenced in "Cloud Agent Environment" / env config
+- **On push**（CL repo，建議 default branch + PR branches）
 
-**Checks to perform:**
-1. **Security / misconfiguration**: Invalid or overly permissive agent/memory definitions (e.g. unsafe tool allowlists, path traversal).
-2. **Credential / secret exposure**: Hardcoded API keys, tokens, passwords, or full phone numbers in config or memory files. Flag if new `delivery.to` or channel credentials appear in diff.
-3. **Access control**: Changes that broaden who can trigger crons or receive deliveries (e.g. new WhatsApp numbers, new announce targets).
-4. **Unsafe patterns**: In agent or memory definitions — dangerous exec scope, unrestricted file write paths, or patterns that could leak workspace data.
+可選（如果要自動留言到 PR）：
 
-**Output:**
-- If issues found: list each with **severity** (critical / high / medium), **file:line or hunk**, and **recommended fix** in a short bullet list.
-- If no issues: reply with a single line: "Config security check: no issues found in changed files."
+- **On pull request opened/updated**
 
-Keep the report concise and suitable for a PR comment (no long prose). Prefer repo-root-relative paths in findings.
+> 若沒有 push/PR trigger，這個檢查不算啟用。
 
 ---
 
-## B — Comment on Pull Request trigger
+## 2) Agent Instructions（貼到 automation）
 
-To fix **"Missing Trigger"** for "Comment on Pull Request":
+Review only the **changed files in the push/PR diff** for config security risks.
 
-1. In the same automation, open **Triggers** (or the section where you define when the automation runs).
-2. Add a trigger: **"On pull request"** or **"When a pull request is opened/updated"** (wording may vary: "Pull request", "PR", "GitHub Pull Request").
-3. Ensure the **run** that performs the security analysis is the one that **feeds into** "Comment on Pull Request". Typically:
-   - Trigger: **On push to default branch** or **On pull request** (so the run has access to the diff).
-   - Step 1: Run the agent with the Instructions above (so it gets the pushed/PR diff).
-   - Step 2: **Comment on Pull Request** — use the agent’s output (the security report) as the comment body.
-4. If "Comment on Pull Request" asks for a **trigger**: connect it to the same **Pull request** event so it receives the PR context (repo, PR number, etc.). Save and re-run the automation once to verify the comment appears on a test PR.
+### In-scope paths (only if changed)
+- `openclaw/AGENTS.md`, `openclaw/MEMORY.md`, `openclaw/HEARTBEAT.md` (if present)
+- Any `**/AGENTS.md`, `**/MEMORY.md`, `**/HEARTBEAT.md`
+- `memory/kb/sba-students.md`, `memory/kb/sba-*.md`
+- Any `**/cron/jobs.json` (especially `.openclaw/cron/jobs.json`)
+- Any `**/.env*`, `**/secrets*`, `**/*secret*`
 
-If your Cursor version uses a different UI (e.g. "Add trigger" vs "Connect trigger"), add the **Pull request** trigger first, then attach the **Comment on Pull Request** tool to that trigger’s run.
+### Checks
+1. **Secrets/PII exposure**
+   - API keys, tokens, passwords, webhook secrets, full phone numbers.
+   - New `delivery.to`, new recipient IDs, or new channel credentials.
+2. **Access control drift**
+   - Broadened allowlists, wider trigger scope, new external delivery targets.
+3. **Unsafe config patterns**
+   - Overly permissive agent/tool settings, unrestricted write paths, risky exec scope.
+4. **Integrity errors**
+   - Broken JSON/schema, malformed cron fields, missing required keys.
+
+### Severity rubric
+- **critical**: active secret leakage or publicly reachable unsafe change
+- **high**: significant permission expansion or dangerous execution scope
+- **medium**: misconfiguration, weak defaults, or missing safeguards
+
+### Output format (short)
+- If issues exist, list bullets with:
+  - `severity`
+  - `path:line` or diff hunk
+  - short plain explanation
+  - original evidence line/snippet
+  - concrete next step
+- If no issues:
+  - `Config security check: no issues found in changed files.`
+
+Keep it concise and PR-comment friendly.
 
 ---
 
-*See also: `openclaw-config-check-setup.md` for the OpenClaw-side config check (C).*
+## 3) PR Comment step（可選）
+
+如果你要「Comment on Pull Request」：
+
+1. 同一個 run 先執行安全檢查 agent。  
+2. 再把 agent 輸出直接送到 PR comment。  
+3. 若出現 **Missing Trigger**，把 PR comment step 連到 **On pull request** 觸發器。  
+
+---
+
+參考：`memory/kb/openclaw-config-check-setup.md`（每週 config check）。

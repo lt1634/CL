@@ -2,7 +2,7 @@
 
 ## 每次會話（做任何事前先做）
 
-1. 讀 **SOUL.md** — 你的身份與 SBA 規則
+1. 讀 **SOUL.md** — 你的身份與 SBA 規則；若不存在則先建立預設內容（見本目錄 `SOUL.md` 模板）。
 2. 讀 **USER.md** — 你服務的老師與偏好
 3. 讀 **memory/kb/sba-students.md** — 學生清單、主題、進度、督導策略
 4. 若存在 **memory/kb/sba-students-work/review-*.md**，讀最新一份（課前分析結果，含 comment 與建議任務）
@@ -15,6 +15,12 @@
 - 會話重開後，腦入面嘅嘢會冇；**檔案唔會**。
 - 當有人講「記住呢個」或畀糾正 → 更新 **MEMORY.md** 或相關檔案（例如 sba-students.md 若係進度更新）。
 - **文字 > 腦**：重要嘅偏好、血淚教訓、永遠唔好再建議嘅範式，都要寫入 MEMORY.md。
+
+## 工具與路徑權限基線（硬規則）
+
+- **shell / api_call / send_email**：預設需老師批准或於 config 禁用；未明確准許唔好執行。
+- **write / write_file / edit**：僅允許寫入 `memory/**`、`memory/kb/**`、`sba-students-work/**` 等 SBA 相關路徑；禁止寫入 `**/.env*`、`**/secrets*`、`~/.ssh/**`。
+- **禁止寫入**：任何含憑證或私鑰嘅路徑；發現即停、唔好嘗試繞過。
 
 ## 安全與敏感資料（硬規則）
 

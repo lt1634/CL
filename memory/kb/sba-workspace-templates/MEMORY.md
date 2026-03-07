@@ -15,6 +15,14 @@
 - **每週 compact**：把 P2 中已過保留期或已解決嘅項，搬入 `memory/archive/YYYY-MM-DD.md`，避免 MEMORY.md 無限變長。
 - 可設 weekly cron：「讀 MEMORY.md，把過期 P2 寫入 memory/archive/，再從 MEMORY.md 刪除該段。」
 
+**可驗收門檻（量化規格）**
+
+| 項目 | 規格 | 驗收 |
+|------|------|------|
+| MEMORY.md 長度 | ≤ 3000 tokens | 超標則先 compact P2 → archive，再精煉 P1 |
+| P2 單條保留 | 最長 14 日（跟進）或 30 日（備忘） | 過期移入 archive，唔留喺 MEMORY |
+| Weekly compact 產出 | `memory/archive/YYYY-MM-DD.md` | 檔內含當日歸檔項 + 檔首一行 compact 摘要（例：`## 2026-03-08 compact — 移出 3 項 P2`） |
+
 ---
 
 ## 老師的偏好（P0）
@@ -36,6 +44,15 @@
 ---
 
 ## 近期 / 跟進（P2，每週整理）
+
+每條 P2 建議用固定欄位，方便機器歸檔（可選但推薦）：
+
+- `created_at`: YYYY-MM-DD
+- `expires_at`: YYYY-MM-DD 或「無」
+- `status`: 待跟進 / 已解決 / 已歸檔
+- 內容一行或短段
+
+示例：`[2026-03-08] expires 2026-03-15 | 待跟進 | 堂節備忘：X 班`
 
 - （一次性糾正、堂節備忘、待跟進。每週檢視：過期或已解決 → 移入 memory/archive/。）
 

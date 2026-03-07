@@ -4,6 +4,17 @@
 
 ---
 
+## 運行時段與去重（硬規則）
+
+- **時區與 active hours**：提醒／推送以本地時區為準；可設定只喺工作時段（例如 08:00–22:00）跑提醒，避免深夜噪音。
+- **去重/節流**：同一提醒 **N 小時內不重發**（建議 N=24）；若已喺過去 N 小時內推送過，寫入 memory 或 log 備查，回覆 `HEARTBEAT_OK` 即可。
+- **只做判斷不做外發**：heartbeat **只產生待辦或建議**（寫入 memory / 回覆用戶）；**對外發送**（WhatsApp、Slack、email）交 **isolated cron**，唔在 heartbeat 內 call message/send。
+- 重任務仍交 **isolated cron**，唔塞入 heartbeat。
+
+**可選（成本保護）**：config 可設 `lightContext: true`、heartbeat 間隔接近 cache TTL，降低 token 成本。
+
+---
+
 ## 每次只做 2–4 項（輪流或揀最相關）
 
 - [ ] **P0**：有冇過期/緊急事項要提醒用戶？（睇 memory 或 USER 備註）

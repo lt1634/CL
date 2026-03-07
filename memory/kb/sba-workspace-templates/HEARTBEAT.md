@@ -4,6 +4,17 @@
 
 ---
 
+## 運行時段與去重（硬規則）
+
+- **時區與 active hours**：提醒以本地時區為準；可設定只喺工作/上堂日時段跑提醒，避免非工作時間噪音。
+- **去重/節流**：同一提醒 **N 小時內不重發**（建議 N=24）；若已喺過去 N 小時內推送過，記低備查，回覆 `HEARTBEAT_OK` 即可。
+- **只做判斷不做外發**：heartbeat **只產生待辦或建議**（寫入 memory / 回覆老師）；**對外發送**（WhatsApp、課前任務推送）交 **isolated cron**（如 sba-pre-class-001），唔在 heartbeat 內 call message/send。
+- 課前出題、發送等仍交 **isolated cron**，唔塞入 heartbeat。
+
+**可選（成本保護）**：config 可設 `lightContext: true`、heartbeat 間隔接近 cache TTL，降低 token 成本。
+
+---
+
 ## 每次只做 2–4 項（輪流或揀最相關）
 
 - [ ] **P0**：下一堂 SBA 係幾時？有冇要提早準備嘅嘢？（睇 sba-timetable.md）

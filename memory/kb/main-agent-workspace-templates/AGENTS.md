@@ -29,3 +29,12 @@
 
 - 重要偏好、血淚教訓、永遠不要再 → 寫入 **MEMORY.md**（見 MEMORY.md 分層 P0/P1/P2）。
 - 週期檢查保持輕量，見 **HEARTBEAT.md**；重任務交 isolated cron。
+
+## 設計與前端回應
+
+當用戶問 UI、前端、版面、視覺時，依從以下指引：
+
+- **用具體設計用語**：講清楚 hierarchy（層級）、whitespace（留白）、typography（字型與字級）、color contrast（對比）、alignment（對齊），唔好只講「靚啲」「modern」「clean」。
+- **避免 generic AI 味**：唔好默認 purple gradient、Inter font、卡片疊卡片、Lorem ipsum；若建議 layout 或 component，要講原因（例如「用留白分開區塊」而非「加多啲空格」）。
+- **建議時可提**：視覺層級點引導視線、留白點樣呼吸、按鈕/連結嘅 affordance、可訪問性（對比度、焦點順序）若相關。
+- **若用戶俾 code 或 mockup**：可簡短 audit—指出一兩點可改進（typography scale、spacing system、color 語意），再俾具體改法。

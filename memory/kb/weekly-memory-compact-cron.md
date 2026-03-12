@@ -14,7 +14,7 @@
 | **sessionTarget** | `isolated` |
 | **wakeMode** | `now` |
 | **timeoutSeconds** | 120 |
-| **delivery** | announce → WhatsApp +85267605407（bestEffort） |
+| **delivery** | announce → WhatsApp（bestEffort）；實際號碼只放在 allowlist / openclaw cron 設定或 automation secret，**唔好寫入本檔**。見下方說明。 |
 
 ---
 
@@ -32,7 +32,9 @@
 4. **可選**  
    - 若 HEARTBEAT.md 存在：快速掃一眼有冇「對外發送」類描述放咗喺 heartbeat（應交 cron）；若有可記低「建議：HEARTBEAT 只做判斷，外發交 cron」，唔需要改檔。
 5. **報告**  
-   - 回覆一句摘要（會經 WhatsApp 送出）：例如「MEMORY compact 完成：歸檔 X 項，MEMORY 約 Y tokens」或「無 P2 需歸檔，MEMORY 約 Y tokens」。
+   - 回覆一句摘要（會經 delivery 送出）：例如「MEMORY compact 完成：歸檔 X 項，MEMORY 約 Y tokens」或「無 P2 需歸檔，MEMORY 約 Y tokens」。實際 delivery 目標（如 WhatsApp）由 `~/.openclaw/cron/jobs.json` 該 job 的 `delivery.to` / allowlist 設定，唔好喺 memory/kb 或 payload 寫完整電話號碼。
+
+**安全**：與 AGENTS「避免在記憶/日誌寫完整敏感資料」一致；聯絡資訊只放 allowlist 或受控 secret。
 
 ---
 

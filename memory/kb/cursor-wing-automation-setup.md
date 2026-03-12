@@ -8,6 +8,8 @@
 
 你而家已有：**CI completed in CL on failure on PRs**。
 
+**重要**：若你有「每週」schedule trigger，請確保係**真正每週**（例如每週日或每週一），唔好係每月（如 `0 1 1 * *`）。詳見 `memory/kb/weekly-schedule-fix.md`。
+
 - 若果你想 **push 時就做 security check**（唔等 CI fail）：加多一個 trigger。  
   撳 **+ Add Trigger** → 揀 **Push** → Repo 選 **lt1634/CL**，Branch 選 **main**，by **Everyone**。  
   咁每次有人 push 去 main（或你揀嘅 branch）都會跑。

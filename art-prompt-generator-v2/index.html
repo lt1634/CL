@@ -206,8 +206,8 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="pageTitle">DSE 視藝 卷一 Part B 題目生成器</h1>
-        <p class="subtitle" id="pageSubtitle">模擬制題目 · 對齊四項評分準則</p>
+        <h1 id="pageTitle">DSE 視藝 卷一 乙部 題目生成器</h1>
+        <p class="subtitle" id="pageSubtitle">模擬題目，對齊四項評分準則</p>
         <div class="toolbar">
             <div>
                 <button class="lang-btn active" data-lang="zh">中文</button>
@@ -295,7 +295,7 @@
         const FAV_KEY = "dsePromptFavsV2";
         const HISTORY_MAX = 25;
         const ui = {
-            zh: { title: "DSE 視藝 卷一 Part B 題目生成器", subtitle: "模擬制題目 · 對齊四項評分準則", defaultTheme: "按「生成」取得題目", generate: "✨ 生成題目", save: "★ 收藏", copy: "📋 複製", share: "↗ 分享", clear: "清除", timeLabel: "香港時間", toastCopied: "已複製", toastShared: "已開啟分享", toastShareFail: "已複製到剪貼簿", toastNothing: "請先生成題目", toastCleared: "已清除", simpleMode: "簡潔模式", fullMode: "完整模式" },
+            zh: { title: "DSE 視藝 卷一 乙部 題目生成器", subtitle: "模擬題目，對齊四項評分準則", defaultTheme: "按「生成」取得題目", generate: "✨ 生成題目", save: "★ 收藏", copy: "📋 複製", share: "↗ 分享", clear: "清除", timeLabel: "香港時間", toastCopied: "已複製", toastShared: "已開啟分享", toastShareFail: "已複製到剪貼簿", toastNothing: "請先生成題目", toastCleared: "已清除", simpleMode: "簡潔模式", fullMode: "完整模式" },
             en: { title: "DSE VA Paper 1 Part B Generator", subtitle: "Constrained topics · 4 marking criteria", defaultTheme: "Click Generate for a topic", generate: "✨ Generate", save: "★ Save", copy: "📋 Copy", share: "↗ Share", clear: "Clear", timeLabel: "HK Time", toastCopied: "Copied", toastShared: "Share opened", toastShareFail: "Copied to clipboard", toastNothing: "Generate first", toastCleared: "Cleared", simpleMode: "Simple", fullMode: "Full" }
         };
         function getList() { return (typeof DSE_PROMPTS !== "undefined" ? DSE_PROMPTS[currentLang] : []) || []; }
@@ -406,7 +406,7 @@
             if (t.colourTone) lines.push("【色彩調性】" + t.colourTone);
             if (t.starTips) lines.push("【★ 星級提示】" + t.starTips);
             if (t.commonMistakes && t.commonMistakes.length) lines.push("【常見犯錯／注意】", t.commonMistakes.join("\n"));
-            lines.push("", "DSE 視藝 卷一 Part B 題目生成器 v2");
+            lines.push("", "DSE 視藝 卷一 乙部 題目生成器");
             return lines.filter(Boolean).join("\n");
         }
         async function copyCurrent() {

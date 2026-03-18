@@ -81,6 +81,13 @@
             color: #ddd;
         }
         .block-content ul { margin: 6px 0 0 1em; padding-left: 0; }
+        .block-star .block-label { color: #feca57; }
+        .block-partA .block-label { color: #ff9ff3; }
+        .block-mistakes .block-label { color: #ff6b6b; }
+        .mistake-list { margin: 0; padding-left: 1.2em; font-size: 0.9rem; line-height: 1.5; color: #ccc; }
+        .mistake-list li { margin-bottom: 6px; }
+        .colour-tone { margin-top: 8px; font-size: 0.85em; color: #aaa; }
+        .colour-tone:empty { display: none; }
         .theme-title {
             font-size: 1.4rem;
             font-weight: 700;
@@ -226,7 +233,7 @@
             </div>
             <div class="block detail-only" id="blockComposition">
                 <div class="block-label">構圖提示</div>
-                <div class="block-criteria">視覺元素及設計原理 (20%)</div>
+                <div class="block-criteria">視覺元素及設計原理 (20%) · 參考：策略1 構圖透視</div>
                 <div class="block-content" id="compositionDisplay"></div>
             </div>
             <div class="block detail-only" id="blockTechniques">
@@ -238,6 +245,22 @@
                 <div class="block-label">扣題引導</div>
                 <div class="block-criteria">主題傳意 (20%)</div>
                 <div class="block-content" id="themeLinkDisplay"></div>
+            </div>
+            <div class="block detail-only block-partA" id="blockPartA" style="display: none;">
+                <div class="block-label">甲部聯繫（評賞作品風格引導）</div>
+                <div class="block-criteria">2014–2022 歷屆評賞 · 媒材／構圖／光源／符號</div>
+                <div class="block-content" id="partALinkDisplay"></div>
+                <div class="block-content colour-tone" id="colourToneDisplay"></div>
+            </div>
+            <div class="block detail-only block-star" id="blockStarTips" style="display: none;">
+                <div class="block-label">★ 星級提示 (摘星天書)</div>
+                <div class="block-criteria">參考：策略2 光源設計等</div>
+                <div class="block-content" id="starTipsDisplay"></div>
+            </div>
+            <div class="block detail-only block-mistakes" id="blockCommonMistakes" style="display: none;">
+                <div class="block-label">常見犯錯／注意</div>
+                <div class="block-criteria">乙部須聯繫甲部 · 構圖與光源策略</div>
+                <ul class="block-content mistake-list" id="commonMistakesDisplay"></ul>
             </div>
             <div class="simple-only simple-summary" id="simpleSummary"></div>
             <div class="prompt-actions">
@@ -295,7 +318,37 @@
             document.getElementById("compositionDisplay").textContent = item.composition || "";
             document.getElementById("techniquesDisplay").textContent = item.techniques || "";
             document.getElementById("themeLinkDisplay").textContent = item.themeLink || "";
-            const summary = concepts.slice(0, 2).join("；") + (item.themeLink ? " —— " + item.themeLink.slice(0, 60) + "…" : "");
+            var partABlock = document.getElementById("blockPartA");
+            var partAEl = document.getElementById("partALinkDisplay");
+            var colourEl = document.getElementById("colourToneDisplay");
+            if (item.partALink || item.colourTone) {
+                partABlock.style.display = "block";
+                partAEl.textContent = item.partALink || "";
+                colourEl.textContent = item.colourTone ? "色彩調性：" + item.colourTone : "";
+            } else {
+                partABlock.style.display = "none";
+                partAEl.textContent = "";
+                colourEl.textContent = "";
+            }
+            var starBlock = document.getElementById("blockStarTips");
+            var starEl = document.getElementById("starTipsDisplay");
+            if (item.starTips) {
+                starBlock.style.display = "block";
+                starEl.textContent = item.starTips;
+            } else {
+                starBlock.style.display = "none";
+                starEl.textContent = "";
+            }
+            var mistakesBlock = document.getElementById("blockCommonMistakes");
+            var mistakesList = document.getElementById("commonMistakesDisplay");
+            if (item.commonMistakes && item.commonMistakes.length > 0) {
+                mistakesBlock.style.display = "block";
+                mistakesList.innerHTML = item.commonMistakes.map(function (m) { return "<li>" + m + "</li>"; }).join("");
+            } else {
+                mistakesBlock.style.display = "none";
+                mistakesList.innerHTML = "";
+            }
+            var summary = concepts.slice(0, 2).join("；") + (item.themeLink ? " —— " + item.themeLink.slice(0, 60) + "…" : "");
             document.getElementById("simpleSummary").textContent = summary;
         }
         function addToHistory(item) {
@@ -348,8 +401,13 @@
         }
         function buildCopyText() {
             if (!currentItem || !currentItem.theme) return "";
-            const t = currentItem;
-            const lines = ["【命題】" + t.theme, "【Concept 諗法】", ...(Array.isArray(t.concepts) ? t.concepts : []), "【視覺元素】" + (t.visualElements || ""), "【構圖】" + (t.composition || ""), "【技法】" + (t.techniques || ""), "【扣題】" + (t.themeLink || ""), "", "DSE 視藝 卷一 Part B 題目生成器 v2"];
+            var t = currentItem;
+            var lines = ["【命題】" + t.theme, "【Concept 諗法】"].concat(Array.isArray(t.concepts) ? t.concepts : []).concat(["【視覺元素】" + (t.visualElements || ""), "【構圖】" + (t.composition || ""), "【技法】" + (t.techniques || ""), "【扣題】" + (t.themeLink || "")]);
+            if (t.partALink) lines.push("【甲部聯繫】" + t.partALink);
+            if (t.colourTone) lines.push("【色彩調性】" + t.colourTone);
+            if (t.starTips) lines.push("【★ 星級提示】" + t.starTips);
+            if (t.commonMistakes && t.commonMistakes.length) lines.push("【常見犯錯／注意】", t.commonMistakes.join("\n"));
+            lines.push("", "DSE 視藝 卷一 Part B 題目生成器 v2");
             return lines.filter(Boolean).join("\n");
         }
         async function copyCurrent() {

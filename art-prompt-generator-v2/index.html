@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>DSE 視藝卷一 Part B 題目生成器</title>
+    <meta name="theme-color" content="#0f3460">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        a, button { -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e8e8e8;
+        }
+        .container { max-width: 640px; margin: 0 auto; text-align: center; }
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 6px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle { color: #888; margin-bottom: 16px; font-size: 0.9rem; }
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .lang-btn, .simple-toggle {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #888;
+            padding: 8px 16px;
+            min-height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .lang-btn.active, .simple-toggle.active {
+            background: rgba(72,219,251,0.2);
+            border-color: #48dbfb;
+            color: #48dbfb;
+        }
+        .simple-toggle { margin-left: 8px; }
+        .prompt-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+        .block {
+            margin-bottom: 18px;
+        }
+        .block:last-child { margin-bottom: 0; }
+        .block-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #48dbfb;
+            margin-bottom: 4px;
+        }
+        .block-criteria {
+            font-size: 0.65rem;
+            color: #666;
+            margin-bottom: 6px;
+        }
+        .block-content {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ddd;
+        }
+        .block-content ul { margin: 6px 0 0 1em; padding-left: 0; }
+        .theme-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #feca57;
+            margin-bottom: 4px;
+        }
+        .simple-only { display: none; }
+        .detail-only { display: block; }
+        body.simple-mode .simple-only { display: block; }
+        body.simple-mode .detail-only { display: none; }
+        .simple-summary {
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        .generate-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            border: none;
+            color: #1a1a2e;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(255,107,107,0.35);
+        }
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255,107,107,0.5); }
+        .prompt-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .action-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #cfcfcf;
+            padding: 10px 16px;
+            min-height: 44px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .action-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+        .action-btn.primary { border-color: rgba(72,219,251,0.35); color: #48dbfb; }
+        .action-btn.save { border-color: rgba(254,202,87,0.45); color: #feca57; }
+        .action-btn.warn { border-color: rgba(255,107,107,0.35); color: #ff6b6b; }
+        .favorites, .history { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: left; }
+        .favorites h3, .history h3 { color: #888; font-size: 0.9rem; margin-bottom: 12px; }
+        .fav-list, .history-list { display: flex; flex-direction: column; gap: 8px; }
+        .fav-item, .history-item {
+            background: rgba(255,255,255,0.03);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .fav-item:hover, .history-item:hover { background: rgba(255,255,255,0.08); }
+        .fav-item { display: flex; justify-content: space-between; align-items: center; }
+        .delete-fav { color: #ff6b6b; cursor: pointer; padding: 4px; }
+        .history-meta { margin-top: 6px; color: #666; font-size: 0.75rem; }
+        .toast {
+            position: fixed;
+            top: max(16px, env(safe-area-inset-top));
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15,15,25,0.92);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 10px 14px;
+            border-radius: 12px;
+            color: #e8e8e8;
+            font-size: 0.9rem;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s;
+        }
+        .toast.show { opacity: 1; }
+        .timestamp { position: fixed; bottom: 20px; right: 20px; color: #444; font-size: 0.75rem; }
+        .footer-link {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .footer-link:hover { background: rgba(255,255,255,0.1); color: #e8e8e8; }
+        .footer-link svg { width: 20px; height: 20px; }
+        .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        @media (max-width: 480px) {
+            body { padding: 16px; }
+            h1 { font-size: 1.4rem; }
+            .prompt-card { padding: 18px; }
+            .theme-title { font-size: 1.2rem; }
+            .favorites, .history { margin-bottom: 80px; }
+            .timestamp, .footer-link { bottom: max(16px, env(safe-area-inset-bottom)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="pageTitle">DSE 視藝 卷一 Part B 題目生成器</h1>
+        <p class="subtitle" id="pageSubtitle">模擬有限制題目 · 對齊四項評分準則</p>
+        <div class="toolbar">
+            <div>
+                <button class="lang-btn active" data-lang="zh">中文</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+            <button type="button" class="simple-toggle" id="simpleToggle" aria-pressed="false">簡潔模式</button>
+        </div>
+        <div class="prompt-card" id="promptCard">
+            <div class="block">
+                <div class="block-label">命題</div>
+                <div class="block-criteria detail-only">創意與想像力 (20%)</div>
+                <div class="theme-title" id="themeDisplay">按「生成」取得題目</div>
+            </div>
+            <div class="block detail-only" id="blockConcepts">
+                <div class="block-label">Concept 諗法</div>
+                <div class="block-criteria">創意與想像力 (20%)</div>
+                <div class="block-content" id="conceptsDisplay"></div>
+            </div>
+            <div class="block detail-only" id="blockVisual">
+                <div class="block-label">視覺元素建議</div>
+                <div class="block-criteria">視覺元素及設計原理 (20%)</div>
+                <div class="block-content" id="visualDisplay"></div>
+            </div>
+            <div class="block detail-only" id="blockComposition">
+                <div class="block-label">構圖提示</div>
+                <div class="block-criteria">視覺元素及設計原理 (20%)</div>
+                <div class="block-content" id="compositionDisplay"></div>
+            </div>
+            <div class="block detail-only" id="blockTechniques">
+                <div class="block-label">技法建議</div>
+                <div class="block-criteria">媒材及技法的選擇和運用 (20%)</div>
+                <div class="block-content" id="techniquesDisplay"></div>
+            </div>
+            <div class="block detail-only" id="blockThemeLink">
+                <div class="block-label">扣題引導</div>
+                <div class="block-criteria">主題傳意 (20%)</div>
+                <div class="block-content" id="themeLinkDisplay"></div>
+            </div>
+            <div class="simple-only simple-summary" id="simpleSummary"></div>
+            <div class="prompt-actions">
+                <button type="button" class="action-btn save" onclick="saveFavorite()">★ 收藏</button>
+                <button type="button" class="action-btn primary" onclick="copyCurrent()">📋 複製</button>
+                <button type="button" class="action-btn" onclick="shareCurrent()">↗ 分享</button>
+            </div>
+        </div>
+        <button type="button" class="generate-btn" id="generateBtn" onclick="generatePrompt()">✨ 生成題目</button>
+        <div class="favorites">
+            <h3>★ 收藏</h3>
+            <div class="fav-list" id="favList"></div>
+        </div>
+        <div class="history">
+            <div class="history-header">
+                <h3>🕘 最近生成</h3>
+                <button type="button" class="action-btn warn" onclick="clearHistory()">清除</button>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+    </div>
+    <a href="https://www.instagram.com/bfhmcva" target="_blank" rel="noopener noreferrer" class="footer-link">@bfhmcva</a>
+    <div class="timestamp"><span id="timestampLabel">香港時間</span>: <span id="hkTime"></span></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./prompts-dse.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => { navigator.serviceWorker.register("./service-worker.js").catch(() => {}); });
+        }
+        let currentLang = "zh";
+        let currentItem = null;
+        const HISTORY_KEY = "dsePromptHistoryV2";
+        const FAV_KEY = "dsePromptFavsV2";
+        const HISTORY_MAX = 25;
+        const ui = {
+            zh: { title: "DSE 視藝 卷一 Part B 題目生成器", subtitle: "模擬有限制題目 · 對齊四項評分準則", defaultTheme: "按「生成」取得題目", generate: "✨ 生成題目", save: "★ 收藏", copy: "📋 複製", share: "↗ 分享", clear: "清除", timeLabel: "香港時間", toastCopied: "已複製", toastShared: "已開啟分享", toastShareFail: "已複製到剪貼簿", toastNothing: "請先生成題目", toastCleared: "已清除", simpleMode: "簡潔模式", fullMode: "完整模式" },
+            en: { title: "DSE VA Paper 1 Part B Generator", subtitle: "Constrained topics · 4 marking criteria", defaultTheme: "Click Generate for a topic", generate: "✨ Generate", save: "★ Save", copy: "📋 Copy", share: "↗ Share", clear: "Clear", timeLabel: "HK Time", toastCopied: "Copied", toastShared: "Share opened", toastShareFail: "Copied to clipboard", toastNothing: "Generate first", toastCleared: "Cleared", simpleMode: "Simple", fullMode: "Full" }
+        };
+        function getList() { return (typeof DSE_PROMPTS !== "undefined" ? DSE_PROMPTS[currentLang] : []) || []; }
+        function generatePrompt() {
+            const list = getList();
+            if (!list.length) { document.getElementById("themeDisplay").textContent = "題目庫未載入"; return; }
+            const item = list[Math.floor(Math.random() * list.length)];
+            currentItem = item;
+            renderItem(item);
+            addToHistory(item);
+            document.getElementById("promptCard").style.transform = "scale(0.98)";
+            setTimeout(() => { document.getElementById("promptCard").style.transform = ""; }, 120);
+        }
+        function renderItem(item) {
+            document.getElementById("themeDisplay").textContent = item.theme;
+            const concepts = Array.isArray(item.concepts) ? item.concepts : [];
+            document.getElementById("conceptsDisplay").innerHTML = concepts.length ? "<ul><li>" + concepts.join("</li><li>") + "</li></ul>" : "";
+            document.getElementById("visualDisplay").textContent = item.visualElements || "";
+            document.getElementById("compositionDisplay").textContent = item.composition || "";
+            document.getElementById("techniquesDisplay").textContent = item.techniques || "";
+            document.getElementById("themeLinkDisplay").textContent = item.themeLink || "";
+            const summary = concepts.slice(0, 2).join("；") + (item.themeLink ? " —— " + item.themeLink.slice(0, 60) + "…" : "");
+            document.getElementById("simpleSummary").textContent = summary;
+        }
+        function addToHistory(item) {
+            let arr = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+            arr.unshift({ ...item, lang: currentLang, ts: Date.now() });
+            arr = arr.slice(0, HISTORY_MAX);
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
+            loadHistory();
+        }
+        function loadHistory() {
+            const arr = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+            const list = document.getElementById("historyList");
+            list.innerHTML = "";
+            arr.forEach((h, i) => {
+                const el = document.createElement("div");
+                el.className = "history-item";
+                el.innerHTML = "<div><strong>" + (h.theme || "") + "</strong></div><div class=\"history-meta\">" + (new Date(h.ts).toLocaleString("zh-HK", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })) + "</div>";
+                el.onclick = () => { currentItem = h; renderItem(h); };
+                list.appendChild(el);
+            });
+        }
+        function clearHistory() {
+            localStorage.removeItem(HISTORY_KEY);
+            loadHistory();
+            showToast(ui[currentLang].toastCleared);
+        }
+        function saveFavorite() {
+            if (!currentItem || !currentItem.theme) { showToast(ui[currentLang].toastNothing); return; }
+            let favs = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+            const key = currentItem.theme + (currentItem.themeLink || "").slice(0, 20);
+            if (favs.some(f => (f.theme + (f.themeLink || "").slice(0, 20)) === key)) return;
+            favs.push({ ...currentItem, lang: currentLang });
+            localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+            loadFavorites();
+        }
+        function loadFavorites() {
+            const favs = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+            const list = document.getElementById("favList");
+            list.innerHTML = "";
+            favs.forEach((f, i) => {
+                const el = document.createElement("div");
+                el.className = "fav-item";
+                el.innerHTML = "<span>" + (f.theme || "") + "</span><span class=\"delete-fav\" data-i=\"" + i + "\">✕</span>";
+                el.onclick = (e) => {
+                    if (e.target.classList.contains("delete-fav")) { favs.splice(parseInt(e.target.dataset.i, 10), 1); localStorage.setItem(FAV_KEY, JSON.stringify(favs)); loadFavorites(); return; }
+                    currentItem = f; renderItem(f);
+                };
+                list.appendChild(el);
+            });
+        }
+        function buildCopyText() {
+            if (!currentItem || !currentItem.theme) return "";
+            const t = currentItem;
+            const lines = ["【命題】" + t.theme, "【Concept 諗法】", ...(Array.isArray(t.concepts) ? t.concepts : []), "【視覺元素】" + (t.visualElements || ""), "【構圖】" + (t.composition || ""), "【技法】" + (t.techniques || ""), "【扣題】" + (t.themeLink || ""), "", "DSE 視藝 卷一 Part B 題目生成器 v2"];
+            return lines.filter(Boolean).join("\n");
+        }
+        async function copyCurrent() {
+            const text = buildCopyText();
+            if (!text) { showToast(ui[currentLang].toastNothing); return; }
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast(ui[currentLang].toastCopied);
+            } catch {
+                const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+                showToast(ui[currentLang].toastCopied);
+            }
+        }
+        async function shareCurrent() {
+            const text = buildCopyText();
+            if (!text) { showToast(ui[currentLang].toastNothing); return; }
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: ui[currentLang].title, text: text });
+                    showToast(ui[currentLang].toastShared);
+                    return;
+                } catch (_) {}
+            }
+            try { await navigator.clipboard.writeText(text); } catch (_) {}
+            showToast(ui[currentLang].toastShareFail);
+        }
+        function showToast(msg) {
+            const el = document.getElementById("toast");
+            el.textContent = msg;
+            el.classList.add("show");
+            clearTimeout(window._toastT);
+            window._toastT = setTimeout(() => el.classList.remove("show"), 1800);
+        }
+        document.getElementById("simpleToggle").addEventListener("click", function () {
+            const on = document.body.classList.toggle("simple-mode");
+            this.textContent = on ? ui[currentLang].fullMode : ui[currentLang].simpleMode;
+            this.classList.toggle("active", on);
+        });
+        document.querySelectorAll(".lang-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentLang = btn.dataset.lang;
+                document.getElementById("pageTitle").textContent = ui[currentLang].title;
+                document.getElementById("pageSubtitle").textContent = ui[currentLang].subtitle;
+                document.getElementById("generateBtn").textContent = ui[currentLang].generate;
+                document.getElementById("timestampLabel").textContent = ui[currentLang].timeLabel;
+                var simpleOn = document.body.classList.contains("simple-mode");
+                document.getElementById("simpleToggle").textContent = simpleOn ? ui[currentLang].fullMode : ui[currentLang].simpleMode;
+                if (currentItem) renderItem(currentItem);
+            });
+        });
+        function updateTime() {
+            const t = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
+            document.getElementById("hkTime").textContent = t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+        loadFavorites();
+        loadHistory();
+    </script>
+</body>
+</html>

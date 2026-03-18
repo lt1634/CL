@@ -1,0 +1,18 @@
+{
+  "name": "DSE 視藝卷一 Part B 題目生成器",
+  "short_name": "DSE 視藝題目",
+  "description": "模擬 DSE 視藝科卷一 Part B 有限制題目，對齊四項評分準則（媒材技法、視覺元素與設計原理、創意與想像力、主題傳意）",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#0f3460",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

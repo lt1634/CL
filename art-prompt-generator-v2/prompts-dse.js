@@ -14,6 +14,7 @@ const DSE_PROMPTS = {
       techniques: "水彩渲染（層次）、拼貼（裂縫與花瓣）、針筆線條（裂痕軌跡）",
       themeLink: "觀眾要讀到「衝突感」與「在不利處綻放」的張力；可透過光源突出裂縫與花朵的對比。",
       starTips: "光源設計：單一光源從裂縫或花心射入，強化戲劇感與「瞬間」的定格。",
+      colourTone: "冷暖對比：裂縫冷灰（藍紫）、花朵暖色（橙紅）；高對比明度",
       difficultyLevel: "中高"
     },
     {
@@ -33,7 +34,8 @@ const DSE_PROMPTS = {
       visualElements: "形狀：圓、螺旋、迴圈；線條：封閉或迴旋；色彩：可選同一色系不同明度形成循環感",
       composition: "節奏：重複單元；平衡：放射或環形構圖；引導線：視線回到起點",
       techniques: "版畫（重複印痕）、數碼圖層循環、水墨暈染的層次",
-      themeLink: "觀眾要能讀到「周而復始」或「無始無終」，符號或構圖本身形成循環"
+      themeLink: "觀眾要能讀到「周而復始」或「無始無終」，符號或構圖本身形成循環",
+      colourTone: "同色系不同明度；冷暖漸變形成循環感；可選藍綠或棕褐系"
     },
     {
       theme: "《指尖下的千里之外》",
@@ -42,6 +44,7 @@ const DSE_PROMPTS = {
       composition: "構圖透視與比例：近大遠小強化「指尖」與「千里」的對比；留白表現距離感",
       techniques: "大氣透視、水彩漸層、攝影拼貼（不同焦距）；可強調觸覺與視覺的轉譯",
       themeLink: "畫面要傳達「觸感」與「距離」的矛盾，觀眾能感受指尖下的遠近與心理隔閡。",
+      colourTone: "遠近對比：遠處冷灰/低飽和，近處暖/高飽和；觸碰點高對比",
       difficultyLevel: "中"
     },
     {
@@ -80,7 +83,8 @@ const DSE_PROMPTS = {
       visualElements: "形狀：重複單元；線條：規律的排列；色彩：同一色系或漸變的重複",
       composition: "節奏：規律排列；對比：一處打破規律形成焦點",
       techniques: "版畫、印章、數碼複製圖層、網格繪圖",
-      themeLink: "觀眾要讀到「重複」的規律，以及你選擇突出的一點變化或例外"
+      themeLink: "觀眾要讀到「重複」的規律，以及你選擇突出的一點變化或例外",
+      colourTone: "統一色系或鄰近色；對比色突出例外；低對比或單色系強化重複感"
     },
     {
       theme: "《繁華與寂靜之間》",
@@ -98,7 +102,9 @@ const DSE_PROMPTS = {
       visualElements: "線條：流動感或凝固感；色彩：褪色與鮮明；質感：新舊並置",
       composition: "層次：疊加或並置不同時態的意象；引導：時間流動的方向",
       techniques: "多重曝光感、拼貼不同時期影像、水墨暈染的層次",
-      themeLink: "觀眾要讀到「時間」的存在（流逝、停頓、重疊），而非單一瞬間"
+      themeLink: "觀眾要讀到「時間」的存在（流逝、停頓、重疊），而非單一瞬間",
+      colourTone: "凝固與流動對比：冷色（凝固）vs 暖色（流動）；褪色與鮮明共存",
+      difficultyLevel: "中高"
     },
     {
       theme: "《抽屜深處的一疊舊信》",
@@ -125,7 +131,9 @@ const DSE_PROMPTS = {
       visualElements: "構圖：主體靠邊或留白偏一側；線條：指向邊緣或從邊緣溢出；色彩：邊緣與中心的差異",
       composition: "不平衡的構圖；負空間作為主角；邊界模糊或銳利",
       techniques: "裁切構圖、留白、邊緣暈染或銳化",
-      themeLink: "觀眾要意識到「邊緣」被強調，以及邊緣與中心的關係"
+      themeLink: "觀眾要意識到「邊緣」被強調，以及邊緣與中心的關係",
+      colourTone: "低飽和、啞色、灰褐或棕黃；對比色可加強「被遺忘」的寂寞感",
+      difficultyLevel: "中"
     },
     {
       theme: "《斷線後重新接上的那一刻》",
@@ -133,7 +141,8 @@ const DSE_PROMPTS = {
       visualElements: "線條：連接、網絡、繩索；形狀：分散單元被線或面連起；色彩：統一或漸變拉近距離",
       composition: "引導線連結多個焦點；疏密：連結處的密度",
       techniques: "線條繪畫、網格、拼貼加繪畫連接",
-      themeLink: "觀眾要讀到「關係」或「連結」，而非只是多個獨立物件"
+      themeLink: "觀眾要讀到「關係」或「連結」，而非只是多個獨立物件",
+      colourTone: "連接處暖色/主動（新生）；斷裂處冷色/被動（過去）；統一色系拉近心理距離"
     },
     {
       theme: "《喧囂中的一片靜默》",
@@ -160,7 +169,8 @@ const DSE_PROMPTS = {
       visualElements: "線條：曲線、波浪、傾斜；色彩：漸層、混色；質感：平滑流暢或凝滯",
       composition: "動勢：方向一致或交匯；節奏：流動的緩急",
       techniques: "水墨流動、水彩濕畫、數碼動感模糊",
-      themeLink: "觀眾要感受「流動」的動態與方向，以及流動中的阻礙或變化"
+      themeLink: "觀眾要感受「流動」的動態與方向，以及流動中的阻礙或變化",
+      colourTone: "藍灰、綠灰色調；濕潤感；雨滴可局部高光點綴；整體低對比"
     },
     {
       theme: "《牆上被塗改的痕跡》",
@@ -168,7 +178,8 @@ const DSE_PROMPTS = {
       visualElements: "筆觸、刮擦、污漬、摺痕；質感豐富；新舊痕跡疊加",
       composition: "痕跡的分佈與密度；重點痕跡與背景",
       techniques: "拓印、拼貼舊物料、刻意保留筆觸與擦痕",
-      themeLink: "觀眾要讀到「誰留下、留下甚麼」，痕跡有意義而非隨機"
+      themeLink: "觀眾要讀到「誰留下、留下甚麼」，痕跡有意義而非隨機",
+      colourTone: "混合色調突出新舊層次；啞色與高飽和並置；可用互補色對比新舊"
     },
     {
       theme: "《空無一人的月台》",
@@ -186,7 +197,8 @@ const DSE_PROMPTS = {
       visualElements: "分岔、並置多個選項；符號：路、門、手勢；對比不同選擇的視覺重量",
       composition: "分割或分支構圖；焦點在選擇點或已選的一邊",
       techniques: "拼貼多個意象、蒙太奇、並置構圖",
-      themeLink: "觀眾要讀到「選擇」的存在與重量，而非只是多個物件"
+      themeLink: "觀眾要讀到「選擇」的存在與重量，而非只是多個物件",
+      colourTone: "分割對比：已選與未選的兩側可用冷暖或明暗對比；統一色系減少視覺衝突"
     },
     {
       theme: "《2040年的香港公共房屋》",
@@ -229,7 +241,8 @@ const DSE_PROMPTS = {
       composition: "運用透視線匯聚於消失點（沙漏太陽），引導觀眾視線進入深遠的山澗，參考「近大遠小」原理",
       techniques: "國畫白描結合油畫棒（表現傳統與現代對比）、混合媒材表現岩石質感",
       themeLink: "將「自然景觀」與「時間符號」有機結合，觀眾應能感受到時間在自然中流逝的意境",
-      starTips: "光源設計可參考「耶穌光」效果，從山頂射入的光束能增加畫面的神秘感與層次感"
+      starTips: "光源設計可參考「耶穌光」效果，從山頂射入的光束能增加畫面的神秘感與層次感",
+      colourTone: "大地色系（土黃、赭石、棕色）與金屬色（銀灰、銅）碰撞；對比色加強張力"
     },
     {
       theme: "《假如我是一個融化的冰雕》",
@@ -249,7 +262,8 @@ const DSE_PROMPTS = {
       composition: "仰視構圖 (Worm's Eye View)，展現未來城市建築的宏偉與壓抑感",
       techniques: "數碼疊層、噴漆藝術、混合媒材（如鋁箔紙）表現金屬質感",
       themeLink: "必須保留「香港元素」（如特有字體、招牌形狀）以扣連地方特色，避免流於一般的科幻想像",
-      starTips: "處理環境光源對物體色彩的影響，招牌的光暈應映射在人物或建築表面，展現複雜的光影效果"
+      starTips: "處理環境光源對物體色彩的影響，招牌的光暈應映射在人物或建築表面，展現複雜的光影效果",
+      colourTone: "極高飽和度：洋紅、翠綠、靛藍；霓虹光暈與深暗背景對比；金屬質感反光"
     },
     {
       theme: "《鏡頭內外的運動會》",
@@ -258,6 +272,7 @@ const DSE_PROMPTS = {
       composition: "明確劃分「內」「外」區域；可採用框架構圖（frame within frame）",
       techniques: "拼貼、數碼裁切並置、混合媒材區分內外",
       themeLink: "觀眾必須一眼辨識何謂「鏡頭內」的畫面；內與外的對比要明確。",
+      colourTone: "內外分割對比：鏡頭內高飽和/鮮豔，鏡頭外灰/冷/低飽和",
       commonMistakes: ["犯錯：畫面中「內」與「外」的分界線模糊，未能明確表現視覺對比。", "犯錯：忽略甲部評賞作品（如村上隆或陳洪綬）的符號化或空間布局特點，導致乙部與甲部聯繫薄弱。", "注意：必須捕捉鏡頭與運動員的互動，並確保觀眾能一眼辨識出何謂「鏡頭內」的畫面。"]
     },
     {
@@ -267,6 +282,7 @@ const DSE_PROMPTS = {
       composition: "構圖透視「近大遠小」：筷子作為主體在空間中的延伸感；可俯視或特寫",
       techniques: "混合媒材、超現實質感轉換、細膩寫實與象徵並置",
       themeLink: "必須體現「假如我」的第一人稱與角色代入，而非只畫一對靜止的筷子。",
+      colourTone: "視乎質感轉換：木色溫暖（棕、米色），金屬冷調（銀、灰），超現實可用互補色對比",
       commonMistakes: ["犯錯：僅將筷子視為靜止物件繪畫，忽略了題目要求的「假如我」第一人稱角色代入感。", "注意：應參考甲部評賞中關於物件質感轉化的技巧（如 Oppenheim 的毛皮茶杯），賦予筷子超現實的特質。", "注意：運用「近大遠小」原理，強調筷子作為主體在空間中的延伸感。"]
     },
     {
@@ -310,6 +326,139 @@ const DSE_PROMPTS = {
       starTips: "光源設計：自發光物體的光源擴散效果，霓虹在深海中形成光暈與反射，營造神秘與生機。",
       colourTone: "深藍綠與霓虹橙紅互補、局部高飽和發光",
       difficultyLevel: "中高"
+    },
+    {
+      theme: "《茶樓裏的一盅兩件》",
+      concepts: ["香港傳統飲食文化", "儀式感與日常", "新旧代際的連結"],
+      visualElements: "線條：點心籠的編織紋理；色彩：暖色調（蒸籠黃、普洱茶色）；質感：蒸氣的朦朧與瓷器光滑",
+      composition: "俯視或45度視角；点心笼置中；留白表現蒸氣",
+      techniques: "水彩渲染（表現蒸氣）、拼貼（舊報紙/茶單）、國畫白描線條",
+      themeLink: "觀眾要感受香港「茶樓文化」的儀式感，以及日常中的温情",
+      colourTone: "暖棕、橙黃、淺褐；對比綠茶或普洱的深色點綴",
+      difficultyLevel: "中"
+    },
+    {
+      theme: "《香港街市的聲音》",
+      concepts: ["聽覺的視覺化", "嘈雜中的節奏", "市井生命力"],
+      visualElements: "線條：擁擠的攤檔、懸掛的食材；色彩：鮮魚的藍紅、蔬果的綠橙；質感：潮濕地面、膠袋閃光",
+      composition: "魚眼透視或低視角；聲音的視覺化線條從畫面延伸",
+      techniques: "拼貼混合素材、噴漆、炭筆線條",
+      themeLink: "觀眾要感受到街市的生命力，而非只是風景描繪",
+      colourTone: "鮮豔對比：藍、紅、橙、綠；高飽和市井色調",
+      difficultyLevel: "中"
+    },
+    {
+      theme: "《被困在點贊裏的手》",
+      concepts: ["社交媒體的符號化", "被點贊定義的自我", "真實觸感vs屏幕接觸"],
+      visualElements: "線條：手指滑動手機的軌跡；色彩：屏幕藍光與皮膚暖色；質感：玻璃屏幕vs肌理",
+      composition: "特寫手指與屏幕的接觸點；其餘模糊",
+      techniques: "數碼繪畫（光效）、拼貼、指紋拓印",
+      themeLink: "觀眾要思考「被看見」與「真實自我」的距離",
+      colourTone: "冷色屏幕光 vs 暖色皮膚；藍白背景高對比",
+      difficultyLevel: "中"
+    },
+    {
+      theme: "《祖父的日光時間》",
+      concepts: ["長者的孤獨", "陽光作伴", "日常的重複"],
+      visualElements: "光線：窗框投射的日光；色彩：長者衣服的素色；質感：皺紋、布料紋理",
+      composition: "日光光柱為視覺焦點；長者身影為主體；留白表現寂靜",
+      techniques: "明暗對比（林布蘭光）、炭筆素描、水彩渲染光線",
+      themeLink: "觀眾要感受到「等待」與「日光」的寂寥溫暖",
+      partALink: "參考 2014 年拉圖爾（de La Tour）《聖母在祈禱》：單一光源營造劇場感與寂靜氛圍。",
+      colourTone: "暖黃日光、冷灰室內；對比光影區域",
+      difficultyLevel: "中"
+    },
+    {
+      theme: "《香港的颱風假》",
+      concepts: ["停頓與等待", "自然力量的威壓", "平常心的對應"],
+      visualElements: "線條：被風吹扭曲的樹、招牌；色彩：灰藍風暴色調；質感：雨水的動感綫條",
+      composition: "從室內望出窗外的視角；風雨為主、長者/學童為副",
+      techniques: "水墨暈染（風雨動感）、噴水技法、數碼合成",
+      themeLink: "觀眾要感受到「風雨中的平常心」或「對自然力量的敬畏」",
+      colourTone: "灰藍、銀白、局部暖黃（室內燈光）"
+    },
+    {
+      theme: "《翻譯時遺失的那一行》",
+      concepts: ["語言的邊界", "無法傳達的情感", "溝通的缺口"],
+      visualElements: "線條：文字/字符的斷裂；色彩：原文與譯文的色差；質感：紙張、刪改痕跡",
+      composition: "雙語文字的對照與斷裂；留白或模糊表現「遺失」",
+      techniques: "混合媒材（書法與印刷字）、拓印、拼貼",
+      themeLink: "觀眾要感受到「說不清」的無力感",
+      colourTone: "原文暖色（紅褐）vs 譯文冷色（藍灰）；對比鮮明"
+    },
+    {
+      theme: "《邻居的晾衣架》",
+      concepts: ["香港居住的親密", "晾曬的衣物作為符號", "看不見的鄰里關係"],
+      visualElements: "線條：交錯的晾衣繩；色彩：鮮豔的衣物（紅、黃、藍）；質感：布料飄動",
+      composition: "仰視穿過晾衣架的天空；衣物作為綫條節奏",
+      techniques: "炭筆線條、水彩、拼貼不同布料",
+      themeLink: "觀眾要感受到「香港居住的親密」與「隐私的模糊界線」",
+      colourTone: "鮮豔衣物 vs 灰白天空；對比色調"
+    },
+    {
+      theme: "《功課太多的夜晚》",
+      concepts: ["壓力與疲憊", "學習的意義", "兒童視角"],
+      visualElements: "線條：散落的課本、試卷；色彩：pens 的藍黑、灯光的暖黃；質感：紙張皺紋",
+      composition: "俯視書桌；一個小時鐘表現時間的壓迫",
+      techniques: "水彩暈染、拼貼、試卷紙碎片",
+      themeLink: "觀眾要感受到「做不完」的壓迫感，以及當事人的情緒",
+      colourTone: "冷色（焦慮）vs 暖黃（家的安慰）"
+    },
+    {
+      theme: "《香港的山徑》",
+      concepts: ["城市與自然的邊界", "行山的儀式", "眺望的回程"],
+      visualElements: "線條：山徑的彎曲、樹蔭；色彩：翠綠、泥土褐、石屎灰；質感：樹皮、岩石、泥土",
+      composition: "引導線沿山徑引向遠處香港天際線；視角可仰視或俯視",
+      techniques: "水彩寫生、國畫構圖、泥塑質感",
+      themeLink: "觀眾要感受到「逃離城市」與「回望香港」的對比",
+      partALink: "參考 2019 年山水作品：可運用國畫散點透視，表現香港山徑的獨特景觀。",
+      colourTone: "翠綠、泥土褐、灰藍天；自然大地色系"
+    },
+    {
+      theme: "《垃圾站旁的波斯菊》",
+      concepts: ["頑強的生命力", "骯髒與美麗的並存", "被忽視的美"],
+      visualElements: "線條：波斯菊的纖細莖葉；色彩：粉紅、紫、白色花瓣；質感：塑膠垃圾 vs 柔軟花瓣",
+      composition: "特寫：花朵從垃圾縫隙中生長；背景骯髒、前景美麗",
+      techniques: "水彩（花瓣柔軟）、拼貼（垃圾素材）、微距視角",
+      themeLink: "觀眾要感受到「在逆境中綻放」的美，而非環保說教",
+      colourTone: "嬌嫩粉彩色（花瓣）vs 灰褐骯髒（背景）；高對比"
+    },
+    {
+      theme: "《月餅盒裏的記憶》",
+      concepts: ["節日的情感負載", "記憶的容器", "儀式與商業化"],
+      visualElements: "線條：月餅盒的裝飾花紋；色彩：金色、紅色傳統色；質感：鐵盒、絲綢內襯",
+      composition: "打開的月餅盒視角；裏面是舊照片/小玩具而非月餅",
+      techniques: "拼貼舊物、水彩渲染、國畫符號",
+      themeLink: "觀眾要感受到「節日的情感」比月餅本身更值得保存",
+      partALink: "參考 2017 年評賞作品：運用傳統器物的精細質感，表达對過去的情感連結。",
+      colourTone: "金、紅、紫色傳統節慶色；啞光金屬质感"
+    },
+    {
+      theme: "《維港的泳客》",
+      concepts: ["歷史記憶vs現代休閒", "海的符號", "人与海的關係"],
+      visualElements: "線條：海浪的曲線、泳客身影；色彩：海水藍、夕陽橙；質感：海水、火炬燈",
+      composition: "維港夜色；泳客身影為剪影；遠處城市燈光",
+      techniques: "油畫厚塗（海浪）、剪影、水面上的光線",
+      themeLink: "觀眾要感受到香港獨特的「海的情意結」",
+      colourTone: "深藍夜色、暖橙夕陽、泳客灰黑剪影"
+    },
+    {
+      theme: "《看不見的背包》",
+      concepts: ["看不見的負擔", "看不見的傷痛", "隐藏的情感"],
+      visualElements: "線條：背部的曲線；色彩：衣物顏色；質感：布料皺紋",
+      composition: "背後視角；背包的佔據感；主體向前望不看觀眾",
+      techniques: "炭筆素描、拼貼（看不見的「背包」用半透明物料）",
+      themeLink: "觀眾要感受「看不見的重量」的心理狀態",
+      colourTone: "低沉灰色、單一色系；情緒压抑色調"
+    },
+    {
+      theme: "《刷牙的十分鐘》",
+      concepts: ["日常的重複儀式", "獨處的片刻", "時間的空白"],
+      visualElements: "線條：衛浴設備的幾何；色彩：瓷白、藍/綠瓷磚；質感：瓷器的光滑、水滴",
+      composition: "浴室特寫； 時間被拉長的感覺；蒸汽/霧氣朦朧",
+      techniques: "水彩渲染（蒸汽/霧氣）、拼貼、極簡構圖",
+      themeLink: "觀眾要感受到「日常儀式」中的空白與自我對話",
+      colourTone: "瓷白、冷灰藍瓷磚、暖黃浴室燈；簡潔色調"
     }
   ],
   en: [
@@ -344,6 +493,20 @@ const DSE_PROMPTS = {
     { theme: "The Call of the Forest", concepts: ["Layers and depth of forest", "Mystery and life in nature", "Translating 'call' from sound to image"], visualElements: "Overlapping trunks, distance; green gradation, light patches; bark, leaf, mist texture", composition: "Overlap and atmospheric perspective for depth; avoid flat row of trees", techniques: "Watercolour layers, ink wash; fine natural texture (e.g. Wu Guanzhong, Gong Xian)", themeLink: "Viewer reads forest depth and 'call' atmosphere.", starTips: "Light: 'god rays' or natural light for mystery and life.", commonMistakes: ["Mistake: Trees in a single row; no overlap or depth.", "Note: Use 'god rays' or natural light for forest mood.", "Note: Reference Wu Guanzhong or Gong Xian for natural texture."] },
     { theme: "Woken by Music in the Deep Night", concepts: ["Strong night light/shadow", "Sound as visual (lines, flow, rhythm)", "Moment of waking"], visualElements: "Single main light (lamp or moon); lines or colour for sound (twisted, flowing)", composition: "Single source guides focus; make 'sound' visible in the image", techniques: "Charcoal or pastel value; collage or flowing strokes for music", themeLink: "Make 'sound' visible—e.g. twisted lines or flowing colour for music.", partALink: "Reference 2014 La Tour single light for night theatrical mood.", colourTone: "Dark base, single warm or cool source, local contrast", commonMistakes: ["Mistake: Light too even; no strong value contrast for 'deep night'.", "Note: Set one main light (lamp or moon) to guide focus.", "Note: Make sound visible—e.g. twisted lines or flowing colour."] },
     { theme: "The Studio After AI Replaced It", concepts: ["Conflict of tech and art", "Emptiness and abandoned tools", "Human trace vs machine precision"], visualElements: "Lines: hand stroke vs digital precision; texture: brushes, paint, empty chair vs screen or robot arm; colour: faded human trace vs cold tech light", composition: "Juxtapose studio remains with AI/machine intrusion; emptiness or clutter for 'replaced'", techniques: "Mixed media (object collage and digital), subtraction and white space, contrasting stroke vs flat surface", themeLink: "Guide reflection on 'human trace' vs 'machine precision'; viewer reads tension or desolation after replacement.", partALink: "Reference 2022 digital art and traditional painting: contrast traditional media with digital/mechanical visual language.", difficultyLevel: "high" },
-    { theme: "Neon Forest in the Deep Sea", concepts: ["Surreal juxtaposition: deep sea and neon", "Light-shadow contrast and ecological metaphor", "Oppression and escape coexisting"], visualElements: "Colour: complementary for deep-sea pressure vs neon escape; lines: waves, creatures and neon tubes; texture: transparent water vs glowing tubes", composition: "Layers: depth of sea and neon forest in foreground/mid; focus on light spreading in darkness", techniques: "Watercolour or acrylic transparent layers, fluorescent colour, mixed media for luminous bodies", themeLink: "Use complementary colour to stress deep sea vs neon; viewer feels tension of surreal juxtaposition.", starTips: "Light: self-luminous diffusion—neon creates halo and reflection in deep sea for mystery and life.", colourTone: "Deep blue-green and neon orange-red complementary; local high-saturation glow", difficultyLevel: "medium-high" }
+    { theme: "Neon Forest in the Deep Sea", concepts: ["Surreal juxtaposition: deep sea and neon", "Light-shadow contrast and ecological metaphor", "Oppression and escape coexisting"], visualElements: "Colour: complementary for deep-sea pressure vs neon escape; lines: waves, creatures and neon tubes; texture: transparent water vs glowing tubes", composition: "Layers: depth of sea and neon forest in foreground/mid; focus on light spreading in darkness", techniques: "Watercolour or acrylic transparent layers, fluorescent colour, mixed media for luminous bodies", themeLink: "Use complementary colour to stress deep sea vs neon; viewer feels tension of surreal juxtaposition.", starTips: "Light: self-luminous diffusion—neon creates halo and reflection in deep sea for mystery and life.", colourTone: "Deep blue-green and neon orange-red complementary; local high-saturation glow", difficultyLevel: "medium-high" },
+    { theme: "Dim Sum Morning in the Tea House", concepts: ["Hong Kong traditional food culture", "Ritual and daily routine", "Intergenerational connection"], visualElements: "Lines: bamboo steamer weave pattern; colour: warm basket yellow, pu-erh tea brown; texture: steam haze, porcelain smoothness", composition: "Overhead or 45-degree view; steamer at centre; white space for steam", techniques: "Watercolour wash (steam), collage (old newspaper/menu), ink outline", themeLink: "Viewer feels Hong Kong 'tea house' culture and warmth in daily routine.", colourTone: "Warm brown, orange-yellow, light beige; contrast dark tea accent", difficultyLevel: "medium" },
+    { theme: "The Sounds of the Wet Market", concepts: ["Visualizing sound", "Rhythm in chaos", "Vitality of street life"], visualElements: "Lines: crowded stalls, hanging ingredients; colour: fresh fish blue-red, vegetable green-orange; texture: wet floor, plastic bag sheen", composition: "Fish-eye or low angle; visual sound lines extending from scene", techniques: "Mixed media collage, spray paint, charcoal lines", themeLink: "Viewer feels the raw energy of street life, not just scenic depiction.", colourTone: "Vivid contrast: blue, red, orange, green; high saturation street colours", difficultyLevel: "medium" },
+    { theme: "Hands Trapped in Likes", concepts: ["Social media symbolism", "Self defined by likes", "Real touch vs screen contact"], visualElements: "Lines: finger swiping phone轨迹; colour: screen blue light vs skin warmth; texture: glass screen vs skin texture", composition: "Close-up finger-screen contact; rest blurred", techniques: "Digital painting (light effects), collage, fingerprint rubbing", themeLink: "Viewer ponders distance between 'being seen' and 'authentic self'", colourTone: "Cold screen light vs warm skin; blue-white background high contrast", difficultyLevel: "medium" },
+    { theme: "Grandfather's Hour in the Sunlight", concepts: ["Elderly loneliness", "Company of sunlight", "Repetition of daily routine"], visualElements: "Light: window frame sunlight; colour: elderly clothing in plain colours; texture: wrinkles, fabric texture", composition: "Sun beam as focal point; elderly figure as subject; white space for stillness", techniques: "Chiaroscuro (Rembrandt light), charcoal sketch, watercolour light wash", themeLink: "Viewer feels 'waiting' and quiet warmth of sunlight companionship.", partALink: "Reference 2014 La Tour Virgin in Prayer: single light source creates theatrical mood and stillness.", colourTone: "Warm yellow sunlight, cool grey interior; contrast light/shadow zones", difficultyLevel: "medium" },
+    { theme: "Typhoon Holiday in Hong Kong", concepts: ["Pause and waiting", "Nature's overwhelming force", "Response to calm"], visualElements: "Lines: wind-twisted trees, signs; colour: grey-blue storm palette; texture: rain movement lines", composition: "Indoor view through window; storm as main, elder/child as secondary", techniques: "Ink wash (storm movement), spray technique, digital compositing", themeLink: "Viewer feels 'calm in the storm' or 'reverence for nature's power'", colourTone: "Grey-blue, silver-white, local warm yellow (indoor light)" },
+    { theme: "The Line Lost in Translation", concepts: ["Boundaries of language", "Emotion that cannot be conveyed", "Gap in communication"], visualElements: "Lines: broken text/characters; colour: original vs translated colour difference; texture: paper, crossing-out marks", composition: "Bilingual text对照 with breaks; white space or blur for 'loss'", techniques: "Mixed media (calligraphy and print), rubbing, collage", themeLink: "Viewer feels powerlessness of 'cannot express'", colourTone: "Original warm (red-brown) vs translated cool (blue-grey); sharp contrast" },
+    { theme: "The Next-Door Drying Rack", concepts: ["Hong Kong living intimacy", "Clothes as symbol", "Invisible neighbour relationship"], visualElements: "Lines: crossing drying lines; colour: bright clothes (red, yellow, blue); texture: fabric fluttering", composition: "Looking up through drying rack to sky; clothes as rhythmic lines", techniques: "Charcoal lines, watercolour, fabric collage", themeLink: "Viewer feels Hong Kong living intimacy and blurred privacy boundary", colourTone: "Bright clothes vs grey-white sky; contrasting tones" },
+    { theme: "The Night of Too Much Homework", concepts: ["Pressure and exhaustion", "Meaning of learning", "Child's perspective"], visualElements: "Lines: scattered textbooks, exam papers; colour: pen blue-black, lamp warm yellow; texture: paper crumpling", composition: "Overhead desk view; a small clock showing time pressure", techniques: "Watercolour wash, collage, exam paper fragments", themeLink: "Viewer feels 'cannot finish' pressure and the subject's emotion", colourTone: "Cold (anxiety) vs warm yellow (home comfort)" },
+    { theme: "The Hong Kong Trail", concepts: ["City-nature boundary", "Hiking ritual", "Return via looking back"], visualElements: "Lines: winding trail, tree shade; colour: green, mud brown, concrete grey; texture: bark, rock, soil", composition: "Guide lines along trail toward distant HK skyline; upward or downward perspective", techniques: "Watercolour sketch, Chinese painting composition, clay texture", themeLink: "Viewer feels 'escaping city' vs 'looking back at Hong Kong' contrast.", partALink: "Reference 2019 landscape works: use Chinese painting scroll perspective for HK trail's unique scenery.", colourTone: "Jade green, mud brown, grey-blue sky; natural earth tones" },
+    { theme: "Cosmos by the Trash Station", concepts: ["Resilient life force", "Coexistence of dirty and beautiful", "Beauty in neglect"], visualElements: "Lines: cosmos stem delicate; colour: pink, purple, white petals; texture: plastic trash vs soft petals", composition: "Close-up: flowers growing from trash crack; dirty background, beautiful foreground", techniques: "Watercolour (petal softness), trash material collage, macro view", themeLink: "Viewer feels 'blooming in adversity' beauty, not environmental lecture", colourTone: "Delicate pastel (petals) vs grey-brown dirty (background); high contrast" },
+    { theme: "Memories in the Mooncake Tin", concepts: ["Emotional load of festivals", "Container of memories", "Ritual vs commercialisation"], visualElements: "Lines: mooncake tin decorative pattern; colour: gold, red traditional; texture: metal tin, silk lining", composition: "View of open tin; inside filled with old photos/small toys not mooncakes", techniques: "Old object collage, watercolour wash, traditional symbols", themeLink: "Viewer feels 'festival emotion' worth preserving more than mooncakes themselves", partALink: "Reference 2017 Part A works: use traditional object's fine texture for emotional connection to the past.", colourTone: "Gold, red, purple festive colours; matte metal texture" },
+    { theme: "The Swimmer in Victoria Harbour", concepts: ["Historical memory vs modern leisure", "Symbol of sea", "Human-sea relationship"], visualElements: "Lines: harbour wave curves, swimmer silhouette; colour: sea blue, sunset orange; texture: water, torch lights", composition: "Victoria Harbour night scene; swimmer as silhouette; distant city lights", techniques: "Oil impasto (waves), silhouette, light on water", themeLink: "Viewer feels Hong Kong unique 'sea complex'", colourTone: "Deep blue night, warm orange sunset, swimmer grey-black silhouette" },
+    { theme: "The Invisible Backpack", concepts: ["Invisible burden", "Invisible pain", "Hidden emotion"], visualElements: "Lines: back curve; colour: clothing colour; texture: fabric wrinkles", composition: "Back view; backpack's presence feeling; subject looking forward not at viewer", techniques: "Charcoal sketch, collage (invisible 'backpack' semi-transparent material)", themeLink: "Viewer feels psychological state of 'invisible weight'", colourTone: "Subdued grey, single colour palette;压抑 emotional tone" },
+    { theme: "Ten Minutes of Tooth Brushing", concepts: ["Daily repetitive ritual", "Moment of solitude", "Empty time"], visualElements: "Lines: bathroom fixture geometry; colour: porcelain white, blue/green tiles; texture: porcelain smoothness, water droplets", composition: "Bathroom close-up; time stretched feeling; steam/haze blur", techniques: "Watercolour wash (steam/haze), collage, minimal composition", themeLink: "Viewer feels 'white space' and self-dialogue in daily ritual", colourTone: "Porcelain white, cool grey-blue tiles, warm yellow bathroom light; clean tones" }
   ]
 };

@@ -448,6 +448,8 @@
         const HISTORY_MAX = 25;
         /** 本分頁內：中英各一副洗牌；一輪內每條索引只出一次，出晒先再洗（關分頁即重置） */
         let promptDeckState = { zh: null, en: null };
+        const MAX_RECENT = 5;
+        let recentThemes = [];
         const ui = {
             zh: { title: "DSE 視藝：練拆奪星王", subtitle: "隨機生成模擬題，一鍵拆解扣題位。", defaultTheme: "按「生成」取得題目", generate: "✨ 生成題目", save: "★ 收藏", copy: "📋 複製", share: "↗ 分享", clear: "清除", timeLabel: "香港時間", toastCopied: "已複製", toastShared: "已開啟分享", toastShareFail: "已複製到剪貼簿", toastNothing: "請先生成題目", toastCleared: "已清除", simpleMode: "簡潔模式", fullMode: "完整模式", labelTopic: "命題", criteriaTopic: "③ 創意與想像力 (20%)", labelConcepts: "Concept 諗法", labelVisual: "視覺元素建議", criteriaVisual: "② 視覺元素及設計原理 (20%)", labelComposition: "構圖提示", criteriaComposition: "② 視覺元素及設計原理 (20%) · 構圖與透視", labelTechniques: "技法建議", criteriaTechniques: "① 媒材及技法的選擇和運用 (20%) · 建議：marker／壓克力／水彩／油粉彩", labelThemeLink: "扣題引導", criteriaThemeLink: "④ 主題傳意 (20%)", labelPartA: "甲部聯繫（評賞作品風格引導）", criteriaPartA: "2014–2022 歷屆評賞 · 媒材／構圖／光源／符號", labelStarTips: "★ 進階提示（光源與構圖）", criteriaStarTips: "光源與構圖建議", labelMistakes: "常見犯錯／注意", criteriaMistakes: "乙部須聯繫甲部 · 構圖與光源策略", favTitle: "★ 收藏", historyTitle: "🕘 最近生成", colourTonePrefix: "色彩調性：", difficultyPrefix: " · 難度：", loadError: "題目庫未載入", detailsCriteriaTitle: "點解會見到 ①②③④？", detailsCriteriaBody: "香港 DSE 視藝卷一乙部改卷有四個範疇，各佔約 20%。本工具把每條模擬題拆成對應區塊，練習時易對準評分方向。畫面上「視覺元素」與「構圖」合併顯示；按「複製」時仍會分開兩欄。", pill1Short: "媒材・技法", pill2Short: "視覺・設計", pill3Short: "創意・想像", pill4Short: "主題・傳意", mergeChipVisual: "視覺元素", mergeChipComposition: "構圖", linkHowItWorks: "圖解使用方式（可列印）", railAriaLabel: "DSE 四項評分準則快速跳轉", simpleCriteriaHint: "簡潔模式：只顯示命題與摘錄。按「完整模式」可對照 ①〜④ 全部區塊。", pushTitle: "Web 推播（PWA）", pushHint: "需 HTTPS（Vercel／localhost）。部署後請於 Vercel 設定 VAPID 與 PUSH_TEST_SECRET（見 README）。測試密鑰只會傳到你嘅伺服器。", pushSecretPh: "PUSH_TEST_SECRET", pushBtnSubscribe: "訂閱並發送測試推播", pushBtnLocal: "本機通知測試（不經伺服器）", pushNoSw: "不支援 Service Worker", pushNoPush: "不支援推播", pushNeedSecret: "請輸入測試密鑰", pushVapidMissing: "伺服器未設定 VAPID", pushSent: "已送出推播", pushFail: "推播失敗", pushDenied: "通知權限被拒", pushNotifyTitle: "DSE 視藝：練拆奪星王", pushNotifyBody: "推播測試成功", pushBtnLocalOk: "已顯示本機通知", copyTopic: "【命題】", copyConcepts: "【Concept 諗法】", copyVisual: "【視覺元素】", copyComposition: "【構圖】", copyTechniques: "【技法】", copyThemeLink: "【扣題】", copyPartA: "【甲部聯繫】", copyColourTone: "【色彩調性】", copyStarTips: "【進階提示】", copyMistakes: "【常見犯錯／注意】", copyDifficulty: "【難度】", copyFooter: "DSE 視藝：練拆奪星王 · VA Star-Getter: Gen & Crack" },
             en: { title: "VA Star-Getter: Gen & Crack", subtitle: "Generate mock topics, crack the marking focus in one tap.", defaultTheme: "Click Generate for a topic", generate: "✨ Generate", save: "★ Save", copy: "📋 Copy", share: "↗ Share", clear: "Clear", timeLabel: "HK Time", toastCopied: "Copied", toastShared: "Share opened", toastShareFail: "Copied to clipboard", toastNothing: "Generate first", toastCleared: "Cleared", simpleMode: "Simple", fullMode: "Full", labelTopic: "Topic", criteriaTopic: "③ Creativity and imagination (20%)", labelConcepts: "Concept", labelVisual: "Visual elements", criteriaVisual: "② Visual elements and design principles (20%)", labelComposition: "Composition", criteriaComposition: "② Visual elements and design principles (20%) · Composition and perspective", labelTechniques: "Techniques", criteriaTechniques: "① Selection and use of media and techniques (20%) · Suggested: marker, acrylic, watercolour, oil pastel", labelThemeLink: "Theme link", criteriaThemeLink: "④ Theme communication (20%)", labelPartA: "Part A link (appreciation style)", criteriaPartA: "2014–2022 past papers · media, composition, light, symbol", labelStarTips: "★ Advanced tips (light and composition)", criteriaStarTips: "Light and composition suggestions", labelMistakes: "Common mistakes / notes", criteriaMistakes: "Part B should link to Part A · composition and light strategies", favTitle: "★ Favorites", historyTitle: "🕘 Recent", colourTonePrefix: "Colour tone: ", difficultyPrefix: " · Level: ", loadError: "Topic list not loaded", detailsCriteriaTitle: "Why ①②③④?", detailsCriteriaBody: "HKDSE VA Paper 1 Part B uses four criteria (~20% each). This app splits each mock topic into matching blocks. Visual elements and composition are merged on screen; Copy still gives two separate lines.", pill1Short: "Media", pill2Short: "Visual design", pill3Short: "Creativity", pill4Short: "Theme", mergeChipVisual: "Visual elements", mergeChipComposition: "Composition", linkHowItWorks: "How it works (printable)", railAriaLabel: "Jump to criteria sections", simpleCriteriaHint: "Simple mode: topic + short summary only. Use Full mode for all blocks ①–④.", pushTitle: "Web Push (PWA)", pushHint: "Needs HTTPS (Vercel / localhost). Set VAPID and PUSH_TEST_SECRET on Vercel (see README). The test secret is only sent to your server.", pushSecretPh: "PUSH_TEST_SECRET", pushBtnSubscribe: "Subscribe & send test push", pushBtnLocal: "Local notification (no server)", pushNoSw: "Service Worker not supported", pushNoPush: "Push not supported", pushNeedSecret: "Enter test secret", pushVapidMissing: "VAPID not configured on server", pushSent: "Push sent", pushFail: "Push failed", pushDenied: "Notification permission denied", pushNotifyTitle: "VA Star-Getter", pushNotifyBody: "Push test OK", pushBtnLocalOk: "Local notification shown", copyTopic: "[Topic]", copyConcepts: "[Concept]", copyVisual: "[Visual elements]", copyComposition: "[Composition]", copyTechniques: "[Techniques]", copyThemeLink: "[Theme link]", copyPartA: "[Part A link]", copyColourTone: "[Colour tone]", copyStarTips: "[Advanced tips]", copyMistakes: "[Common mistakes / notes]", copyDifficulty: "[Level]", copyFooter: "VA Star-Getter: Gen & Crack" }
@@ -535,32 +537,37 @@
             return arr;
         }
         /** 新一輪：0..n-1 洗牌；若上一題命題文字同首張則換走（新輪第一題唔接連重複） */
-        function refillPromptDeck(lang, list, avoidTheme) {
+        function refillPromptDeck(lang, list, avoidThemes) {
             var n = list.length;
             var indices = [];
             for (var k = 0; k < n; k++) indices.push(k);
             shuffleDeckIndices(indices);
-            if (avoidTheme && n > 1) {
+            if (avoidThemes && avoidThemes.length && n > 1) {
                 var firstIdx = indices[0];
-                if (list[firstIdx].theme === avoidTheme) {
+                if (avoidThemes.includes(list[firstIdx].theme)) {
+                    var swapped = false;
                     for (var p = 1; p < indices.length; p++) {
-                        if (list[indices[p]].theme !== avoidTheme) {
+                        if (!avoidThemes.includes(list[indices[p]].theme)) {
                             var sw = indices[0];
                             indices[0] = indices[p];
                             indices[p] = sw;
+                            swapped = true;
                             break;
                         }
+                    }
+                    if (!swapped) {
+                        shuffleDeckIndices(indices);
                     }
                 }
             }
             promptDeckState[lang] = { indices: indices, pos: 0 };
         }
-        function pickFromSessionDeck(lang, list, previous) {
+        function pickFromSessionDeck(lang, list) {
             if (!list.length) return null;
             var n = list.length;
             var st = promptDeckState[lang];
             if (!st || st.pos >= st.indices.length || st.indices.length !== n) {
-                refillPromptDeck(lang, list, previous && previous.theme);
+                refillPromptDeck(lang, list, recentThemes);
                 st = promptDeckState[lang];
             }
             var idx = st.indices[st.pos++];
@@ -569,7 +576,11 @@
         function generatePrompt() {
             const list = getList();
             if (!list.length) { document.getElementById("themeDisplay").textContent = ui[currentLang].loadError; return; }
-            const item = pickFromSessionDeck(currentLang, list, currentItem);
+            const item = pickFromSessionDeck(currentLang, list);
+            if (item && item.theme) {
+                recentThemes.unshift(item.theme);
+                if (recentThemes.length > MAX_RECENT) recentThemes.pop();
+            }
             currentItem = item;
             renderItem(item);
             addToHistory(item);

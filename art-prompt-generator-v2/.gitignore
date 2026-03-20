@@ -1,0 +1,5 @@
+.vercel
+# 本機祕鑰（勿提交）；範例見 .env.example
+.env
+.env.*
+!.env.example

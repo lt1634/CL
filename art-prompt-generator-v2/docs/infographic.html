@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VA Star-Getter: 獲利化與優化計畫</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #F59E0B;
+            --accent: #10B981;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --gray: #64748B;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px;
+        }
+        
+        .infographic {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
+            padding: 50px 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+        
+        .brand {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .brand-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--primary);
+        }
+        
+        .brand h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .brand h2 {
+            font-size: 24px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .slogan {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .content {
+            padding: 50px 60px;
+        }
+        
+        /* Market Section */
+        .market-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .market-card {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .market-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        
+        .section-title h3 {
+            font-size: 22px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .big-number {
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .big-number span {
+            font-size: 24px;
+            color: var(--gray);
+        }
+        
+        .stat-label {
+            font-size: 18px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .pain-point {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .pain-point h4 {
+            color: var(--secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .pain-point p {
+            color: var(--dark);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* Monetization Section */
+        .monetization {
+            margin-bottom: 50px;
+        }
+        
+        .monetization-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .monetization-header h3 {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .monetization-header p {
+            color: var(--gray);
+            font-size: 18px;
+        }
+        
+        .revenue-streams {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        .revenue-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .revenue-card:nth-child(1) { border-top: 4px solid #6366F1; }
+        .revenue-card:nth-child(2) { border-top: 4px solid #F59E0B; }
+        .revenue-card:nth-child(3) { border-top: 4px solid #10B981; }
+        .revenue-card:nth-child(4) { border-top: 4px solid #EC4899; }
+        
+        .revenue-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .revenue-card:nth-child(1) .revenue-icon { background: linear-gradient(135deg, #6366F1, #8B5CF6); }
+        .revenue-card:nth-child(2) .revenue-icon { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+        .revenue-card:nth-child(3) .revenue-icon { background: linear-gradient(135deg, #10B981, #34D399); }
+        .revenue-card:nth-child(4) .revenue-icon { background: linear-gradient(135deg, #EC4899, #F472B6); }
+        
+        .revenue-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        
+        .revenue-card h4 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .revenue-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .revenue-desc {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 50px;
+            color: white;
+        }
+        
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .timeline-header h3 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-header p {
+            opacity: 0.7;
+            font-size: 18px;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, #6366F1, #F59E0B, #10B981);
+            border-radius: 2px;
+        }
+        
+        .phase {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .phase-number {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 36px;
+            font-weight: 900;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .phase:nth-child(1) .phase-number { background: linear-gradient(135deg, #6366F1, #8B5CF6); }
+        .phase:nth-child(2) .phase-number { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+        .phase:nth-child(3) .phase-number { background: linear-gradient(135deg, #10B981, #34D399); }
+        
+        .phase-time {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .phase h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .phase-tasks {
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 10px;
+        }
+        
+        .phase-tasks li {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            list-style: none;
+        }
+        
+        .phase-tasks li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: bold;
+        }
+        
+        /* Features Section */
+        .features {
+            margin-bottom: 50px;
+        }
+        
+        .features-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .features-header h3 {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #F8FAFC 0%, white 100%);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        
+        .feature-card:nth-child(1)::before { background: rgba(99, 102, 241, 0.1); }
+        .feature-card:nth-child(2)::before { background: rgba(245, 158, 11, 0.1); }
+        .feature-card:nth-child(3)::before { background: rgba(16, 185, 129, 0.1); }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card:nth-child(1) .feature-icon { background: linear-gradient(135deg, #6366F1, #8B5CF6); }
+        .feature-card:nth-child(2) .feature-icon { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+        .feature-card:nth-child(3) .feature-icon { background: linear-gradient(135deg, #10B981, #34D399); }
+        
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        
+        .feature-card h4 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            font-size: 15px;
+            color: var(--gray);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .feature-card:nth-child(1) .feature-list li::before { background: #6366F1; }
+        .feature-card:nth-child(2) .feature-list li::before { background: #F59E0B; }
+        .feature-card:nth-child(3) .feature-list li::before { background: #10B981; }
+        
+        /* Persona Section */
+        .persona {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-radius: 24px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .persona-visual {
+            text-align: center;
+        }
+        
+        .persona-avatar {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #F59E0B, #FBBF24);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(245, 158, 11, 0.3);
+        }
+        
+        .persona-avatar svg {
+            width: 90px;
+            height: 90px;
+            fill: white;
+        }
+        
+        .persona-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #92400E;
+            margin-bottom: 10px;
+        }
+        
+        .persona-title {
+            font-size: 28px;
+            color: #78350F;
+            font-weight: 800;
+        }
+        
+        .persona-details h4 {
+            font-size: 24px;
+            color: #78350F;
+            margin-bottom: 25px;
+        }
+        
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .persona-item {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .persona-item h5 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        
+        .persona-item p {
+            font-size: 16px;
+            color: var(--dark);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-brand {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .footer-tagline {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic">
+        <!-- Header -->
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 12.18L3.82 9.98 12 5.82l8.18 4.16L12 15.18zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+                </div>
+                <h1>DSE 視藝：練拆奪星王</h1>
+                <h2>VA Star-Getter: Gen & Crack</h2>
+                <div class="slogan">🎯 隨機生成模擬題，一鍵拆解扣題位</div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Market Section -->
+            <div class="market-section">
+                <div class="market-card">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        </div>
+                        <h3>目標市場 Target Market</h3>
+                    </div>
+                    <div class="big-number">4,000<span>+</span></div>
+                    <div class="stat-label">每年 DSE 視藝考生 / Annual VA Students</div>
+                    <div class="pain-point">
+                        <h4>💡 核心痛點 Pain Point</h4>
+                        <p>難以將「評賞（甲部）」與「創作（乙部）」有機結合，缺乏對齊評分準則的結構化引導</p>
+                    </div>
+                </div>
+                
+                <div class="market-card">
+                    <div class="section-title">
+                        <div class="section-icon" style="background: var(--accent);">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        </div>
+                        <h3>競爭優勢 Advantages</h3>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                        <div style="display: flex; align-items: center; gap: 15px; background: white; padding: 18px; border-radius: 12px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #6366F1, #8B5CF6); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 24px; height: 24px; fill: white;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--dark);">對齊評分準則</div>
+                                <div style="font-size: 13px; color: var(--gray);">Aligned with Scoring Criteria</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; background: white; padding: 18px; border-radius: 12px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #F59E0B, #FBBF24); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 24px; height: 24px; fill: white;" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--dark);">教育專業背景</div>
+                                <div style="font-size: 13px; color: var(--gray);">Education Expertise</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; background: white; padding: 18px; border-radius: 12px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #10B981, #34D399); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 24px; height: 24px; fill: white;" viewBox="0 0 24 24"><path d="M21 6h-2V4h2v2zm-2 8h2v-2h-2v2zm0 4h2v-2h-2v2zm2-16H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 16h-8v-2h-2v2H3V4h18v14z"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--dark);">比通用 AI 更懂 DSE</div>
+                                <div style="font-size: 13px; color: var(--gray);">DSE-Specific AI Understanding</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monetization -->
+            <div class="monetization">
+                <div class="monetization-header">
+                    <h3>💰 四大獲利模式 Revenue Streams</h3>
+                    <p>多元化收入來源，覆蓋 B2C 與 B2B 市場</p>
+                </div>
+                <div class="revenue-streams">
+                    <div class="revenue-card">
+                        <div class="revenue-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                        </div>
+                        <h4>Freemium 訂閱</h4>
+                        <div class="revenue-price">HK$98/月</div>
+                        <div class="revenue-desc">或 HK$488/考季<br/>AI 點評、進階提示、高階構圖範例</div>
+                    </div>
+                    <div class="revenue-card">
+                        <div class="revenue-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+                        </div>
+                        <h4>B2B 學校授權</h4>
+                        <div class="revenue-price">HK$2K-5K</div>
+                        <div class="revenue-desc">每校每年<br/>售予中學視藝科／補習社</div>
+                    </div>
+                    <div class="revenue-card">
+                        <div class="revenue-icon">
+                            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                        </div>
+                        <h4>內容加購</h4>
+                        <div class="revenue-price">拆分利潤</div>
+                        <div class="revenue-desc">數位版視藝天書<br/>線上課程銷售</div>
+                    </div>
+                    <div class="revenue-card">
+                        <div class="revenue-icon">
+                            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                        </div>
+                        <h4>AI 評分服務</h4>
+                        <div class="revenue-price">HK$20/次</div>
+                        <div class="revenue-desc">上傳草圖<br/>AI 依四項準則給模擬分</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="timeline-section">
+                <div class="timeline-header">
+                    <h3>🚀 行動計畫 Action Plan</h3>
+                    <p>三階段推進，從產品打磨到市場推廣</p>
+                </div>
+                <div class="timeline">
+                    <div class="phase">
+                        <div class="phase-number">1</div>
+                        <div class="phase-time">1-2 週</div>
+                        <h4>產品打磨</h4>
+                        <ul class="phase-tasks">
+                            <li>HTML → React/Next.js</li>
+                            <li>串接 LLM API</li>
+                            <li>AI 點評原型</li>
+                            <li>現代化 UI 組件</li>
+                        </ul>
+                    </div>
+                    <div class="phase">
+                        <div class="phase-number">2</div>
+                        <div class="phase-time">3-4 週</div>
+                        <h4>市場驗證</h4>
+                        <ul class="phase-tasks">
+                            <li>封測邀請學生試用</li>
+                            <li>收集用戶反饋</li>
+                            <li>題目庫擴充至 100+</li>
+                            <li>補足進階提示</li>
+                        </ul>
+                    </div>
+                    <div class="phase">
+                        <div class="phase-number">3</div>
+                        <div class="phase-time">第 2 個月</div>
+                        <h4>上線推廣</h4>
+                        <ul class="phase-tasks">
+                            <li>Threads、IG 社群推廣</li>
+                            <li>AI 輔助視藝創作影片</li>
+                            <li>DSE YouTube 聯名</li>
+                            <li>補習平台合作</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="features">
+                <div class="features-header">
+                    <h3>⚡ 產品優化方向 Optimization Pillars</h3>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        </div>
+                        <h4>技術架構 Tech</h4>
+                        <ul class="feature-list">
+                            <li>Supabase 後端遷移</li>
+                            <li>用戶登入與收藏同步</li>
+                            <li>Tailwind 現代化 UI</li>
+                            <li>暗黑模式支援</li>
+                            <li>考場模擬介面</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                        </div>
+                        <h4>AI 功能 Core AI</h4>
+                        <ul class="feature-list">
+                            <li>AI 創意教練對話</li>
+                            <li>OpenAI/Gemini 串接</li>
+                            <li>DALL-E 參考圖生成</li>
+                            <li>甲部作品聯繫強化</li>
+                            <li>結構化 Concept 引導</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        </div>
+                        <h4>市場擴張 Expansion</h4>
+                        <ul class="feature-list">
+                            <li>IB Visual Arts 支援</li>
+                            <li>A-Level Art 適配</li>
+                            <li>國際學校市場</li>
+                            <li>多語言版本</li>
+                            <li>Process Portfolio 引導</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Persona -->
+            <div class="persona">
+                <div class="persona-visual">
+                    <div class="persona-avatar">
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <div class="persona-label">Target Persona</div>
+                    <div class="persona-title">DSE 視藝考生</div>
+                </div>
+                <div class="persona-details">
+                    <h4>🎯 目標買家畫像 Buyer Persona</h4>
+                    <div class="persona-grid">
+                        <div class="persona-item">
+                            <h5>主要用戶</h5>
+                            <p>中四至中六 DSE 視藝考生<br/>畫功尚可但缺創意</p>
+                        </div>
+                        <div class="persona-item">
+                            <h5>決策者</h5>
+                            <p>家長<br/>願意為即時反饋類工具付費</p>
+                        </div>
+                        <div class="persona-item">
+                            <h5>使用場景</h5>
+                            <p>「構思健身房」<br/>15 分鐘內完成拆題與構思</p>
+                        </div>
+                        <div class="persona-item">
+                            <h5>痛點</h5>
+                            <p>寫作/構思困難<br/>需在短時間內多練題</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-brand">VA Star-Getter: Gen & Crack</div>
+            <div class="footer-tagline">今日你練拆咗未？ | 2026</div>
+        </div>
+    </div>
+</body>
+</html>

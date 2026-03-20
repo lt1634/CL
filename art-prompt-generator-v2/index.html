@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DSE 視藝卷一 Part B 題目生成器</title>
+    <title>VA Star-Getter: Gen & Crack</title>
     <meta name="theme-color" content="#0f3460">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./icon.svg">
     <link rel="manifest" href="./manifest.webmanifest">
     <style>
+        html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         a, button { -webkit-tap-highlight-color: transparent; }
         body {
@@ -70,11 +74,124 @@
             color: #48dbfb;
             margin-bottom: 4px;
         }
+        .difficulty-badge { margin-left: 8px; color: #aaa; font-weight: normal; }
+        .doc-link-row { margin-bottom: 10px; text-align: center; }
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: #48dbfb;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(72,219,251,0.35);
+            padding-bottom: 2px;
+        }
+        .doc-link:hover { color: #7ee8fc; border-bottom-color: #7ee8fc; }
+        .help-details {
+            margin-bottom: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(0,0,0,0.2);
+            padding: 0 12px;
+            text-align: left;
+        }
+        .help-details summary {
+            cursor: pointer;
+            padding: 10px 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #b8e9ff;
+            list-style-position: outside;
+        }
+        .help-details-body, .help-details-more {
+            font-size: 0.75rem;
+            line-height: 1.55;
+            color: #9aa;
+            margin: 0 0 10px 0;
+        }
+        .help-details-more a { color: #48dbfb; }
+        .criteria-rail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: flex-start;
+        }
+        .crit-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #e8e8e8;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.22);
+            min-height: 40px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .crit-pill:focus { outline: 2px solid #48dbfb; outline-offset: 2px; }
+        .crit-pill:hover { background: rgba(255,255,255,0.08); }
+        .crit-pill-num { font-weight: 800; opacity: 0.95; }
+        .crit-pill--1 { border-left: 3px solid #48dbfb; }
+        .crit-pill--2 { border-left: 3px solid #c084fc; }
+        .crit-pill--3 { border-left: 3px solid #feca57; }
+        .crit-pill--4 { border-left: 3px solid #ff6b6b; }
+        .crit-section {
+            scroll-margin-top: 12px;
+            margin-bottom: 14px;
+            padding-left: 12px;
+            border-radius: 0 10px 10px 0;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-left-width: 4px;
+            background: rgba(0,0,0,0.12);
+            padding-top: 12px;
+            padding-bottom: 4px;
+            padding-right: 8px;
+        }
+        .crit-section:last-of-type { margin-bottom: 0; }
+        .crit-section .block { margin-bottom: 14px; }
+        .crit-section .block:last-child { margin-bottom: 8px; }
+        .crit-section--1 { border-left-color: #48dbfb; }
+        .crit-section--2 { border-left-color: #c084fc; }
+        .crit-section--3 { border-left-color: #feca57; }
+        .crit-section--4 { border-left-color: #ff6b6b; }
+        .crit-section--extra { border-left-color: #888; background: rgba(0,0,0,0.08); }
+        .merge-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 10px 0;
+            font-size: 0.68rem;
+            color: #8a8a9a;
+        }
+        .merge-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: rgba(192,132,252,0.12);
+            border: 1px solid rgba(192,132,252,0.25);
+            color: #d8c8f0;
+        }
+        .simple-criteria-hint {
+            font-size: 0.78rem;
+            color: #888;
+            line-height: 1.45;
+            margin: 8px 0 12px 0;
+            text-align: left;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.18);
+            border: 1px dashed rgba(255,255,255,0.12);
+        }
         .block-criteria {
             font-size: 0.65rem;
             color: #666;
             margin-bottom: 6px;
         }
+        .block-criteria .crit-num { color: #48dbfb; font-weight: 700; margin-right: 4px; }
         .block-content {
             font-size: 0.95rem;
             line-height: 1.5;
@@ -194,115 +311,265 @@
         .footer-link:hover { background: rgba(255,255,255,0.1); color: #e8e8e8; }
         .footer-link svg { width: 20px; height: 20px; }
         .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .push-panel { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: left; }
+        .push-title { font-size: 0.9rem; color: #48dbfb; margin-bottom: 8px; }
+        .push-hint { font-size: 0.75rem; color: #888; margin-bottom: 10px; line-height: 1.45; }
+        .push-secret { width: 100%; max-width: 320px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.3); color: #ddd; font-size: 0.85rem; display: block; margin-bottom: 12px; box-sizing: border-box; }
+        .push-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .push-status { font-size: 0.75rem; color: #888; margin-top: 12px; min-height: 1.2em; }
         @media (max-width: 480px) {
             body { padding: 16px; }
             h1 { font-size: 1.4rem; }
             .prompt-card { padding: 18px; }
             .theme-title { font-size: 1.2rem; }
-            .favorites, .history { margin-bottom: 80px; }
+            .favorites, .history, .push-panel { margin-bottom: 80px; }
             .timestamp, .footer-link { bottom: max(16px, env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 id="pageTitle">DSE 視藝 卷一 乙部 題目生成器</h1>
-        <p class="subtitle" id="pageSubtitle">模擬題目，對齊四項評分準則</p>
+        <h1 id="pageTitle">VA Star-Getter: Gen & Crack</h1>
+        <p class="subtitle" id="pageSubtitle">Generate mock topics, crack the marking focus in one tap.</p>
+        <p class="doc-link-row"><a class="doc-link" id="linkHowItWorks" href="./docs/product-how-to.html" target="_blank" rel="noopener noreferrer">How it works</a></p>
         <div class="toolbar">
             <div>
-                <button class="lang-btn active" data-lang="zh">中文</button>
-                <button class="lang-btn" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+                <button class="lang-btn active" data-lang="en">English</button>
             </div>
-            <button type="button" class="simple-toggle" id="simpleToggle" aria-pressed="false">簡潔模式</button>
+            <button type="button" class="simple-toggle" id="simpleToggle" aria-pressed="false">Simple</button>
         </div>
         <div class="prompt-card" id="promptCard">
-            <div class="block">
-                <div class="block-label">命題</div>
-                <div class="block-criteria detail-only">創意與想像力 (20%)</div>
-                <div class="theme-title" id="themeDisplay">按「生成」取得題目</div>
+            <details class="help-details detail-only">
+                <summary><span id="detailsCriteriaTitle">Why ①②③④?</span></summary>
+                <p class="help-details-body" id="detailsCriteriaBody"></p>
+                <p class="help-details-more"><a href="./docs/product-how-to.html" id="detailsHowLink" target="_blank" rel="noopener noreferrer"></a></p>
+            </details>
+            <nav class="criteria-rail detail-only" id="criteriaRail" aria-label="Scoring criteria">
+                <a href="#crit-1" class="crit-pill crit-pill--1"><span class="crit-pill-num">①</span><span id="pillText1">Media</span></a>
+                <a href="#crit-2" class="crit-pill crit-pill--2"><span class="crit-pill-num">②</span><span id="pillText2">Visual</span></a>
+                <a href="#crit-3" class="crit-pill crit-pill--3"><span class="crit-pill-num">③</span><span id="pillText3">Creativity</span></a>
+                <a href="#crit-4" class="crit-pill crit-pill--4"><span class="crit-pill-num">④</span><span id="pillText4">Theme</span></a>
+            </nav>
+            <div class="crit-section crit-section--3" id="crit-3">
+                <div class="block">
+                    <div class="block-label" id="labelTopic">Topic</div>
+                    <div class="block-criteria detail-only"><span id="criteriaTopicText">③ Creativity and imagination (20%)</span><span id="difficultyDisplay" class="difficulty-badge"></span></div>
+                    <div class="theme-title" id="themeDisplay">Click Generate for a topic</div>
+                </div>
+                <div class="block detail-only" id="blockConcepts">
+                    <div class="block-label" id="labelConcepts">Concept</div>
+                    <div class="block-content" id="conceptsDisplay"></div>
+                </div>
             </div>
-            <div class="block detail-only" id="blockConcepts">
-                <div class="block-label">Concept 諗法</div>
-                <div class="block-criteria">創意與想像力 (20%)</div>
-                <div class="block-content" id="conceptsDisplay"></div>
+            <div class="crit-section crit-section--2 detail-only" id="crit-2">
+                <div class="block" id="blockVisualComposition">
+                    <div class="block-label block-criteria" id="criteriaVisual">② Visual elements and design principles (20%)</div>
+                    <div class="merge-chips detail-only" id="visualMergeChipsRow"><span class="merge-chip" id="visualMergeChipA"></span><span class="merge-chip" id="visualMergeChipB"></span></div>
+                    <div class="block-content" id="visualCompositionDisplay"></div>
+                </div>
             </div>
-            <div class="block detail-only" id="blockVisual">
-                <div class="block-label">視覺元素建議</div>
-                <div class="block-criteria">視覺元素及設計原理 (20%)</div>
-                <div class="block-content" id="visualDisplay"></div>
+            <div class="crit-section crit-section--1 detail-only" id="crit-1">
+                <div class="block" id="blockTechniques">
+                    <div class="block-label" id="labelTechniques">Techniques</div>
+                    <div class="block-criteria" id="criteriaTechniques">① Media and techniques (20%) · Suggested: marker, acrylic, watercolour, oil pastel</div>
+                    <div class="block-content" id="techniquesDisplay"></div>
+                </div>
             </div>
-            <div class="block detail-only" id="blockComposition">
-                <div class="block-label">構圖提示</div>
-                <div class="block-criteria">視覺元素及設計原理 (20%) · 參考：策略1 構圖透視</div>
-                <div class="block-content" id="compositionDisplay"></div>
+            <div class="crit-section crit-section--4 detail-only" id="crit-4">
+                <div class="block" id="blockThemeLink">
+                    <div class="block-label" id="labelThemeLink">Theme link</div>
+                    <div class="block-criteria" id="criteriaThemeLink">④ Theme communication (20%)</div>
+                    <div class="block-content" id="themeLinkDisplay"></div>
+                </div>
             </div>
-            <div class="block detail-only" id="blockTechniques">
-                <div class="block-label">技法建議</div>
-                <div class="block-criteria">媒材及技法的選擇和運用 (20%)</div>
-                <div class="block-content" id="techniquesDisplay"></div>
+            <div class="crit-section crit-section--extra detail-only" id="crit-extra" style="display: none;">
+                <div class="block detail-only block-partA" id="blockPartA" style="display: none;">
+                    <div class="block-label" id="labelPartA">Part A link (appreciation style)</div>
+                    <div class="block-criteria" id="criteriaPartA">2014–2022 past papers · media, composition, light, symbol</div>
+                    <div class="block-content" id="partALinkDisplay"></div>
+                    <div class="block-content colour-tone" id="colourToneDisplay"></div>
+                </div>
+                <div class="block detail-only block-star" id="blockStarTips" style="display: none;">
+                    <div class="block-label" id="labelStarTips">★ Advanced tips (light and composition)</div>
+                    <div class="block-criteria" id="criteriaStarTips">Light and composition suggestions</div>
+                    <div class="block-content" id="starTipsDisplay"></div>
+                </div>
+                <div class="block detail-only block-mistakes" id="blockCommonMistakes" style="display: none;">
+                    <div class="block-label" id="labelMistakes">Common mistakes / notes</div>
+                    <div class="block-criteria" id="criteriaMistakes">Part B should link to Part A · composition and light strategies</div>
+                    <ul class="block-content mistake-list" id="commonMistakesDisplay"></ul>
+                </div>
             </div>
-            <div class="block detail-only" id="blockThemeLink">
-                <div class="block-label">扣題引導</div>
-                <div class="block-criteria">主題傳意 (20%)</div>
-                <div class="block-content" id="themeLinkDisplay"></div>
-            </div>
-            <div class="block detail-only block-partA" id="blockPartA" style="display: none;">
-                <div class="block-label">甲部聯繫（評賞作品風格引導）</div>
-                <div class="block-criteria">2014–2022 歷屆評賞 · 媒材／構圖／光源／符號</div>
-                <div class="block-content" id="partALinkDisplay"></div>
-                <div class="block-content colour-tone" id="colourToneDisplay"></div>
-            </div>
-            <div class="block detail-only block-star" id="blockStarTips" style="display: none;">
-                <div class="block-label">★ 星級提示 (摘星天書)</div>
-                <div class="block-criteria">參考：策略2 光源設計等</div>
-                <div class="block-content" id="starTipsDisplay"></div>
-            </div>
-            <div class="block detail-only block-mistakes" id="blockCommonMistakes" style="display: none;">
-                <div class="block-label">常見犯錯／注意</div>
-                <div class="block-criteria">乙部須聯繫甲部 · 構圖與光源策略</div>
-                <ul class="block-content mistake-list" id="commonMistakesDisplay"></ul>
-            </div>
+            <p class="simple-criteria-hint simple-only" id="simpleCriteriaHint"></p>
             <div class="simple-only simple-summary" id="simpleSummary"></div>
             <div class="prompt-actions">
-                <button type="button" class="action-btn save" onclick="saveFavorite()">★ 收藏</button>
-                <button type="button" class="action-btn primary" onclick="copyCurrent()">📋 複製</button>
-                <button type="button" class="action-btn" onclick="shareCurrent()">↗ 分享</button>
+                <button type="button" class="action-btn save" id="btnSave" onclick="saveFavorite()">★ Save</button>
+                <button type="button" class="action-btn primary" id="btnCopy" onclick="copyCurrent()">📋 Copy</button>
+                <button type="button" class="action-btn" id="btnShare" onclick="shareCurrent()">↗ Share</button>
             </div>
         </div>
-        <button type="button" class="generate-btn" id="generateBtn" onclick="generatePrompt()">✨ 生成題目</button>
+        <button type="button" class="generate-btn" id="generateBtn" onclick="generatePrompt()">✨ Generate</button>
         <div class="favorites">
-            <h3>★ 收藏</h3>
+            <h3 id="favTitle">★ Favorites</h3>
             <div class="fav-list" id="favList"></div>
         </div>
         <div class="history">
             <div class="history-header">
-                <h3>🕘 最近生成</h3>
-                <button type="button" class="action-btn warn" onclick="clearHistory()">清除</button>
+                <h3 id="historyTitle">🕘 Recent</h3>
+                <button type="button" class="action-btn warn" id="btnClear" onclick="clearHistory()">Clear</button>
             </div>
             <div class="history-list" id="historyList"></div>
         </div>
+        <div class="push-panel">
+            <h3 class="push-title" id="pushTitle"></h3>
+            <p class="push-hint" id="pushHint"></p>
+            <input type="password" class="push-secret" id="pushSecret" autocomplete="off" placeholder="" />
+            <div class="push-actions">
+                <button type="button" class="action-btn primary" id="btnPushTest"></button>
+                <button type="button" class="action-btn" id="btnLocalNotify"></button>
+            </div>
+            <p class="push-status" id="pushStatus"></p>
+        </div>
     </div>
-    <div class="timestamp"><span id="timestampLabel">香港時間</span>: <span id="hkTime"></span></div>
+    <div class="timestamp"><span id="timestampLabel">HK Time</span>: <span id="hkTime"></span></div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="./prompts-dse.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => { navigator.serviceWorker.register("./service-worker.js").catch(() => {}); });
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js", { scope: "./" }).catch(() => {});
+            });
         }
-        let currentLang = "zh";
+        let currentLang = "en";
         let currentItem = null;
         const HISTORY_KEY = "dsePromptHistoryV2";
         const FAV_KEY = "dsePromptFavsV2";
         const HISTORY_MAX = 25;
+        /** 本分頁內：中英各一副洗牌；一輪內每條索引只出一次，出晒先再洗（關分頁即重置） */
+        let promptDeckState = { zh: null, en: null };
         const ui = {
-            zh: { title: "DSE 視藝 卷一 乙部 題目生成器", subtitle: "模擬題目，對齊四項評分準則", defaultTheme: "按「生成」取得題目", generate: "✨ 生成題目", save: "★ 收藏", copy: "📋 複製", share: "↗ 分享", clear: "清除", timeLabel: "香港時間", toastCopied: "已複製", toastShared: "已開啟分享", toastShareFail: "已複製到剪貼簿", toastNothing: "請先生成題目", toastCleared: "已清除", simpleMode: "簡潔模式", fullMode: "完整模式" },
-            en: { title: "DSE VA Paper 1 Part B Generator", subtitle: "Constrained topics · 4 marking criteria", defaultTheme: "Click Generate for a topic", generate: "✨ Generate", save: "★ Save", copy: "📋 Copy", share: "↗ Share", clear: "Clear", timeLabel: "HK Time", toastCopied: "Copied", toastShared: "Share opened", toastShareFail: "Copied to clipboard", toastNothing: "Generate first", toastCleared: "Cleared", simpleMode: "Simple", fullMode: "Full" }
+            zh: { title: "DSE 視藝：練拆奪星王", subtitle: "隨機生成模擬題，一鍵拆解扣題位。", defaultTheme: "按「生成」取得題目", generate: "✨ 生成題目", save: "★ 收藏", copy: "📋 複製", share: "↗ 分享", clear: "清除", timeLabel: "香港時間", toastCopied: "已複製", toastShared: "已開啟分享", toastShareFail: "已複製到剪貼簿", toastNothing: "請先生成題目", toastCleared: "已清除", simpleMode: "簡潔模式", fullMode: "完整模式", labelTopic: "命題", criteriaTopic: "③ 創意與想像力 (20%)", labelConcepts: "Concept 諗法", labelVisual: "視覺元素建議", criteriaVisual: "② 視覺元素及設計原理 (20%)", labelComposition: "構圖提示", criteriaComposition: "② 視覺元素及設計原理 (20%) · 構圖與透視", labelTechniques: "技法建議", criteriaTechniques: "① 媒材及技法的選擇和運用 (20%) · 建議：marker／壓克力／水彩／油粉彩", labelThemeLink: "扣題引導", criteriaThemeLink: "④ 主題傳意 (20%)", labelPartA: "甲部聯繫（評賞作品風格引導）", criteriaPartA: "2014–2022 歷屆評賞 · 媒材／構圖／光源／符號", labelStarTips: "★ 進階提示（光源與構圖）", criteriaStarTips: "光源與構圖建議", labelMistakes: "常見犯錯／注意", criteriaMistakes: "乙部須聯繫甲部 · 構圖與光源策略", favTitle: "★ 收藏", historyTitle: "🕘 最近生成", colourTonePrefix: "色彩調性：", difficultyPrefix: " · 難度：", loadError: "題目庫未載入", detailsCriteriaTitle: "點解會見到 ①②③④？", detailsCriteriaBody: "香港 DSE 視藝卷一乙部改卷有四個範疇，各佔約 20%。本工具把每條模擬題拆成對應區塊，練習時易對準評分方向。畫面上「視覺元素」與「構圖」合併顯示；按「複製」時仍會分開兩欄。", pill1Short: "媒材・技法", pill2Short: "視覺・設計", pill3Short: "創意・想像", pill4Short: "主題・傳意", mergeChipVisual: "視覺元素", mergeChipComposition: "構圖", linkHowItWorks: "圖解使用方式（可列印）", railAriaLabel: "DSE 四項評分準則快速跳轉", simpleCriteriaHint: "簡潔模式：只顯示命題與摘錄。按「完整模式」可對照 ①〜④ 全部區塊。", pushTitle: "Web 推播（PWA）", pushHint: "需 HTTPS（Vercel／localhost）。部署後請於 Vercel 設定 VAPID 與 PUSH_TEST_SECRET（見 README）。測試密鑰只會傳到你嘅伺服器。", pushSecretPh: "PUSH_TEST_SECRET", pushBtnSubscribe: "訂閱並發送測試推播", pushBtnLocal: "本機通知測試（不經伺服器）", pushNoSw: "不支援 Service Worker", pushNoPush: "不支援推播", pushNeedSecret: "請輸入測試密鑰", pushVapidMissing: "伺服器未設定 VAPID", pushSent: "已送出推播", pushFail: "推播失敗", pushDenied: "通知權限被拒", pushNotifyTitle: "DSE 視藝：練拆奪星王", pushNotifyBody: "推播測試成功", pushBtnLocalOk: "已顯示本機通知", copyTopic: "【命題】", copyConcepts: "【Concept 諗法】", copyVisual: "【視覺元素】", copyComposition: "【構圖】", copyTechniques: "【技法】", copyThemeLink: "【扣題】", copyPartA: "【甲部聯繫】", copyColourTone: "【色彩調性】", copyStarTips: "【進階提示】", copyMistakes: "【常見犯錯／注意】", copyDifficulty: "【難度】", copyFooter: "DSE 視藝：練拆奪星王 · VA Star-Getter: Gen & Crack" },
+            en: { title: "VA Star-Getter: Gen & Crack", subtitle: "Generate mock topics, crack the marking focus in one tap.", defaultTheme: "Click Generate for a topic", generate: "✨ Generate", save: "★ Save", copy: "📋 Copy", share: "↗ Share", clear: "Clear", timeLabel: "HK Time", toastCopied: "Copied", toastShared: "Share opened", toastShareFail: "Copied to clipboard", toastNothing: "Generate first", toastCleared: "Cleared", simpleMode: "Simple", fullMode: "Full", labelTopic: "Topic", criteriaTopic: "③ Creativity and imagination (20%)", labelConcepts: "Concept", labelVisual: "Visual elements", criteriaVisual: "② Visual elements and design principles (20%)", labelComposition: "Composition", criteriaComposition: "② Visual elements and design principles (20%) · Composition and perspective", labelTechniques: "Techniques", criteriaTechniques: "① Selection and use of media and techniques (20%) · Suggested: marker, acrylic, watercolour, oil pastel", labelThemeLink: "Theme link", criteriaThemeLink: "④ Theme communication (20%)", labelPartA: "Part A link (appreciation style)", criteriaPartA: "2014–2022 past papers · media, composition, light, symbol", labelStarTips: "★ Advanced tips (light and composition)", criteriaStarTips: "Light and composition suggestions", labelMistakes: "Common mistakes / notes", criteriaMistakes: "Part B should link to Part A · composition and light strategies", favTitle: "★ Favorites", historyTitle: "🕘 Recent", colourTonePrefix: "Colour tone: ", difficultyPrefix: " · Level: ", loadError: "Topic list not loaded", detailsCriteriaTitle: "Why ①②③④?", detailsCriteriaBody: "HKDSE VA Paper 1 Part B uses four criteria (~20% each). This app splits each mock topic into matching blocks. Visual elements and composition are merged on screen; Copy still gives two separate lines.", pill1Short: "Media", pill2Short: "Visual design", pill3Short: "Creativity", pill4Short: "Theme", mergeChipVisual: "Visual elements", mergeChipComposition: "Composition", linkHowItWorks: "How it works (printable)", railAriaLabel: "Jump to criteria sections", simpleCriteriaHint: "Simple mode: topic + short summary only. Use Full mode for all blocks ①–④.", pushTitle: "Web Push (PWA)", pushHint: "Needs HTTPS (Vercel / localhost). Set VAPID and PUSH_TEST_SECRET on Vercel (see README). The test secret is only sent to your server.", pushSecretPh: "PUSH_TEST_SECRET", pushBtnSubscribe: "Subscribe & send test push", pushBtnLocal: "Local notification (no server)", pushNoSw: "Service Worker not supported", pushNoPush: "Push not supported", pushNeedSecret: "Enter test secret", pushVapidMissing: "VAPID not configured on server", pushSent: "Push sent", pushFail: "Push failed", pushDenied: "Notification permission denied", pushNotifyTitle: "VA Star-Getter", pushNotifyBody: "Push test OK", pushBtnLocalOk: "Local notification shown", copyTopic: "[Topic]", copyConcepts: "[Concept]", copyVisual: "[Visual elements]", copyComposition: "[Composition]", copyTechniques: "[Techniques]", copyThemeLink: "[Theme link]", copyPartA: "[Part A link]", copyColourTone: "[Colour tone]", copyStarTips: "[Advanced tips]", copyMistakes: "[Common mistakes / notes]", copyDifficulty: "[Level]", copyFooter: "VA Star-Getter: Gen & Crack" }
         };
+        function stripRedundantMediaHints(t, isZh) {
+            if (!t) return "";
+            if (isZh) {
+                const zhParens = [
+                    /（marker／水彩／壓克力）/g, /（marker／壓克力／水彩）/g, /（marker／壓克力／水彩／油粉彩）/g,
+                    /（marker／水彩／壓克力／油粉彩）/g, /（marker／油粉彩）/g, /（壓克力＋marker）/g,
+                    /（marker／水彩）/g
+                ];
+                zhParens.forEach((re) => { t = t.replace(re, ""); });
+                t = t.replace(/虛實與距離（marker／水彩）/g, "虛實與距離");
+                t = t.replace(/\s*、\s*、+/g, "、").replace(/、\s*$/g, "").replace(/^\s*、/g, "");
+            } else {
+                const enParens = [
+                    /\s*\(marker\/watercolour\/acrylic\)/gi, /\s*\(marker\/acrylic\/watercolour\)/gi,
+                    /\s*\(marker\/acrylic\/watercolour\/oil\s*pastel\)/gi,
+                    /\s*\(acrylic\/watercolour\/marker\)/gi,
+                    /\s*\(marker\/oil\s*pastel\)/gi, /\s*\(fine marker lines\)/gi,
+                    /\s*\(acrylic\)/gi, /\s*\(watercolour wash\)/gi
+                ];
+                enParens.forEach((re) => { t = t.replace(re, ""); });
+                t = t.replace(/depth & blur with marker\/watercolour/gi, "depth & blur");
+                t = t.replace(/\s*;\s*;+/g, "; ").trim();
+            }
+            return t.replace(/\s{2,}/g, " ").replace(/\s*([，,、;；])\s*/g, "$1 ").trim();
+        }
+        function sanitizeTechniques(text) {
+            let t = String(text || "");
+            if (!t) return "";
+            const repsZh = [
+                [/(版畫|印刷|printmaking)/gi, "重複筆觸／紋理"],
+                [/(攝影|照片|photo(graphy)?)/gi, "虛實與距離"],
+                [/(數碼|電腦|digital)/gi, "手繪光效"],
+                [/(噴漆|噴繪|spray)/gi, "點噴／飛白"],
+                [/(炭筆|木炭|charcoal)/gi, "深色層＋擦拭提亮"],
+                [/(針筆|fineliner)/gi, "細線描繪"],
+                [/(油彩|oil\\s*paint)/gi, "厚塗"],
+                [/(水墨|ink\\s*wash|ink)/gi, "暈染"],
+                [/(拼貼|collage)/gi, "分區上色"],
+                [/(混合媒材|mixed\\s*media)/gi, "疊加層次"],
+                [/(鋁箔紙|foil)/gi, "高光反光"]
+            ];
+            const repsEn = [
+                [/\bprintmaking\b/gi, "repeated texture strokes, oil pastel"],
+                [/\bphoto(graphy)?\b/gi, "depth & blur"],
+                [/\bdigital\b/gi, "hand-drawn lighting"],
+                [/\bspray\b/gi, "acrylic splatter / dry-brush"],
+                [/\bcharcoal\b/gi, "oil pastel dark layer + lift highlights"],
+                [/\bfineliner\b/gi, "fine line work"],
+                [/\boil\s*paint\b/gi, "acrylic impasto"],
+                [/\bink(\s*wash)?\b/gi, "watercolour wash"],
+                [/\bcollage\b/gi, "layered colour blocks"],
+                [/\bmixed\s*media\b/gi, "layered media"],
+                [/\bfoil\b/gi, "highlight accents"]
+            ];
+            const reps = currentLang === "zh" ? repsZh : repsEn;
+            reps.forEach(([re, repl]) => { t = t.replace(re, repl); });
+            t = stripRedundantMediaHints(t, currentLang === "zh");
+            const isZh = currentLang === "zh";
+            const parts = t
+                .split(/[,，、;；\n]+/g)
+                .map(s => s.trim())
+                .filter(Boolean);
+            const seen = new Set();
+            const uniq = [];
+            for (const p of parts) {
+                const key = p.replace(/\s+/g, " ").toLowerCase();
+                if (seen.has(key)) continue;
+                seen.add(key);
+                uniq.push(p);
+            }
+            return uniq.join(isZh ? "、" : "; ");
+        }
         function getList() { return (typeof DSE_PROMPTS !== "undefined" ? DSE_PROMPTS[currentLang] : []) || []; }
+        function shuffleDeckIndices(arr) {
+            for (var i = arr.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+            }
+            return arr;
+        }
+        /** 新一輪：0..n-1 洗牌；若上一題命題文字同首張則換走（新輪第一題唔接連重複） */
+        function refillPromptDeck(lang, list, avoidTheme) {
+            var n = list.length;
+            var indices = [];
+            for (var k = 0; k < n; k++) indices.push(k);
+            shuffleDeckIndices(indices);
+            if (avoidTheme && n > 1) {
+                var firstIdx = indices[0];
+                if (list[firstIdx].theme === avoidTheme) {
+                    for (var p = 1; p < indices.length; p++) {
+                        if (list[indices[p]].theme !== avoidTheme) {
+                            var sw = indices[0];
+                            indices[0] = indices[p];
+                            indices[p] = sw;
+                            break;
+                        }
+                    }
+                }
+            }
+            promptDeckState[lang] = { indices: indices, pos: 0 };
+        }
+        function pickFromSessionDeck(lang, list, previous) {
+            if (!list.length) return null;
+            var n = list.length;
+            var st = promptDeckState[lang];
+            if (!st || st.pos >= st.indices.length || st.indices.length !== n) {
+                refillPromptDeck(lang, list, previous && previous.theme);
+                st = promptDeckState[lang];
+            }
+            var idx = st.indices[st.pos++];
+            return list[idx];
+        }
         function generatePrompt() {
             const list = getList();
-            if (!list.length) { document.getElementById("themeDisplay").textContent = "題目庫未載入"; return; }
-            const item = list[Math.floor(Math.random() * list.length)];
+            if (!list.length) { document.getElementById("themeDisplay").textContent = ui[currentLang].loadError; return; }
+            const item = pickFromSessionDeck(currentLang, list, currentItem);
             currentItem = item;
             renderItem(item);
             addToHistory(item);
@@ -311,11 +578,19 @@
         }
         function renderItem(item) {
             document.getElementById("themeDisplay").textContent = item.theme;
+            var diffEl = document.getElementById("difficultyDisplay");
+            if (item.difficultyLevel) {
+                diffEl.textContent = ui[currentLang].difficultyPrefix + item.difficultyLevel;
+                diffEl.style.display = "";
+            } else {
+                diffEl.textContent = "";
+                diffEl.style.display = "none";
+            }
             const concepts = Array.isArray(item.concepts) ? item.concepts : [];
             document.getElementById("conceptsDisplay").innerHTML = concepts.length ? "<ul><li>" + concepts.join("</li><li>") + "</li></ul>" : "";
-            document.getElementById("visualDisplay").textContent = item.visualElements || "";
-            document.getElementById("compositionDisplay").textContent = item.composition || "";
-            document.getElementById("techniquesDisplay").textContent = item.techniques || "";
+            var visualComp = [item.visualElements, item.composition].filter(Boolean).join(", ");
+            document.getElementById("visualCompositionDisplay").textContent = visualComp || "";
+            document.getElementById("techniquesDisplay").textContent = sanitizeTechniques(item.techniques || "");
             document.getElementById("themeLinkDisplay").textContent = item.themeLink || "";
             var partABlock = document.getElementById("blockPartA");
             var partAEl = document.getElementById("partALinkDisplay");
@@ -323,7 +598,7 @@
             if (item.partALink || item.colourTone) {
                 partABlock.style.display = "block";
                 partAEl.textContent = item.partALink || "";
-                colourEl.textContent = item.colourTone ? "色彩調性：" + item.colourTone : "";
+                colourEl.textContent = item.colourTone ? ui[currentLang].colourTonePrefix + item.colourTone : "";
             } else {
                 partABlock.style.display = "none";
                 partAEl.textContent = "";
@@ -347,6 +622,9 @@
                 mistakesBlock.style.display = "none";
                 mistakesList.innerHTML = "";
             }
+            var extraEl = document.getElementById("crit-extra");
+            var showExtra = !!(item.partALink || item.colourTone || item.starTips || (item.commonMistakes && item.commonMistakes.length));
+            extraEl.style.display = showExtra ? "block" : "none";
             var summary = concepts.slice(0, 2).join("；") + (item.themeLink ? " —— " + item.themeLink.slice(0, 60) + "…" : "");
             document.getElementById("simpleSummary").textContent = summary;
         }
@@ -401,12 +679,14 @@
         function buildCopyText() {
             if (!currentItem || !currentItem.theme) return "";
             var t = currentItem;
-            var lines = ["【命題】" + t.theme, "【Concept 諗法】"].concat(Array.isArray(t.concepts) ? t.concepts : []).concat(["【視覺元素】" + (t.visualElements || ""), "【構圖】" + (t.composition || ""), "【技法】" + (t.techniques || ""), "【扣題】" + (t.themeLink || "")]);
-            if (t.partALink) lines.push("【甲部聯繫】" + t.partALink);
-            if (t.colourTone) lines.push("【色彩調性】" + t.colourTone);
-            if (t.starTips) lines.push("【★ 星級提示】" + t.starTips);
-            if (t.commonMistakes && t.commonMistakes.length) lines.push("【常見犯錯／注意】", t.commonMistakes.join("\n"));
-            lines.push("", "DSE 視藝 卷一 乙部 題目生成器");
+            var u = ui[currentLang];
+            var lines = [u.copyTopic + " " + t.theme, u.copyConcepts].concat(Array.isArray(t.concepts) ? t.concepts : []).concat([u.copyVisual + " " + (t.visualElements || ""), u.copyComposition + " " + (t.composition || ""), u.copyTechniques + " " + sanitizeTechniques(t.techniques || ""), u.copyThemeLink + " " + (t.themeLink || "")]);
+            if (t.partALink) lines.push(u.copyPartA + " " + t.partALink);
+            if (t.colourTone) lines.push(u.copyColourTone + " " + t.colourTone);
+            if (t.starTips) lines.push(u.copyStarTips + " " + t.starTips);
+            if (t.commonMistakes && t.commonMistakes.length) lines.push(u.copyMistakes, t.commonMistakes.join("\n"));
+            if (t.difficultyLevel) lines.push(u.copyDifficulty + " " + t.difficultyLevel);
+            lines.push("", u.copyFooter);
             return lines.filter(Boolean).join("\n");
         }
         async function copyCurrent() {
@@ -445,17 +725,123 @@
             this.textContent = on ? ui[currentLang].fullMode : ui[currentLang].simpleMode;
             this.classList.toggle("active", on);
         });
+        function urlBase64ToUint8Array(base64String) {
+            const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+            const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+            const raw = atob(base64);
+            const arr = new Uint8Array(raw.length);
+            for (let i = 0; i < raw.length; i++) arr[i] = raw.charCodeAt(i);
+            return arr;
+        }
+        async function subscribePushAndTest() {
+            const statusEl = document.getElementById("pushStatus");
+            const secret = (document.getElementById("pushSecret").value || "").trim();
+            const u = ui[currentLang];
+            if (!("serviceWorker" in navigator)) { statusEl.textContent = u.pushNoSw; return; }
+            if (!("PushManager" in window)) { statusEl.textContent = u.pushNoPush; return; }
+            if (!secret) { showToast(u.pushNeedSecret); statusEl.textContent = u.pushNeedSecret; return; }
+            statusEl.textContent = "";
+            try {
+                const perm = await Notification.requestPermission();
+                if (perm !== "granted") { statusEl.textContent = u.pushDenied; return; }
+                const reg = await navigator.serviceWorker.ready;
+                const keyRes = await fetch("./api/vapid-public-key");
+                const keyJson = await keyRes.json();
+                if (!keyJson.configured || !keyJson.publicKey) { statusEl.textContent = u.pushVapidMissing; return; }
+                const sub = await reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(keyJson.publicKey),
+                });
+                const sendRes = await fetch("./api/push-send", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        secret,
+                        subscription: sub.toJSON(),
+                        title: u.pushNotifyTitle,
+                        body: u.pushNotifyBody,
+                    }),
+                });
+                const sendJson = await sendRes.json().catch(() => ({}));
+                if (!sendRes.ok) {
+                    statusEl.textContent = (sendJson.error || u.pushFail) + (sendJson.message ? ": " + sendJson.message : "");
+                    return;
+                }
+                statusEl.textContent = u.pushSent;
+                showToast(u.pushSent);
+                try { localStorage.setItem("dsePushSub", JSON.stringify(sub.toJSON())); } catch (_) {}
+            } catch (e) {
+                statusEl.textContent = u.pushFail + ": " + (e && e.message ? e.message : String(e));
+            }
+        }
+        async function localNotificationTest() {
+            const u = ui[currentLang];
+            if (!("serviceWorker" in navigator)) { showToast(u.pushNoSw); return; }
+            try {
+                const perm = await Notification.requestPermission();
+                if (perm !== "granted") { showToast(u.pushDenied); return; }
+                const reg = await navigator.serviceWorker.ready;
+                await reg.showNotification(u.pushNotifyTitle, { body: u.pushNotifyBody, icon: "./icon.svg", tag: "local-test" });
+                showToast(u.pushBtnLocalOk);
+            } catch (e) {
+                showToast(u.pushFail + ": " + (e && e.message ? e.message : String(e)));
+            }
+        }
+        document.getElementById("btnPushTest").addEventListener("click", subscribePushAndTest);
+        document.getElementById("btnLocalNotify").addEventListener("click", localNotificationTest);
+        function applyLangLabels() {
+            var u = ui[currentLang];
+            document.getElementById("pageTitle").textContent = u.title;
+            document.getElementById("pageSubtitle").textContent = u.subtitle;
+            document.getElementById("generateBtn").textContent = u.generate;
+            document.getElementById("timestampLabel").textContent = u.timeLabel;
+            document.getElementById("detailsCriteriaTitle").textContent = u.detailsCriteriaTitle;
+            document.getElementById("detailsCriteriaBody").textContent = u.detailsCriteriaBody;
+            document.getElementById("detailsHowLink").textContent = u.linkHowItWorks;
+            document.getElementById("linkHowItWorks").textContent = u.linkHowItWorks;
+            document.getElementById("criteriaRail").setAttribute("aria-label", u.railAriaLabel);
+            document.getElementById("pillText1").textContent = u.pill1Short;
+            document.getElementById("pillText2").textContent = u.pill2Short;
+            document.getElementById("pillText3").textContent = u.pill3Short;
+            document.getElementById("pillText4").textContent = u.pill4Short;
+            document.getElementById("visualMergeChipA").textContent = u.mergeChipVisual;
+            document.getElementById("visualMergeChipB").textContent = u.mergeChipComposition;
+            document.getElementById("simpleCriteriaHint").textContent = u.simpleCriteriaHint;
+            document.getElementById("labelTopic").textContent = u.labelTopic;
+            document.getElementById("criteriaTopicText").textContent = u.criteriaTopic;
+            document.getElementById("labelConcepts").textContent = u.labelConcepts;
+            document.getElementById("criteriaVisual").textContent = u.criteriaVisual;
+            document.getElementById("labelTechniques").textContent = u.labelTechniques;
+            document.getElementById("criteriaTechniques").textContent = u.criteriaTechniques;
+            document.getElementById("labelThemeLink").textContent = u.labelThemeLink;
+            document.getElementById("criteriaThemeLink").textContent = u.criteriaThemeLink;
+            document.getElementById("labelPartA").textContent = u.labelPartA;
+            document.getElementById("criteriaPartA").textContent = u.criteriaPartA;
+            document.getElementById("labelStarTips").textContent = u.labelStarTips;
+            document.getElementById("criteriaStarTips").textContent = u.criteriaStarTips;
+            document.getElementById("labelMistakes").textContent = u.labelMistakes;
+            document.getElementById("criteriaMistakes").textContent = u.criteriaMistakes;
+            document.getElementById("favTitle").textContent = u.favTitle;
+            document.getElementById("historyTitle").textContent = u.historyTitle;
+            document.getElementById("pushTitle").textContent = u.pushTitle;
+            document.getElementById("pushHint").textContent = u.pushHint;
+            document.getElementById("pushSecret").placeholder = u.pushSecretPh;
+            document.getElementById("btnPushTest").textContent = u.pushBtnSubscribe;
+            document.getElementById("btnLocalNotify").textContent = u.pushBtnLocal;
+            document.getElementById("btnSave").textContent = u.save;
+            document.getElementById("btnCopy").textContent = u.copy;
+            document.getElementById("btnShare").textContent = u.share;
+            document.getElementById("btnClear").textContent = u.clear;
+            var simpleOn = document.body.classList.contains("simple-mode");
+            document.getElementById("simpleToggle").textContent = simpleOn ? u.fullMode : u.simpleMode;
+            if (!currentItem) document.getElementById("themeDisplay").textContent = u.defaultTheme;
+        }
         document.querySelectorAll(".lang-btn").forEach(btn => {
             btn.addEventListener("click", () => {
                 document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
                 currentLang = btn.dataset.lang;
-                document.getElementById("pageTitle").textContent = ui[currentLang].title;
-                document.getElementById("pageSubtitle").textContent = ui[currentLang].subtitle;
-                document.getElementById("generateBtn").textContent = ui[currentLang].generate;
-                document.getElementById("timestampLabel").textContent = ui[currentLang].timeLabel;
-                var simpleOn = document.body.classList.contains("simple-mode");
-                document.getElementById("simpleToggle").textContent = simpleOn ? ui[currentLang].fullMode : ui[currentLang].simpleMode;
+                applyLangLabels();
                 if (currentItem) renderItem(currentItem);
             });
         });
@@ -465,6 +851,7 @@
         }
         updateTime();
         setInterval(updateTime, 60000);
+        applyLangLabels();
         loadFavorites();
         loadHistory();
     </script>

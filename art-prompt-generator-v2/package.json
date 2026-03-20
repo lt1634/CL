@@ -1,0 +1,9 @@
+{
+  "name": "art-prompt-generator-v2",
+  "private": true,
+  "version": "2.1.0",
+  "description": "DSE VA Part B mock topic generator (PWA + optional web push)",
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}

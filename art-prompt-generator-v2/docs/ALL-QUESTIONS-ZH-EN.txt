@@ -1,0 +1,776 @@
+DSE 視藝：練拆奪星王 · VA Star-Getter: Gen & Crack
+匯出：prompts-dse.js（中英各 32）
+
+注意：App 內「技法建議」顯示/複製時，會按指引用語做轉換與去重；本檔為題庫原文匯出。
+
+## 中文題目（32）
+
+1) 《在裂縫中綻放的瞬間》
+【Concept 諗法】
+- 衝突中的生機
+- 逆境與突破的特定情境
+- 裂縫與綻放的對比
+【視覺元素建議】線條：裂縫的銳利與花瓣的柔軟對比；色彩：冷灰裂縫與暖色花朵；質感：粗糙裂面與細膩花瓣
+【構圖提示】對比：裂縫分割與生命溢出；焦點：綻放交匯處；可運用強烈明暗突出「瞬間」
+【技法建議】水彩渲染（層次）、拼貼（裂縫與花瓣）、針筆線條（裂痕軌跡）
+【扣題引導】觀眾要讀到「衝突感」與「在不利處綻放」的張力；可透過光源突出裂縫與花朵的對比。
+【進階提示】光源設計：單一光源從裂縫或花心射入，強化戲劇感與「瞬間」的定格。
+【難度】中高
+
+2) 《當冰川遇上熔岩：無聲的對峙》
+【Concept 諗法】
+- 冰川與熔岩的具象對比
+- 冷與熱、靜與動的無聲對峙
+- 自然力量的並置
+【視覺元素建議】線條：冰川的銳利稜線與熔岩的流動曲線；色彩：冷藍白與暖橙紅的強烈對比；質感：冰的透明與岩漿的黏稠
+【構圖提示】對比：強烈明暗或色塊分割；動勢：兩股力量交匯處；焦點：對峙的邊界線
+【技法建議】拼貼（撕裂與重組）、油彩厚塗、炭筆與橡皮的對比；媒材選擇可強化冰與火的質感
+【扣題引導】畫面要有「冰川」與「熔岩」兩方可辨識，觀眾能感受無聲的張力；方便考生選擇具體視覺元素。
+【甲部聯繫】參考 2015 年畢加索《鏡前的女人》：運用強烈原色對比或互補色表現心理與衝突感。
+【色彩調性】互補色或冷暖對比、高飽和度
+【難度】中高
+
+3) 《起點與終點重疊的圓》
+【Concept 諗法】
+- 四季、日夜、生死
+- 重複的日常與儀式
+- 起點與終點的重疊
+【視覺元素建議】形狀：圓、螺旋、迴圈；線條：封閉或迴旋；色彩：可選同一色系不同明度形成循環感
+【構圖提示】節奏：重複單元；平衡：放射或環形構圖；引導線：視線回到起點
+【技法建議】版畫（重複印痕）、數碼圖層循環、水墨暈染的層次
+【扣題引導】觀眾要能讀到「周而復始」或「無始無終」，符號或構圖本身形成循環
+
+4) 《指尖下的千里之外》
+【Concept 諗法】
+- 觸感與距離的矛盾
+- 指尖所觸 vs 心理上的千里
+- 近在眼前與遠在天邊
+【視覺元素建議】透視：指尖特寫與遠景的強烈比例對比；色彩：遠處冷/灰、近處暖/鮮；質感：指尖的清晰與遠方的模糊
+【構圖提示】構圖透視與比例：近大遠小強化「指尖」與「千里」的對比；留白表現距離感
+【技法建議】大氣透視、水彩漸層、攝影拼貼（不同焦距）；可強調觸覺與視覺的轉譯
+【扣題引導】畫面要傳達「觸感」與「距離」的矛盾，觀眾能感受指尖下的遠近與心理隔閡。
+【難度】中
+
+5) 《門縫間窺見的另一個世界》
+【Concept 諗法】
+- 視點限制：透過門縫的框架
+- 內與外的窺見與被窺見
+- 框架效果下的另一個世界
+【視覺元素建議】線條：門縫的狹長邊界與框內空間的對比；形狀：框架構圖（frame within frame）；色彩：門內外可冷暖或明暗對比
+【構圖提示】構圖透視與視點：門縫作為強制框架，引導觀眾視線；分割與平衡在框內外
+【技法建議】膠帶留白、撕邊拼貼、數碼裁切與並置；突出「窺見」的視角限制
+【扣題引導】觀眾要能辨識「門縫」的框架與「另一個世界」的對比，以及視點如何限制與揭示。
+【色彩調性】界線兩側可採用冷暖對比或明暗對比
+【難度】中高
+
+6) 《祖父留下的工具箱》
+【Concept 諗法】
+- 上一代與下一代的交接
+- 技藝與記憶的延續
+- 消失與保留的選擇
+【視覺元素建議】符號：手、工具、舊物；質感：陳舊與嶄新的對比；色彩：懷舊色調與新色並置
+【構圖提示】並置：兩代或前後對比；引導：從一方向另一方的視線流動
+【技法建議】拓印、舊照片拼貼、水墨與書法線條
+【扣題引導】觀眾要讀到「傳下去」或「接過來」的關係，而非單一人物或物件
+【甲部聯繫】參考 2014 年甲部傳統與當代並置（蛋彩金箔與達利油畫）：可採用混合媒材或仿古質感，突出歷史與傳承的層次。
+【色彩調性】懷舊色調、鄰近色、低飽和暖色
+
+7) 《正在褪色的舊照片》
+【Concept 諗法】
+- 正在消失的風景或記憶
+- 褪色與遺忘
+- 存在與缺席的對比
+【視覺元素建議】色彩：褪色、淡出、單色化；線條：斷續、擦除的痕跡；質感：剝落、模糊
+【構圖提示】留白：消失後的空缺；漸層：由實到虛的過渡
+【技法建議】橡皮擦減法、水彩洗淡、數碼透明度、舊紙拼貼
+【扣題引導】觀眾要感受到「曾經在、現在不在」或「正在失去」，而非單純空白
+【甲部聯繫】參考 2018 年社會議題類評賞作品：可利用敘事性的畫面排列（如序列、並置）增加作品深度，避免單一靜態符號。
+【色彩調性】褪色、低飽和、單色或灰階
+
+8) 《每天同一班列車》
+【Concept 諗法】
+- 日常的重複與差異
+- 規律中的意外
+- 複製與變異
+【視覺元素建議】形狀：重複單元；線條：規律的排列；色彩：同一色系或漸變的重複
+【構圖提示】節奏：規律排列；對比：一處打破規律形成焦點
+【技法建議】版畫、印章、數碼複製圖層、網格繪圖
+【扣題引導】觀眾要讀到「重複」的規律，以及你選擇突出的一點變化或例外
+
+9) 《繁華與寂靜之間》
+【Concept 諗法】
+- 光與暗、大與小、多與少
+- 繁華與寂靜
+- 過去與現在
+【視覺元素建議】明暗：強烈對比；色彩：互補色或冷暖對比；質感：粗糙與細膩並置
+【構圖提示】分割：畫面二分或多區對比；焦點：對比交匯處
+【技法建議】木炭與白粉、剪影、拼貼不同質感
+【扣題引導】觀眾要清楚看到「兩極」的並置，並感受你強調的對比關係
+【甲部聯繫】參考 2015 年畢加索《鏡前的女人》幾何與色彩對比：可運用強烈原色或互補色分割畫面，營造對比感。
+【色彩調性】冷暖對比、互補色、高對比明度
+
+10) 《時鐘停擺的那一秒》
+【Concept 諗法】
+- 瞬間與永恆
+- 快與慢的並存
+- 過去現在未來的疊加
+【視覺元素建議】線條：流動感或凝固感；色彩：褪色與鮮明；質感：新舊並置
+【構圖提示】層次：疊加或並置不同時態的意象；引導：時間流動的方向
+【技法建議】多重曝光感、拼貼不同時期影像、水墨暈染的層次
+【扣題引導】觀眾要讀到「時間」的存在（流逝、停頓、重疊），而非單一瞬間
+
+11) 《抽屜深處的一疊舊信》
+【Concept 諗法】
+- 模糊與清晰的交織
+- 選擇性記住與遺忘
+- 個人與集體記憶
+【視覺元素建議】虛實：部分清晰部分模糊；色彩：泛黃、褪色、不飽和；質感：刮擦、疊印
+【構圖提示】層疊：多層意象重疊；焦點：最清晰的一塊
+【技法建議】拼貼舊照、刮畫、水彩疊色、數碼透明度
+【扣題引導】觀眾要感受「回憶」的質感——不完整、可變、帶情緒
+【色彩調性】泛黃、鄰近色、不飽和、局部高飽和
+
+12) 《鏡中的另一個我》
+【Concept 諗法】
+- 多重身份的並存
+- 自我與他人眼中的我
+- 尋找與迷失
+【視覺元素建議】鏡像、碎片、面具；色彩：對比或融合；形狀：完整與破碎
+【構圖提示】並置或疊加：不同面向的「我」；焦點：核心符號
+【技法建議】自畫像變奏、拼貼、鏡像構圖、數碼圖層
+【扣題引導】觀眾要讀到「我是誰」或「身份」的提問，符號可多元但主題明確
+【甲部聯繫】參考 2015 年馬格利特（Magritte）超現實風格：可將人體局部與符號（如鳥籠、物件）結合，表現身份的多重與轉換。
+【色彩調性】對比或融合、可選強烈原色
+
+13) 《被遺忘的角落》
+【Concept 諗法】
+- 中心與邊緣的關係
+- 被忽略的角落
+- 臨界與越界
+【視覺元素建議】構圖：主體靠邊或留白偏一側；線條：指向邊緣或從邊緣溢出；色彩：邊緣與中心的差異
+【構圖提示】不平衡的構圖；負空間作為主角；邊界模糊或銳利
+【技法建議】裁切構圖、留白、邊緣暈染或銳化
+【扣題引導】觀眾要意識到「邊緣」被強調，以及邊緣與中心的關係
+
+14) 《斷線後重新接上的那一刻》
+【Concept 諗法】
+- 人與人、人與物、物與物
+- 斷裂後的重新連結
+- 可見與不可見的連線
+【視覺元素建議】線條：連接、網絡、繩索；形狀：分散單元被線或面連起；色彩：統一或漸變拉近距離
+【構圖提示】引導線連結多個焦點；疏密：連結處的密度
+【技法建議】線條繪畫、網格、拼貼加繪畫連接
+【扣題引導】觀眾要讀到「關係」或「連結」，而非只是多個獨立物件
+
+15) 《喧囂中的一片靜默》
+【Concept 諗法】
+- 無聲的張力
+- 留白與未說
+- 喧囂中的靜止
+【視覺元素建議】大量留白；低飽和或單色；線條簡約、少筆觸
+【構圖提示】留白為主；單一焦點或極少元素；平衡而安靜
+【技法建議】水墨留白、鉛筆輕描、單色渲染
+【扣題引導】觀眾要感受「靜」與「無聲」，畫面節制而有力
+【色彩調性】低飽和、鄰近色或單色、大量留白
+
+16) 《光與影分割的房間》
+【Concept 諗法】
+- 光作為主體
+- 陰影的形狀與意義
+- 曝光與隱藏
+【視覺元素建議】明暗對比強烈；光的形狀（窗格、燈、自然光）；陰影的邊界
+【構圖提示】光影分割畫面；焦點在光或影的交接
+【技法建議】林布蘭光、剪影、色粉或炭筆的明暗
+【扣題引導】觀眾要讀到「光」或「影」的敘事，而非只是技術練習
+【甲部聯繫】參考 2014 年拉圖爾（de La Tour）《聖母在祈禱》：利用單一光源營造強烈明暗對比（Chiaroscuro），創造劇場感與氣氛。
+【色彩調性】明暗對比強、暖色單一光源、暗部冷灰
+
+17) 《驟雨中的鬧市》
+【Concept 諗法】
+- 水、時間、人潮的流動
+- 固體與流體的轉換
+- 阻滯與暢通
+【視覺元素建議】線條：曲線、波浪、傾斜；色彩：漸層、混色；質感：平滑流暢或凝滯
+【構圖提示】動勢：方向一致或交匯；節奏：流動的緩急
+【技法建議】水墨流動、水彩濕畫、數碼動感模糊
+【扣題引導】觀眾要感受「流動」的動態與方向，以及流動中的阻礙或變化
+
+18) 《牆上被塗改的痕跡》
+【Concept 諗法】
+- 人為與自然的痕跡
+- 留下與抹去
+- 痕跡作為證據或記憶
+【視覺元素建議】筆觸、刮擦、污漬、摺痕；質感豐富；新舊痕跡疊加
+【構圖提示】痕跡的分佈與密度；重點痕跡與背景
+【技法建議】拓印、拼貼舊物料、刻意保留筆觸與擦痕
+【扣題引導】觀眾要讀到「誰留下、留下甚麼」，痕跡有意義而非隨機
+
+19) 《空無一人的月台》
+【Concept 諗法】
+- 靜止中的期待
+- 延遲與懸念
+- 空無與即將填滿
+【視覺元素建議】空曠、單一主體、靜止的構圖；色彩可壓抑或帶希望
+【構圖提示】留白；主體偏置或居中；時間感凝結
+【技法建議】單色或低飽和、簡約構圖、光影暗示時間
+【扣題引導】觀眾要感受「在等」的狀態，畫面有懸而未決的張力
+【甲部聯繫】參考 2014 年拉圖爾單一光源與深夜氛圍：可運用強烈明暗對比營造孤獨、等待的劇場感。
+【色彩調性】冷色調、低飽和、局部暖光
+
+20) 《岔路口的指示牌》
+【Concept 諗法】
+- 岔路與取捨
+- 多個可能並存
+- 選了與未選的
+【視覺元素建議】分岔、並置多個選項；符號：路、門、手勢；對比不同選擇的視覺重量
+【構圖提示】分割或分支構圖；焦點在選擇點或已選的一邊
+【技法建議】拼貼多個意象、蒙太奇、並置構圖
+【扣題引導】觀眾要讀到「選擇」的存在與重量，而非只是多個物件
+
+21) 《2040年的香港公共房屋》
+【Concept 諗法】
+- 垂直森林化的公屋，表現環境永續
+- 狹窄居住空間與極致科技設備的矛盾
+- 公共走廊中鄰里關係的數位化轉變
+【視覺元素建議】線條：冷峻的幾何直線；色彩：冷調的科技藍對比溫暖的家居燈光；質感：金屬與透明質地的重疊
+【構圖提示】俯視視角表現城市的壓抑感；運用消失點引導觀眾視線進入幽深的走廊
+【技法建議】數碼繪畫（光效處理）、針筆與水彩（精確細節）、混合媒材拼貼
+【扣題引導】必須體現「未來感」與「香港特色」的結合，避免畫成一般的科幻城市
+【甲部聯繫】參考 2018 年大衛·霍克尼（David Hockney）多視點／匯聚線構圖：城市空間可採用多視點或透視線匯聚，營造壓縮與縱深。
+【色彩調性】冷調科技藍、局部暖色家居光、螢光點綴
+【進階提示】注意光源設計，可使用強烈的螢光效果來強調2040年的氛圍
+【常見犯錯／注意】
+- 犯錯：畫面上缺乏與甲部評賞作品（如徐道獲的絲網房屋或 Whiteread 的石膏負空間）的關聯。
+- 注意：應採用「仰視」或「俯視」透視法，以強化城市空間的壓迫感或規模感。
+- 注意：50 字的創作自白必須清楚說明作品如何回應甲部作品對「空間」或「家」的探討。
+
+22) 《透明的壓力》
+【Concept 諗法】
+- 身體被困在不斷收縮的透明玻璃盒中，表現社交恐懼或心理壓抑
+- 看不見的重力將城市建築壓扁成平面，將物理屬性加諸於建築物
+- 空氣變成液態，人在水中呼吸感到無形的窒息感
+【視覺元素建議】線條：扭曲與受壓的輪廓；色彩：冷調的淺藍與灰白，對比受壓處的瘀紫色；質感：光滑的透明表面對比粗糙的皮膚肌理
+【構圖提示】運用「壓迫感」構圖，物體佔據畫面邊緣，中心留白但充滿張力，參考俯視視角創造空間感
+【技法建議】水彩渲染（表現透明度）、細針筆勾勒裂痕、噴繪法表現流體質感
+【扣題引導】重點在於如何將「看不見」的壓力轉化為「看得到」的視覺符號，觀眾應能讀出物體形狀的改變
+【甲部聯繫】參考 2016 年金昌烈（Kim Tschang-yeul）水珠系列：極端寫實的質感表達可加強「透明」「壓力」的感官轉譯，突出媒材與技法。
+【色彩調性】冷調淺藍與灰白、受壓處瘀紫對比
+【進階提示】注意光源設計，利用強烈的折射光與陰影表現玻璃或液體的物質感，強化畫面氣氛
+
+23) 《被螢幕隔絕的聚餐》
+【Concept 諗法】
+- 飯桌上每個人都被手中的冷色光屏包裹，象徵現代人的疏離
+- 螢幕的光將人物臉部異化，現實世界與數位世界的邊界模糊
+- 背景是灰暗的現實，螢幕內是色彩斑斕的虛擬世界
+【視覺元素建議】色彩：螢幕發出的冷色螢光與環境的暖色調形成強烈對比；形狀：方正的電子屏對比圓形的飯碗
+【構圖提示】採用俯視視角 (Bird's Eye View)，強調飯桌的圓與螢幕方的對峙
+【技法建議】數碼繪畫（光效處理）、拼貼螢光紙、混合媒材表現人物異化感
+【扣題引導】必須表現出「隔絕」的感覺，參考 2024 題目「鏡頭內外」的邏輯，利用畫面邊界劃分空間
+【甲部聯繫】畫面對比：必須明確表現「現實 vs 數位」「內與外」的對比，可參考 2024「鏡頭內外」的視點劃分。
+【色彩調性】螢幕冷光與環境暖色對比、高飽和與灰形成對比
+【進階提示】光源應以螢幕光為主，處理強烈的明暗對比以營造孤寂且科技感的聚餐氣氛
+
+24) 《當山澗流出時間》
+【Concept 諗法】
+- 瀑布流下的不是水，而是無數的小時鐘或齒輪，將動態與時間結合
+- 山石由腐朽的書籍堆疊而成，象徵歷史或知識的累積
+- 遠方的太陽是一個巨大的沙漏，主宰著自然界的循環
+【視覺元素建議】線條：流動的瀑布曲線與靜止的齒輪直線對比；色彩：大地色系（如土黃、赭石）與金屬色的碰撞
+【構圖提示】運用透視線匯聚於消失點（沙漏太陽），引導觀眾視線進入深遠的山澗，參考「近大遠小」原理
+【技法建議】國畫白描結合油畫棒（表現傳統與現代對比）、混合媒材表現岩石質感
+【扣題引導】將「自然景觀」與「時間符號」有機結合，觀眾應能感受到時間在自然中流逝的意境
+【進階提示】光源設計可參考「耶穌光」效果，從山頂射入的光束能增加畫面的神秘感與層次感
+
+25) 《假如我是一個融化的冰雕》
+【Concept 諗法】
+- 在繁華鬧市中逐漸融化，水滴映照出城市的倒影，表現角色代入感
+- 為了保持形狀而拼命抓取冰塊，展現求存的焦慮感
+- 融化的水匯聚成海洋，淹沒腳下的街道，將個體消亡轉化為環境改變
+【視覺元素建議】質感：晶瑩剔透與液態流動的轉化；形狀：由尖銳的棱角變為圓滑的流體
+【構圖提示】採用平視視角 (Eye Level)，拉近觀眾與「我」的距離，增加情感共鳴
+【技法建議】透明膠片拼貼、蠟筆排水法（表現水與冰的關係）、水彩漸變
+【扣題引導】需體現「第一人稱」的感受，參考歷年「假如我是一對筷子」的擬人化邏輯
+【甲部聯繫】參考 2015 年馬格利特與 2023「假如我是一對筷子」：將人體或自我轉化為主題物件的一部分，可結合超現實的符號並置。
+【色彩調性】鄰近色（藍、綠、紫）、局部高亮、透明與流體質感
+【進階提示】著重色彩構成，使用鄰近色（藍、綠、紫）並配合局部高亮點，營造寒冷且透明的質感
+
+26) 《2080年的霓虹森林》
+【Concept 諗法】
+- 香港經典霓虹招牌演化為發光的有機植物，結合城市文化與幻想
+- 廢棄的無人機成為鳥類築巢的場所，表現科技與自然的共生
+- 懸浮的人造島嶼與海底城市相連，拓展空間表現層次
+【視覺元素建議】色彩：極高飽和度的洋紅、翠綠與靛藍；線條：繁複的電路板紋理與有機植物線條交織
+【構圖提示】仰視構圖 (Worm's Eye View)，展現未來城市建築的宏偉與壓抑感
+【技法建議】數碼疊層、噴漆藝術、混合媒材（如鋁箔紙）表現金屬質感
+【扣題引導】必須保留「香港元素」（如特有字體、招牌形狀）以扣連地方特色，避免流於一般的科幻想像
+【進階提示】處理環境光源對物體色彩的影響，招牌的光暈應映射在人物或建築表面，展現複雜的光影效果
+
+27) 《鏡頭內外的運動會》
+【Concept 諗法】
+- 鏡頭內：運動員與觀眾的互動、比賽瞬間
+- 鏡頭外：攝影師、器材、旁觀者的視角
+- 內與外的界線作為構圖分割
+【視覺元素建議】形狀：方框（鏡頭／螢幕）與開放空間的對比；色彩：鏡頭內飽和、鏡頭外可灰或冷
+【構圖提示】明確劃分「內」「外」區域；可採用框架構圖（frame within frame）
+【技法建議】拼貼、數碼裁切並置、混合媒材區分內外
+【扣題引導】觀眾必須一眼辨識何謂「鏡頭內」的畫面；內與外的對比要明確。
+【常見犯錯／注意】
+- 犯錯：畫面中「內」與「外」的分界線模糊，未能明確表現視覺對比。
+- 犯錯：忽略甲部評賞作品（如村上隆或陳洪綬）的符號化或空間布局特點，導致乙部與甲部聯繫薄弱。
+- 注意：必須捕捉鏡頭與運動員的互動，並確保觀眾能一眼辨識出何謂「鏡頭內」的畫面。
+
+28) 《假如我是一對筷子》
+【Concept 諗法】
+- 第一人稱代入：以筷子的視角看世界
+- 筷子的質感轉化（木、金屬、超現實材質）
+- 人與物、使用與被使用的關係
+【視覺元素建議】質感：可參考 Oppenheim 毛皮茶杯的轉化；線條：筷子的延伸與空間的「近大遠小」
+【構圖提示】構圖透視「近大遠小」：筷子作為主體在空間中的延伸感；可俯視或特寫
+【技法建議】混合媒材、超現實質感轉換、細膩寫實與象徵並置
+【扣題引導】必須體現「假如我」的第一人稱與角色代入，而非只畫一對靜止的筷子。
+【常見犯錯／注意】
+- 犯錯：僅將筷子視為靜止物件繪畫，忽略了題目要求的「假如我」第一人稱角色代入感。
+- 注意：應參考甲部評賞中關於物件質感轉化的技巧（如 Oppenheim 的毛皮茶杯），賦予筷子超現實的特質。
+- 注意：運用「近大遠小」原理，強調筷子作為主體在空間中的延伸感。
+
+29) 《森林的呼喚》
+【Concept 諗法】
+- 森林的層次與深度
+- 自然中的神秘感與生機
+- 「呼喚」的聽覺轉化為視覺
+【視覺元素建議】線條：樹幹的重疊與遠近；色彩：綠的層次、光斑；質感：樹皮、葉、霧氣
+【構圖提示】重疊與大氣透視創造深度；避免樹木排列過於單一
+【技法建議】水彩層次、水墨暈染、細膩的自然質感（可參考吳冠中、龔賢）
+【扣題引導】觀眾要讀到「森林」的深度與「呼喚」的氣氛，而非平面裝飾。
+【進階提示】光源設計：「耶穌光」或自然光源，營造森林中神秘且充滿生機的氣氛。
+【常見犯錯／注意】
+- 犯錯：樹木排列過於單一，未能運用重疊或遠近效果創造「森林」的深度。
+- 注意：應運用「耶穌光」或自然光源，營造出森林中神秘且充滿生機的氣氛。
+- 注意：技法上可參考吳冠中或龔賢對自然質感的細膩處理，加強視覺元素的運用。
+
+30) 《深夜裏被音樂聲喚醒》
+【Concept 諗法】
+- 深夜的明暗對比
+- 「音樂聲」的聽覺轉化為視覺（線條、流動、節奏）
+- 被喚醒的瞬間—從睡到醒的狀態
+【視覺元素建議】強烈明暗：單一主光源（室內燈或月光）；線條或色彩可代表聲音（扭曲、流動、重複）
+【構圖提示】單一光源引導視線焦點；畫面中須具體化「聲音」
+【技法建議】炭筆或色粉的明暗、拼貼或流動筆觸表現音樂
+【扣題引導】必須在畫面中具體化「聲音」這一抽象感官，例如運用扭曲的線條或流動的色彩來代表音樂。
+【甲部聯繫】參考 2014 年拉圖爾單一光源：利用室內光或月光營造深夜劇場感。
+【色彩調性】深色主調、單一暖或冷光源、局部高對比
+【常見犯錯／注意】
+- 犯錯：畫面光源過於平均，未能展現「深夜」的強烈明暗對比，導致氛圍不足。
+- 注意：應設定單一主光源（如室內燈光或月光），以室內光引導觀眾視線焦點。
+- 注意：必須在畫面中具體化「聲音」這一抽象感官，例如運用扭曲的線條或流動的色彩來代表音樂。
+
+31) 《被人工智能取代後的畫室》
+【Concept 諗法】
+- 科技與藝術的衝突
+- 空虛感與工具的遺棄
+- 人的痕跡 vs 機器的精準
+【視覺元素建議】線條：人手筆觸與數位精準的對比；質感：畫具、顏料、空椅與螢幕或機械臂；色彩：褪色的人為痕跡與冷色科技光
+【構圖提示】並置：畫室殘留物與 AI/機械的入侵；留白或凌亂表現「取代」後的空虛
+【技法建議】混合媒材（實物拼貼與數碼）、留白與減法、對比性筆觸與平整面
+【扣題引導】引導思考「人的痕跡」與「機器的精準」如何對比；觀眾要讀到取代後的張力或荒涼。
+【甲部聯繫】參考 2022 年數位藝術與傳統繪畫相關評賞：可對比傳統媒材與數位/機械的視覺語言。
+【難度】高
+
+32) 《深海中的霓虹森林》
+【Concept 諗法】
+- 超現實並置：深海與霓虹
+- 光影對比與生態隱喻
+- 壓抑與跳脫的並存
+【視覺元素建議】色彩：互補色表現深海的壓抑與霓虹的跳脫；線條：水波、生物與霓虹光管的交織；質感：水的透明與光管的發光
+【構圖提示】層次：深海的縱深與霓虹森林的前景/中景；焦點：光在深暗中的擴散
+【技法建議】水彩或壓克力的透明疊層、螢光色、混合媒材表現發光體
+【扣題引導】運用互補色強化「深海」與「霓虹」的對比；觀眾要感受超現實並置的張力。
+【色彩調性】深藍綠與霓虹橙紅互補、局部高飽和發光
+【進階提示】光源設計：自發光物體的光源擴散效果，霓虹在深海中形成光暈與反射，營造神秘與生機。
+【難度】中高
+
+## English questions (32)
+
+1) The Moment It Blooms in the Crack
+【Concepts】
+- Life in conflict
+- Adversity and breakthrough in a specific situation
+- Contrast of crack and bloom
+【Visual elements】Lines: sharp crack vs soft petals; colour: cool grey crack vs warm flowers; texture: rough fracture vs delicate bloom
+【Composition】Contrast: crack dividing vs life overflowing; focus at point of bloom; strong value for 'moment'
+【Techniques】Watercolour wash, collage (crack and petals), fineliner (crack traces)
+【Theme link】Viewer reads tension of 'conflict' and 'blooming in adversity'; light can highlight crack vs flower.
+【Advanced tip】Light: single source from crack or flower centre to strengthen drama and frozen 'moment'.
+【Difficulty】medium-high
+
+2) When Glacier Meets Lava: A Silent Standoff
+【Concepts】
+- Concrete contrast of glacier and lava
+- Cold and hot, still and flowing in silence
+- Natural forces juxtaposed
+【Visual elements】Lines: sharp ice edges vs flowing lava curves; colour: cold blue-white vs warm orange-red; texture: transparent ice vs viscous magma
+【Composition】Strong value or colour division; tension at meeting point; focus at boundary
+【Techniques】Collage (tear and reassemble), impasto, charcoal vs eraser; media can reinforce ice/fire texture
+【Theme link】Glacier and lava must be identifiable; viewer feels silent tension; clear visual elements for candidates.
+【Part A link】Reference 2015 Picasso Woman before a Mirror: use strong primary or complementary colour for conflict.
+【Colour tone】Complementary or warm/cool contrast; high saturation
+【Difficulty】medium-high
+
+3) The Circle Where Start and End Overlap
+【Concepts】
+- Seasons, day/night, life/death
+- Repetition and ritual
+- Start and end meeting
+【Visual elements】Circles, spirals; closed or recurring lines; colour in a loop
+【Composition】Rhythm, radial or circular layout; eye returns to start
+【Techniques】Printmaking, digital layers, ink wash layers
+【Theme link】Viewer reads 'cycle' or 'no beginning or end'
+
+4) A Thousand Miles Beneath the Fingertip
+【Concepts】
+- Contradiction of touch and distance
+- What the finger touches vs psychological distance
+- Near at hand and far away
+【Visual elements】Perspective: strong scale contrast between fingertip close-up and distant view; colour: distant cool/grey, near warm/saturated; texture: sharp finger vs blurred far
+【Composition】Composition and scale: near big, far small to stress fingertip vs 'thousand miles'; negative space for distance
+【Techniques】Atmospheric perspective, watercolour gradation, photo collage (different focus); emphasise touch-to-vision
+【Theme link】Viewer feels contradiction of touch and distance, and psychological gap.
+【Difficulty】medium
+
+5) The Other World Seen Through the Door Crack
+【Concepts】
+- Viewpoint limit: framing through the crack
+- Peeking and being seen; inside and outside
+- Another world within the frame
+【Visual elements】Lines: narrow door-crack boundary vs framed space; shape: frame within frame; colour: warm/cool or value contrast across crack
+【Composition】Composition and viewpoint: door crack as forced frame guiding the eye; division and balance in/out of frame
+【Techniques】Tape resist, torn-edge collage, digital crop and juxtapose; emphasise 'peeking' perspective
+【Theme link】Viewer identifies the door-crack frame and 'other world' contrast, and how viewpoint limits and reveals.
+【Colour tone】Warm/cool or value contrast across the line
+【Difficulty】medium-high
+
+6) The Toolbox Grandfather Left Behind
+【Concepts】
+- Handing down between generations
+- Skill and memory continuing
+- What is kept or lost
+【Visual elements】Hands, tools, old objects; old vs new texture; nostalgic vs fresh colour
+【Composition】Juxtaposition; flow from one to the other
+【Techniques】Rubbing, old photo collage, ink and calligraphy
+【Theme link】Viewer reads 'passing on' or 'receiving'
+【Part A link】Reference 2014 Part A traditional vs contemporary (egg tempera/gold vs Dali oil): use mixed media or antique texture for inheritance.
+【Colour tone】Nostalgic, analogous, low-saturation warm
+
+7) The Old Photo That Is Fading
+【Concepts】
+- What is vanishing
+- Fading and forgetting
+- Presence and absence
+【Visual elements】Faded colour, broken lines, erasure; peeling, blur
+【Composition】Negative space; transition from solid to void
+【Techniques】Eraser, washed watercolour, transparency, old paper
+【Theme link】Viewer feels 'was here, now not' or 'losing'
+【Part A link】Reference 2018 narrative/historical works: use narrative arrangement (sequence, juxtaposition) for depth.
+【Colour tone】Faded, low saturation, monochrome or grey
+
+8) The Same Train Every Day
+【Concepts】
+- Daily repeat and variation
+- Pattern and exception
+- Copy and mutation
+【Visual elements】Repeated units; regular lines; same hue or gradient repeat
+【Composition】Rhythm; one break in pattern as focus
+【Techniques】Print, stamp, digital duplicate layers
+【Theme link】Viewer reads repetition and the one change
+
+9) Between Bustle and Silence
+【Concepts】
+- Light and dark, big and small
+- Bustle and silence
+- Past and present
+【Visual elements】Strong value contrast; complementary or warm/cool; rough vs smooth
+【Composition】Split or zoned contrast; focus at meeting point
+【Techniques】Charcoal and white, silhouette, collage
+【Theme link】Viewer sees two poles and the relation
+【Part A link】Reference 2015 Picasso geometric and colour contrast: use strong primary or complementary colour to divide the picture.
+【Colour tone】Warm/cool contrast, complementary, high value contrast
+
+10) The Second the Clock Stopped
+【Concepts】
+- Moment and eternity
+- Fast and slow
+- Past present future layered
+【Visual elements】Flowing or frozen lines; faded vs vivid colour; old and new texture
+【Composition】Layers of different times; direction of flow
+【Techniques】Multiple exposure feel, collage of eras, ink layers
+【Theme link】Viewer reads time—passing, pausing, overlapping
+
+11) A Pile of Old Letters at the Back of the Drawer
+【Concepts】
+- Blur and clarity
+- Selective remembering
+- Personal and collective
+【Visual elements】Sharp and soft; yellowed, faded; scrape, overprint
+【Composition】Layers; one clear focal area
+【Techniques】Old photo collage, scratch, watercolour layers
+【Theme link】Viewer feels the texture of memory—incomplete, shifting
+【Colour tone】Yellowed, analogous, desaturated with local saturation
+
+12) The Other Me in the Mirror
+【Concepts】
+- Multiple selves
+- Self vs others' view
+- Searching and losing
+【Visual elements】Mirror, fragments, masks; contrast or merge; whole and broken
+【Composition】Juxtapose or overlay 'selves'; core symbol
+【Techniques】Self-portrait variation, collage, mirror
+【Theme link】Viewer reads 'who am I' or 'identity'
+【Part A link】Reference 2015 Magritte surrealism: combine body parts with symbols (e.g. birdcage) for identity and transformation.
+【Colour tone】Contrast or merge; optional strong primaries
+
+13) The Forgotten Corner
+【Concepts】
+- Centre and margin
+- Neglected corners
+- Limit and crossing
+【Visual elements】Subject at edge; lines to or from edge; centre vs edge colour
+【Composition】Unbalanced; negative space; soft or hard edge
+【Techniques】Cropping, leave white, edge blur or sharpen
+【Theme link】Viewer notices the edge and its relation to centre
+
+14) The Moment the Line Was Reconnected
+【Concepts】
+- Between people, people and things
+- Reconnecting after break
+- Visible and invisible links
+【Visual elements】Lines linking, networks; scattered units joined; colour unifying
+【Composition】Guiding lines; density at links
+【Techniques】Line drawing, grid, collage with drawn links
+【Theme link】Viewer reads 'relation' or 'connection'
+
+15) A Patch of Silence in the Noise
+【Concepts】
+- Tension without sound
+- What is unsaid
+- Stillness in noise
+【Visual elements】Lots of white; low saturation or monochrome; minimal line
+【Composition】White dominant; one or few elements; calm balance
+【Techniques】Ink leave-white, light pencil, single hue
+【Theme link】Viewer feels quiet and restraint
+【Colour tone】Low saturation, analogous or monochrome, ample white
+
+16) The Room Divided by Light and Shadow
+【Concepts】
+- Light as subject
+- Shape of shadow
+- Reveal and hide
+【Visual elements】Strong value; shape of light; edge of shadow
+【Composition】Light and shadow divide; focus at meeting
+【Techniques】Rembrandt light, silhouette, charcoal/chiaroscuro
+【Theme link】Viewer reads a story of light or shadow
+【Part A link】Reference 2014 La Tour Virgin in Prayer: single light source, strong chiaroscuro for theatrical mood.
+【Colour tone】Strong value contrast; warm single source; cool grey in shadow
+
+17) The Busy Street in a Sudden Downpour
+【Concepts】
+- Water, time, crowd
+- Solid to fluid
+- Block and release
+【Visual elements】Curves, waves; gradation, blend; smooth or sticky
+【Composition】Direction of flow; rhythm
+【Techniques】Ink flow, wet watercolour, motion blur
+【Theme link】Viewer feels movement and direction
+
+18) The Marks Someone Erased on the Wall
+【Concepts】
+- Human and natural traces
+- Leave and erase
+- Trace as evidence
+【Visual elements】Stroke, scrape, stain, fold; rich texture; layers of trace
+【Composition】Distribution of traces; key vs background
+【Techniques】Rubbing, old material collage, visible strokes
+【Theme link】Viewer reads who left what
+
+19) The Empty Platform
+【Concepts】
+- Stillness and expectation
+- Delay and suspense
+- Empty and about to fill
+【Visual elements】Empty, single subject, still; subdued or hopeful colour
+【Composition】White space; subject off-centre or central
+【Techniques】Monochrome, simple composition, light for time
+【Theme link】Viewer feels 'waiting' and unresolved tension
+【Part A link】Reference 2014 La Tour single light and night mood: use strong value contrast for loneliness and waiting.
+【Colour tone】Cool, low saturation, local warm light
+
+20) The Signpost at the Fork in the Road
+【Concepts】
+- Fork in the road
+- Alternatives present
+- Chosen and unchosen
+【Visual elements】Branching, juxtaposed options; road, door, gesture; weight of choices
+【Composition】Split or branch; focus at point of choice
+【Techniques】Collage of options, montage
+【Theme link】Viewer reads the presence and weight of choice
+
+21) Hong Kong Public Housing 2040
+【Concepts】
+- Vertical forest housing; sustainability
+- Cramped space vs high-tech gear
+- Digitalised neighbourhood in corridors
+【Visual elements】Cold geometric lines; tech blue vs warm interior light; metal and transparent texture
+【Composition】Bird's eye for urban pressure; vanishing point into deep corridor
+【Techniques】Digital (light), fineliner + watercolour, mixed-media collage
+【Theme link】Must show 'future' + 'Hong Kong identity', not generic sci-fi
+【Part A link】Reference 2018 David Hockney multi-viewpoint/converging lines: use multi-view or perspective for urban space and depth.
+【Colour tone】Cool tech blue, local warm interior, fluorescent accent
+【Advanced tip】Use strong fluorescent light to emphasise 2040 atmosphere
+【Common mistakes / notes】
+- Mistake: No link to Part A works (e.g. Do Ho Suh net house, Whiteread negative space).
+- Note: Use 'worm's eye' or 'bird's eye' perspective to strengthen urban pressure or scale.
+- Note: 50-word statement must explain how the work responds to Part A on 'space' or 'home'.
+
+22) Transparent Pressure
+【Concepts】
+- Body trapped in shrinking glass box; social anxiety
+- Invisible gravity flattening buildings
+- Air as liquid; suffocation
+【Visual elements】Twisted, compressed contours; cool blue/grey vs bruised purple; smooth transparent vs rough skin
+【Composition】Claustrophobic layout; objects at edges, tense centre
+【Techniques】Watercolour (transparency), fineliner (cracks), spray
+【Theme link】Make 'invisible' pressure visible; viewer reads shape change
+【Part A link】Reference 2016 Kim Tschang-yeul water droplets: extreme realist texture to strengthen sensory translation of 'pressure'.
+【Colour tone】Cool blue/grey; bruised purple at pressure points
+【Advanced tip】Refraction and shadow for glass/liquid; strengthen mood
+
+23) Dinner Isolated by Screens
+【Concepts】
+- Table lit by cold screens; modern alienation
+- Screen light distorting faces; real vs digital
+- Grey reality vs vivid virtual world
+【Visual elements】Cold screen glow vs warm room; square screens vs round bowls
+【Composition】Bird's eye; circle of table vs square screens
+【Techniques】Digital light, fluorescent paper collage, mixed media
+【Theme link】Show 'isolation'; reference 'inside/outside lens' logic
+【Part A link】Contrast method: clearly show 'reality vs digital' or 'inside vs outside' as in 2024 'inside/outside lens'.
+【Colour tone】Screen cold glow vs room warm; high sat vs grey
+【Advanced tip】Screen as main light; strong contrast for lonely tech mood
+
+24) When the Mountain Stream Flows Time
+【Concepts】
+- Waterfall of clocks/gears; motion and time
+- Rocks as stacked decaying books; history
+- Sun as giant hourglass
+【Visual elements】Flowing curves vs static gear lines; earth tones vs metal
+【Composition】Vanishing point at hourglass sun; deep stream; scale perspective
+【Techniques】Ink line + oil pastel, mixed media for rock
+【Theme link】Landscape + time symbols; viewer feels time passing
+【Advanced tip】God rays from summit for mystery and depth
+
+25) If I Were a Melting Ice Sculpture
+【Concepts】
+- Melting in the city; reflection in droplets
+- Clutching ice to survive; anxiety
+- Melt becoming ocean; individual to environment
+【Visual elements】Crystalline to fluid; sharp edges to smooth flow
+【Composition】Eye level; close to 'me' for empathy
+【Techniques】Transparent collage, wax resist, watercolour gradient
+【Theme link】First-person feel; reference 'if I were chopsticks' logic
+【Part A link】Reference 2015 Magritte and 2023 'if I were chopsticks': transform body/self into the object; surreal symbol juxtaposition.
+【Colour tone】Analogous blue, green, purple; local highlight; transparent/fluid
+【Advanced tip】Analogous colours (blue, green, purple) + highlights for cold transparency
+
+26) Neon Forest 2080
+【Concepts】
+- HK neon signs as glowing organic plants
+- Abandoned drones as nests; tech and nature
+- Floating islands and underwater city
+【Visual elements】High saturation magenta, green, indigo; circuit and organic lines
+【Composition】Worm's eye view; monumental future architecture
+【Techniques】Digital layers, spray, foil etc. for metal
+【Theme link】Keep HK elements (type, sign shapes); avoid generic sci-fi
+【Advanced tip】Environmental light on surfaces; neon halo on figures and buildings
+
+27) Inside and Outside the Lens: The Sports Day
+【Concepts】
+- Inside lens: athletes and crowd
+- Outside: photographer, gear, bystander view
+- Clear boundary between inside/outside
+【Visual elements】Frame (lens/screen) vs open space; colour: saturated inside, grey/cool outside
+【Composition】Clearly divide 'inside' and 'outside'; frame within frame
+【Techniques】Collage, digital crop and juxtapose
+【Theme link】Viewer must instantly recognise what is 'inside the lens'.
+【Common mistakes / notes】
+- Mistake: Boundary between 'inside' and 'outside' is blurred.
+- Mistake: Ignoring Part A (e.g. Murakami, Chen) symbol or layout weakens Part B link.
+- Note: Capture lens–athlete interaction; viewer must identify 'inside' at a glance.
+
+28) If I Were a Pair of Chopsticks
+【Concepts】
+- First person as chopsticks
+- Texture transformation (wood, metal, surreal)
+- User and used relationship
+【Visual elements】Texture: reference Oppenheim fur teacup; line: chopsticks extending, scale perspective
+【Composition】Composition and scale: chopsticks as main subject in space; overhead or close-up
+【Techniques】Mixed media, surreal texture shift, realist and symbolic
+【Theme link】Must show 'if I' first-person role play, not just static chopsticks.
+【Common mistakes / notes】
+- Mistake: Drawing chopsticks as still object, ignoring 'if I' first-person.
+- Note: Reference Part A object transformation (e.g. Oppenheim fur teacup) for surreal quality.
+- Note: Use scale (near big, far small) for chopsticks in space.
+
+29) The Call of the Forest
+【Concepts】
+- Layers and depth of forest
+- Mystery and life in nature
+- Translating 'call' from sound to image
+【Visual elements】Overlapping trunks, distance; green gradation, light patches; bark, leaf, mist texture
+【Composition】Overlap and atmospheric perspective for depth; avoid flat row of trees
+【Techniques】Watercolour layers, ink wash; fine natural texture (e.g. Wu Guanzhong, Gong Xian)
+【Theme link】Viewer reads forest depth and 'call' atmosphere.
+【Advanced tip】Light: 'god rays' or natural light for mystery and life.
+【Common mistakes / notes】
+- Mistake: Trees in a single row; no overlap or depth.
+- Note: Use 'god rays' or natural light for forest mood.
+- Note: Reference Wu Guanzhong or Gong Xian for natural texture.
+
+30) Woken by Music in the Deep Night
+【Concepts】
+- Strong night light/shadow
+- Sound as visual (lines, flow, rhythm)
+- Moment of waking
+【Visual elements】Single main light (lamp or moon); lines or colour for sound (twisted, flowing)
+【Composition】Single source guides focus; make 'sound' visible in the image
+【Techniques】Charcoal or pastel value; collage or flowing strokes for music
+【Theme link】Make 'sound' visible—e.g. twisted lines or flowing colour for music.
+【Part A link】Reference 2014 La Tour single light for night theatrical mood.
+【Colour tone】Dark base, single warm or cool source, local contrast
+【Common mistakes / notes】
+- Mistake: Light too even; no strong value contrast for 'deep night'.
+- Note: Set one main light (lamp or moon) to guide focus.
+- Note: Make sound visible—e.g. twisted lines or flowing colour.
+
+31) The Studio After AI Replaced It
+【Concepts】
+- Conflict of tech and art
+- Emptiness and abandoned tools
+- Human trace vs machine precision
+【Visual elements】Lines: hand stroke vs digital precision; texture: brushes, paint, empty chair vs screen or robot arm; colour: faded human trace vs cold tech light
+【Composition】Juxtapose studio remains with AI/machine intrusion; emptiness or clutter for 'replaced'
+【Techniques】Mixed media (object collage and digital), subtraction and white space, contrasting stroke vs flat surface
+【Theme link】Guide reflection on 'human trace' vs 'machine precision'; viewer reads tension or desolation after replacement.
+【Part A link】Reference 2022 digital art and traditional painting: contrast traditional media with digital/mechanical visual language.
+【Difficulty】high
+
+32) Neon Forest in the Deep Sea
+【Concepts】
+- Surreal juxtaposition: deep sea and neon
+- Light-shadow contrast and ecological metaphor
+- Oppression and escape coexisting
+【Visual elements】Colour: complementary for deep-sea pressure vs neon escape; lines: waves, creatures and neon tubes; texture: transparent water vs glowing tubes
+【Composition】Layers: depth of sea and neon forest in foreground/mid; focus on light spreading in darkness
+【Techniques】Watercolour or acrylic transparent layers, fluorescent colour, mixed media for luminous bodies
+【Theme link】Use complementary colour to stress deep sea vs neon; viewer feels tension of surreal juxtaposition.
+【Colour tone】Deep blue-green and neon orange-red complementary; local high-saturation glow
+【Advanced tip】Light: self-luminous diffusion—neon creates halo and reflection in deep sea for mystery and life.
+【Difficulty】medium-high

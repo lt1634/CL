@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練拆奪星王 · 圖解使用方式 | VA Star-Getter How it works</title>
+    <meta name="theme-color" content="#0f3460">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 45%, #0f3460 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            padding: 24px 18px 48px;
+            line-height: 1.55;
+        }
+        .wrap { max-width: 720px; margin: 0 auto; }
+        h1 {
+            font-size: 1.55rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .sub { color: #888; font-size: 0.92rem; margin-bottom: 28px; }
+        .cta {
+            display: inline-block;
+            margin-bottom: 28px;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: #1a1a2e;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 999px;
+            font-size: 0.95rem;
+        }
+        .cta:hover { filter: brightness(1.06); }
+        h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #48dbfb;
+            margin: 26px 0 12px;
+        }
+        .flow {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        @media (min-width: 560px) {
+            .flow { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        }
+        .flow-step {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 14px 12px;
+            text-align: center;
+            font-size: 0.78rem;
+        }
+        .flow-step strong { display: block; font-size: 1.1rem; margin-bottom: 6px; }
+        .c1 { border-left: 4px solid #48dbfb; }
+        .c2 { border-left: 4px solid #c084fc; }
+        .c3 { border-left: 4px solid #feca57; }
+        .c4 { border-left: 4px solid #ff6b6b; }
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 8px;
+        }
+        .grid-table th, .grid-table td {
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .grid-table th { background: rgba(0,0,0,0.25); color: #48dbfb; font-weight: 600; }
+        .muted { color: #9aa; font-size: 0.88rem; }
+        .callout {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(72,219,251,0.1);
+            border: 1px solid rgba(72,219,251,0.25);
+            font-size: 0.85rem;
+        }
+        .en { margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.12); }
+        .en h1 { font-size: 1.35rem; }
+        footer { margin-top: 36px; font-size: 0.75rem; color: #555; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>DSE 視藝：練拆奪星王</h1>
+        <p class="sub">卷一乙部（創作）模擬題 · 圖解使用方式（可列印或截圖分享）</p>
+        <a class="cta" href="../index.html">開啟題目生成器</a>
+
+        <h2>一、考試情境</h2>
+        <p class="muted">香港中學文憑試（DSE）視覺藝術科，卷一乙部為限時創作。評卷通常以<strong>四個範疇</strong>評分，各佔約 <strong>20%</strong>（實際以考評局指引為準）。本工具<strong>不代替</strong>官方評分，只協助「練題」與「對準方向」。</p>
+
+        <h2>二、四項準則（概念圖）</h2>
+        <div class="flow">
+            <div class="flow-step c1"><strong>①</strong>媒材及技法的選擇和運用</div>
+            <div class="flow-step c2"><strong>②</strong>視覺元素及設計原理的選擇和運用</div>
+            <div class="flow-step c3"><strong>③</strong>創意與想像力</div>
+            <div class="flow-step c4"><strong>④</strong>主題傳意</div>
+        </div>
+
+        <h2>三、畫面上怎樣對應？</h2>
+        <table class="grid-table">
+            <thead>
+                <tr><th>準則</th><th>你會在 App 見到</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>③</strong> 創意與想像力</td><td><strong>命題</strong>（題目句）+ <strong>Concept 諗法</strong>（多點）</td></tr>
+                <tr><td><strong>②</strong> 視覺元素及設計原理</td><td>合併一區：<strong>視覺元素</strong>與<strong>構圖</strong>文字並列（用逗號連接）。</td></tr>
+                <tr><td><strong>①</strong> 媒材及技法</td><td><strong>技法建議</strong>（題庫以考場常見手繪媒材為主）</td></tr>
+                <tr><td><strong>④</strong> 主題傳意</td><td><strong>扣題引導</strong></td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <strong>複製全文：</strong>按「複製」時，<strong>視覺元素</strong>與<strong>構圖</strong>仍會分成兩行輸出，方便貼到筆記或課堂工作紙。
+        </div>
+
+        <h2>四、可選區塊</h2>
+        <p class="muted">部分題目另附：甲部聯繫、進階提示、常見犯錯／注意、難度等——出現時代表題庫有額外教學向提示，可作「加分思考」而非必答框架。</p>
+
+        <div class="en">
+            <h1>VA Star-Getter: Gen & Crack</h1>
+            <p class="sub">Paper 1 Part B (creation) mock topics — visual guide (print-friendly)</p>
+            <a class="cta" href="../index.html">Open the generator</a>
+
+            <h2>1. Context</h2>
+            <p class="muted">HKDSE Visual Arts Paper 1B is a timed creation task. Marking typically uses <strong>four criteria</strong> at ~<strong>20% each</strong> (follow official authority guidance). This app does <strong>not</strong> replace official grading; it helps you practise and stay aligned with criteria language.</p>
+
+            <h2>2. Four criteria</h2>
+            <div class="flow">
+                <div class="flow-step c1"><strong>①</strong>Selection &amp; use of media &amp; techniques</div>
+                <div class="flow-step c2"><strong>②</strong>Visual elements &amp; design principles</div>
+                <div class="flow-step c3"><strong>③</strong>Creativity &amp; imagination</div>
+                <div class="flow-step c4"><strong>④</strong>Communication of theme</div>
+            </div>
+
+            <h2>3. How the UI maps</h2>
+            <table class="grid-table">
+                <thead>
+                    <tr><th>Criterion</th><th>On-screen blocks</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>③</strong> Creativity &amp; imagination</td><td><strong>Topic</strong> line + <strong>Concept</strong> bullet list</td></tr>
+                    <tr><td><strong>②</strong> Visual / design</td><td>One merged area: visual + composition text (comma-joined).</td></tr>
+                    <tr><td><strong>①</strong> Media &amp; techniques</td><td><strong>Techniques</strong></td></tr>
+                    <tr><td><strong>④</strong> Theme communication</td><td><strong>Theme link</strong></td></tr>
+                </tbody>
+            </table>
+            <div class="callout">
+                <strong>Copy:</strong> Full copy still outputs <strong>visual elements</strong> and <strong>composition</strong> as <strong>two lines</strong> for notes / worksheets.
+            </div>
+        </div>
+
+        <footer>VA Star-Getter · Educational mock-topic helper · 2026</footer>
+    </div>
+</body>
+</html>

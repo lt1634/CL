@@ -1,28 +1,31 @@
 /**
- * DSE 視藝卷一 Part B 模擬題目庫
+ * DSE 視藝：練拆奪星王 · VA Star-Getter: Gen & Crack — 題目庫
  * 每條含：命題、Concept 諗法、視覺元素建議、構圖提示、技法建議、扣題引導；部分含 starTips、partALink（甲部評賞聯繫）、colourTone（色彩調性）
  * 甲部聯繫：融入 2014–2022 歷屆評賞作品風格（媒材、構圖、光源、符號），供乙部創作對應
- * 來源：歷年試題 + 《摘星天書》策略 1 構圖透視、策略 2 光源設計
+ * 來源：歷年試題；構圖透視與光源設計等應試要點
  */
 const DSE_PROMPTS = {
   zh: [
     {
-      theme: "《由種子到開花的那一天》",
-      concepts: ["由種子到開花的階段變化", "個人與環境的互相塑造", "傷疤與癒合作為成長的痕跡"],
-      visualElements: "線條：由幼到粗、由斷續到連續；色彩：由冷到暖或單色漸層；質感：由平滑到粗糙的對比",
-      composition: "平衡：不對稱平衡表現成長的不穩定；對比：大小、疏密；節奏：重複的單元逐漸變化",
-      techniques: "水彩渲染（層次）、拼貼（碎片重組）、針筆線條（軌跡）",
-      themeLink: "觀眾要能從畫面讀到「轉變」或「過程」，而非單一靜態符號；可透過序列、對比、符號重複出現來扣題"
+      theme: "《在裂縫中綻放的瞬間》",
+      concepts: ["衝突中的生機", "逆境與突破的特定情境", "裂縫與綻放的對比"],
+      visualElements: "線條：裂縫的銳利與花瓣的柔軟對比；色彩：冷灰裂縫與暖色花朵；質感：粗糙裂面與細膩花瓣",
+      composition: "對比：裂縫分割與生命溢出；焦點：綻放交匯處；可運用強烈明暗突出「瞬間」",
+      techniques: "水彩渲染（層次）、拼貼（裂縫與花瓣）、針筆線條（裂痕軌跡）",
+      themeLink: "觀眾要讀到「衝突感」與「在不利處綻放」的張力；可透過光源突出裂縫與花朵的對比。",
+      starTips: "光源設計：單一光源從裂縫或花心射入，強化戲劇感與「瞬間」的定格。",
+      difficultyLevel: "中高"
     },
     {
-      theme: "《兩種力量相遇的瞬間》",
-      concepts: ["內在與外在的拉扯", "新舊並置的張力", "人與自然的對立與共存"],
-      visualElements: "線條：交錯、斷裂、對抗的走向；色彩：對比色或冷暖撞擊；質感：粗糙與光滑的並置",
-      composition: "對比：強烈明暗或色塊分割；動勢：對角線或放射線製造緊張；焦點：衝突交匯處",
-      techniques: "拼貼（撕裂與重組）、油彩厚塗、炭筆與橡皮的對比",
-      themeLink: "畫面要有「兩方」或「兩種力量」可辨識，觀眾能感受張力而非只看到混亂",
+      theme: "《當冰川遇上熔岩：無聲的對峙》",
+      concepts: ["冰川與熔岩的具象對比", "冷與熱、靜與動的無聲對峙", "自然力量的並置"],
+      visualElements: "線條：冰川的銳利稜線與熔岩的流動曲線；色彩：冷藍白與暖橙紅的強烈對比；質感：冰的透明與岩漿的黏稠",
+      composition: "對比：強烈明暗或色塊分割；動勢：兩股力量交匯處；焦點：對峙的邊界線",
+      techniques: "拼貼（撕裂與重組）、油彩厚塗、炭筆與橡皮的對比；媒材選擇可強化冰與火的質感",
+      themeLink: "畫面要有「冰川」與「熔岩」兩方可辨識，觀眾能感受無聲的張力；方便考生選擇具體視覺元素。",
       partALink: "參考 2015 年畢加索《鏡前的女人》：運用強烈原色對比或互補色表現心理與衝突感。",
-      colourTone: "互補色或冷暖對比、高飽和度"
+      colourTone: "互補色或冷暖對比、高飽和度",
+      difficultyLevel: "中高"
     },
     {
       theme: "《起點與終點重疊的圓》",
@@ -33,21 +36,23 @@ const DSE_PROMPTS = {
       themeLink: "觀眾要能讀到「周而復始」或「無始無終」，符號或構圖本身形成循環"
     },
     {
-      theme: "《地圖上的一厘米》",
-      concepts: ["地理與心理的距離", "觸不到的渴望", "靠近與疏離的對比"],
-      visualElements: "透視：遠近、虛實；色彩：遠處冷/灰、近處暖/鮮；質感：清晰與模糊的對比",
-      composition: "空間：前景中景遠景的層次；留白：大量空白表現距離感",
-      techniques: "大氣透視、水彩漸層、攝影拼貼（不同焦距）",
-      themeLink: "畫面要傳達「之間」的距離感，觀眾能感受遠近或心理上的隔閡"
+      theme: "《指尖下的千里之外》",
+      concepts: ["觸感與距離的矛盾", "指尖所觸 vs 心理上的千里", "近在眼前與遠在天邊"],
+      visualElements: "透視：指尖特寫與遠景的強烈比例對比；色彩：遠處冷/灰、近處暖/鮮；質感：指尖的清晰與遠方的模糊",
+      composition: "構圖透視與比例：近大遠小強化「指尖」與「千里」的對比；留白表現距離感",
+      techniques: "大氣透視、水彩漸層、攝影拼貼（不同焦距）；可強調觸覺與視覺的轉譯",
+      themeLink: "畫面要傳達「觸感」與「距離」的矛盾，觀眾能感受指尖下的遠近與心理隔閡。",
+      difficultyLevel: "中"
     },
     {
-      theme: "《門內與門外》",
-      concepts: ["有形與無形的界線", "跨越與固守", "內與外的分界"],
-      visualElements: "線條：明確的邊界或模糊的過渡；形狀：被分割的畫面；色彩：界線兩側的對比",
-      composition: "分割：垂直/水平/斜線切分畫面；平衡：界線兩側的輕重",
-      techniques: "膠帶留白、撕邊拼貼、數碼裁切與並置",
-      themeLink: "觀眾要能辨識「界線」的存在，以及你對界限的態度（跨越、尊重、打破）",
-      colourTone: "界線兩側可採用冷暖對比或明暗對比"
+      theme: "《門縫間窺見的另一個世界》",
+      concepts: ["視點限制：透過門縫的框架", "內與外的窺見與被窺見", "框架效果下的另一個世界"],
+      visualElements: "線條：門縫的狹長邊界與框內空間的對比；形狀：框架構圖（frame within frame）；色彩：門內外可冷暖或明暗對比",
+      composition: "構圖透視與視點：門縫作為強制框架，引導觀眾視線；分割與平衡在框內外",
+      techniques: "膠帶留白、撕邊拼貼、數碼裁切與並置；突出「窺見」的視角限制",
+      themeLink: "觀眾要能辨識「門縫」的框架與「另一個世界」的對比，以及視點如何限制與揭示。",
+      colourTone: "界線兩側可採用冷暖對比或明暗對比",
+      difficultyLevel: "中高"
     },
     {
       theme: "《祖父留下的工具箱》",
@@ -193,7 +198,7 @@ const DSE_PROMPTS = {
       starTips: "注意光源設計，可使用強烈的螢光效果來強調2040年的氛圍",
       partALink: "參考 2018 年大衛·霍克尼（David Hockney）多視點／匯聚線構圖：城市空間可採用多視點或透視線匯聚，營造壓縮與縱深。",
       colourTone: "冷調科技藍、局部暖色家居光、螢光點綴",
-      commonMistakes: ["犯錯：畫面上缺乏與甲部評賞作品（如徐道獲的絲網房屋或 Whiteread 的石膏負空間）的關聯。", "注意：應採用 Strategy 1 的「仰視」或「俯視」透視法，以強化城市空間的壓迫感或規模感。", "注意：50 字的創作自白必須清楚說明作品如何回應甲部作品對「空間」或「家」的探討。"]
+      commonMistakes: ["犯錯：畫面上缺乏與甲部評賞作品（如徐道獲的絲網房屋或 Whiteread 的石膏負空間）的關聯。", "注意：應採用「仰視」或「俯視」透視法，以強化城市空間的壓迫感或規模感。", "注意：50 字的創作自白必須清楚說明作品如何回應甲部作品對「空間」或「家」的探討。"]
     },
     {
       theme: "《透明的壓力》",
@@ -214,7 +219,7 @@ const DSE_PROMPTS = {
       techniques: "數碼繪畫（光效處理）、拼貼螢光紙、混合媒材表現人物異化感",
       themeLink: "必須表現出「隔絕」的感覺，參考 2024 題目「鏡頭內外」的邏輯，利用畫面邊界劃分空間",
       starTips: "光源應以螢幕光為主，處理強烈的明暗對比以營造孤寂且科技感的聚餐氣氛",
-      partALink: "摘星天書對比法：必須明確表現「現實 vs 數位」「內與外」的對比，可參考 2024「鏡頭內外」的視點劃分。",
+      partALink: "畫面對比：必須明確表現「現實 vs 數位」「內與外」的對比，可參考 2024「鏡頭內外」的視點劃分。",
       colourTone: "螢幕冷光與環境暖色對比、高飽和與灰形成對比"
     },
     {
@@ -259,10 +264,10 @@ const DSE_PROMPTS = {
       theme: "《假如我是一對筷子》",
       concepts: ["第一人稱代入：以筷子的視角看世界", "筷子的質感轉化（木、金屬、超現實材質）", "人與物、使用與被使用的關係"],
       visualElements: "質感：可參考 Oppenheim 毛皮茶杯的轉化；線條：筷子的延伸與空間的「近大遠小」",
-      composition: "Strategy 1「近大遠小」：筷子作為主體在空間中的延伸感；可俯視或特寫",
+      composition: "構圖透視「近大遠小」：筷子作為主體在空間中的延伸感；可俯視或特寫",
       techniques: "混合媒材、超現實質感轉換、細膩寫實與象徵並置",
       themeLink: "必須體現「假如我」的第一人稱與角色代入，而非只畫一對靜止的筷子。",
-      commonMistakes: ["犯錯：僅將筷子視為靜止物件繪畫，忽略了題目要求的「假如我」第一人稱角色代入感。", "注意：應參考甲部評賞中關於物件質感轉化的技巧（如 Oppenheim 的毛皮茶杯），賦予筷子超現實的特質。", "注意：運用 Strategy 1 中的「近大遠小」原理，強調筷子作為主體在空間中的延伸感。"]
+      commonMistakes: ["犯錯：僅將筷子視為靜止物件繪畫，忽略了題目要求的「假如我」第一人稱角色代入感。", "注意：應參考甲部評賞中關於物件質感轉化的技巧（如 Oppenheim 的毛皮茶杯），賦予筷子超現實的特質。", "注意：運用「近大遠小」原理，強調筷子作為主體在空間中的延伸感。"]
     },
     {
       theme: "《森林的呼喚》",
@@ -271,8 +276,8 @@ const DSE_PROMPTS = {
       composition: "重疊與大氣透視創造深度；避免樹木排列過於單一",
       techniques: "水彩層次、水墨暈染、細膩的自然質感（可參考吳冠中、龔賢）",
       themeLink: "觀眾要讀到「森林」的深度與「呼喚」的氣氛，而非平面裝飾。",
-      starTips: "Strategy 2「耶穌光」或自然光源，營造森林中神秘且充滿生機的氣氛。",
-      commonMistakes: ["犯錯：樹木排列過於單一，未能運用重疊或遠近效果創造「森林」的深度。", "注意：應參考 Strategy 2 提到的「耶穌光」或自然光源，營造出森林中神秘且充滿生機的氣氛。", "注意：技法上可參考吳冠中或龔賢對自然質感的細膩處理，加強視覺元素的運用。"]
+      starTips: "光源設計：「耶穌光」或自然光源，營造森林中神秘且充滿生機的氣氛。",
+      commonMistakes: ["犯錯：樹木排列過於單一，未能運用重疊或遠近效果創造「森林」的深度。", "注意：應運用「耶穌光」或自然光源，營造出森林中神秘且充滿生機的氣氛。", "注意：技法上可參考吳冠中或龔賢對自然質感的細膩處理，加強視覺元素的運用。"]
     },
     {
       theme: "《深夜裏被音樂聲喚醒》",
@@ -283,15 +288,36 @@ const DSE_PROMPTS = {
       themeLink: "必須在畫面中具體化「聲音」這一抽象感官，例如運用扭曲的線條或流動的色彩來代表音樂。",
       partALink: "參考 2014 年拉圖爾單一光源：利用室內光或月光營造深夜劇場感。",
       colourTone: "深色主調、單一暖或冷光源、局部高對比",
-      commonMistakes: ["犯錯：畫面光源過於平均，未能展現「深夜」的強烈明暗對比，導致氛圍不足。", "注意：應設定單一主光源（如室內燈光或月光），利用 Strategy 2 的室內光策略來引導觀眾視線焦點。", "注意：必須在畫面中具體化「聲音」這一抽象感官，例如運用扭曲的線條或流動的色彩來代表音樂。"]
+      commonMistakes: ["犯錯：畫面光源過於平均，未能展現「深夜」的強烈明暗對比，導致氛圍不足。", "注意：應設定單一主光源（如室內燈光或月光），以室內光引導觀眾視線焦點。", "注意：必須在畫面中具體化「聲音」這一抽象感官，例如運用扭曲的線條或流動的色彩來代表音樂。"]
+    },
+    {
+      theme: "《被人工智能取代後的畫室》",
+      concepts: ["科技與藝術的衝突", "空虛感與工具的遺棄", "人的痕跡 vs 機器的精準"],
+      visualElements: "線條：人手筆觸與數位精準的對比；質感：畫具、顏料、空椅與螢幕或機械臂；色彩：褪色的人為痕跡與冷色科技光",
+      composition: "並置：畫室殘留物與 AI/機械的入侵；留白或凌亂表現「取代」後的空虛",
+      techniques: "混合媒材（實物拼貼與數碼）、留白與減法、對比性筆觸與平整面",
+      themeLink: "引導思考「人的痕跡」與「機器的精準」如何對比；觀眾要讀到取代後的張力或荒涼。",
+      partALink: "參考 2022 年數位藝術與傳統繪畫相關評賞：可對比傳統媒材與數位/機械的視覺語言。",
+      difficultyLevel: "高"
+    },
+    {
+      theme: "《深海中的霓虹森林》",
+      concepts: ["超現實並置：深海與霓虹", "光影對比與生態隱喻", "壓抑與跳脫的並存"],
+      visualElements: "色彩：互補色表現深海的壓抑與霓虹的跳脫；線條：水波、生物與霓虹光管的交織；質感：水的透明與光管的發光",
+      composition: "層次：深海的縱深與霓虹森林的前景/中景；焦點：光在深暗中的擴散",
+      techniques: "水彩或壓克力的透明疊層、螢光色、混合媒材表現發光體",
+      themeLink: "運用互補色強化「深海」與「霓虹」的對比；觀眾要感受超現實並置的張力。",
+      starTips: "光源設計：自發光物體的光源擴散效果，霓虹在深海中形成光暈與反射，營造神秘與生機。",
+      colourTone: "深藍綠與霓虹橙紅互補、局部高飽和發光",
+      difficultyLevel: "中高"
     }
   ],
   en: [
-    { theme: "The Day the Seed Became a Flower", concepts: ["From seed to bloom", "Self and environment shaping each other", "Scars and healing as growth"], visualElements: "Lines: thin to thick, broken to continuous; colour: cool to warm or tonal gradation; texture: smooth vs rough contrast", composition: "Balance: asymmetrical for instability; contrast: size, density; rhythm: repeated units evolving", techniques: "Watercolour wash, collage (fragments), fineliner (traces)", themeLink: "Viewer should read 'change' or 'process', not a single static symbol; use sequence, contrast, recurring symbols" },
-    { theme: "The Moment Two Forces Meet", concepts: ["Inner vs outer pull", "Old and new in tension", "Human vs nature"], visualElements: "Lines: crossing, breaking; colour: complementary or warm/cool clash; texture: rough vs smooth", composition: "Strong contrast, diagonal tension; focus at point of conflict", techniques: "Collage (tear and reassemble), impasto, charcoal vs eraser", themeLink: "Two sides or forces should be readable; viewer feels tension, not chaos", partALink: "Reference 2015 Picasso Woman before a Mirror: use strong primary or complementary colour contrast for psychological conflict.", colourTone: "Complementary or warm/cool contrast; high saturation" },
+    { theme: "The Moment It Blooms in the Crack", concepts: ["Life in conflict", "Adversity and breakthrough in a specific situation", "Contrast of crack and bloom"], visualElements: "Lines: sharp crack vs soft petals; colour: cool grey crack vs warm flowers; texture: rough fracture vs delicate bloom", composition: "Contrast: crack dividing vs life overflowing; focus at point of bloom; strong value for 'moment'", techniques: "Watercolour wash, collage (crack and petals), fineliner (crack traces)", themeLink: "Viewer reads tension of 'conflict' and 'blooming in adversity'; light can highlight crack vs flower.", starTips: "Light: single source from crack or flower centre to strengthen drama and frozen 'moment'.", difficultyLevel: "medium-high" },
+    { theme: "When Glacier Meets Lava: A Silent Standoff", concepts: ["Concrete contrast of glacier and lava", "Cold and hot, still and flowing in silence", "Natural forces juxtaposed"], visualElements: "Lines: sharp ice edges vs flowing lava curves; colour: cold blue-white vs warm orange-red; texture: transparent ice vs viscous magma", composition: "Strong value or colour division; tension at meeting point; focus at boundary", techniques: "Collage (tear and reassemble), impasto, charcoal vs eraser; media can reinforce ice/fire texture", themeLink: "Glacier and lava must be identifiable; viewer feels silent tension; clear visual elements for candidates.", partALink: "Reference 2015 Picasso Woman before a Mirror: use strong primary or complementary colour for conflict.", colourTone: "Complementary or warm/cool contrast; high saturation", difficultyLevel: "medium-high" },
     { theme: "The Circle Where Start and End Overlap", concepts: ["Seasons, day/night, life/death", "Repetition and ritual", "Start and end meeting"], visualElements: "Circles, spirals; closed or recurring lines; colour in a loop", composition: "Rhythm, radial or circular layout; eye returns to start", techniques: "Printmaking, digital layers, ink wash layers", themeLink: "Viewer reads 'cycle' or 'no beginning or end'" },
-    { theme: "One Centimetre on the Map", concepts: ["Physical and emotional distance", "Longing out of reach", "Near and far"], visualElements: "Perspective, clarity vs blur; colour: distant cool/grey, near warm/saturated", composition: "Foreground / mid / back; ample negative space", techniques: "Atmospheric perspective, watercolour gradation", themeLink: "Viewer feels the 'in-between' and distance" },
-    { theme: "Inside and Outside the Door", concepts: ["Visible and invisible limits", "Crossing or holding the line", "Inside and outside"], visualElements: "Clear or blurred edges; divided picture plane; contrast across the line", composition: "Division; balance on either side", techniques: "Tape resist, torn-edge collage", themeLink: "Viewer identifies the boundary and your stance toward it", colourTone: "Warm/cool or value contrast across the line" },
+    { theme: "A Thousand Miles Beneath the Fingertip", concepts: ["Contradiction of touch and distance", "What the finger touches vs psychological distance", "Near at hand and far away"], visualElements: "Perspective: strong scale contrast between fingertip close-up and distant view; colour: distant cool/grey, near warm/saturated; texture: sharp finger vs blurred far", composition: "Composition and scale: near big, far small to stress fingertip vs 'thousand miles'; negative space for distance", techniques: "Atmospheric perspective, watercolour gradation, photo collage (different focus); emphasise touch-to-vision", themeLink: "Viewer feels contradiction of touch and distance, and psychological gap.", difficultyLevel: "medium" },
+    { theme: "The Other World Seen Through the Door Crack", concepts: ["Viewpoint limit: framing through the crack", "Peeking and being seen; inside and outside", "Another world within the frame"], visualElements: "Lines: narrow door-crack boundary vs framed space; shape: frame within frame; colour: warm/cool or value contrast across crack", composition: "Composition and viewpoint: door crack as forced frame guiding the eye; division and balance in/out of frame", techniques: "Tape resist, torn-edge collage, digital crop and juxtapose; emphasise 'peeking' perspective", themeLink: "Viewer identifies the door-crack frame and 'other world' contrast, and how viewpoint limits and reveals.", colourTone: "Warm/cool or value contrast across the line", difficultyLevel: "medium-high" },
     { theme: "The Toolbox Grandfather Left Behind", concepts: ["Handing down between generations", "Skill and memory continuing", "What is kept or lost"], visualElements: "Hands, tools, old objects; old vs new texture; nostalgic vs fresh colour", composition: "Juxtaposition; flow from one to the other", techniques: "Rubbing, old photo collage, ink and calligraphy", themeLink: "Viewer reads 'passing on' or 'receiving'", partALink: "Reference 2014 Part A traditional vs contemporary (egg tempera/gold vs Dali oil): use mixed media or antique texture for inheritance.", colourTone: "Nostalgic, analogous, low-saturation warm" },
     { theme: "The Old Photo That Is Fading", concepts: ["What is vanishing", "Fading and forgetting", "Presence and absence"], visualElements: "Faded colour, broken lines, erasure; peeling, blur", composition: "Negative space; transition from solid to void", techniques: "Eraser, washed watercolour, transparency, old paper", themeLink: "Viewer feels 'was here, now not' or 'losing'", partALink: "Reference 2018 narrative/historical works: use narrative arrangement (sequence, juxtaposition) for depth.", colourTone: "Faded, low saturation, monochrome or grey" },
     { theme: "The Same Train Every Day", concepts: ["Daily repeat and variation", "Pattern and exception", "Copy and mutation"], visualElements: "Repeated units; regular lines; same hue or gradient repeat", composition: "Rhythm; one break in pattern as focus", techniques: "Print, stamp, digital duplicate layers", themeLink: "Viewer reads repetition and the one change" },
@@ -307,15 +333,17 @@ const DSE_PROMPTS = {
     { theme: "The Marks Someone Erased on the Wall", concepts: ["Human and natural traces", "Leave and erase", "Trace as evidence"], visualElements: "Stroke, scrape, stain, fold; rich texture; layers of trace", composition: "Distribution of traces; key vs background", techniques: "Rubbing, old material collage, visible strokes", themeLink: "Viewer reads who left what" },
     { theme: "The Empty Platform", concepts: ["Stillness and expectation", "Delay and suspense", "Empty and about to fill"], visualElements: "Empty, single subject, still; subdued or hopeful colour", composition: "White space; subject off-centre or central", techniques: "Monochrome, simple composition, light for time", themeLink: "Viewer feels 'waiting' and unresolved tension", partALink: "Reference 2014 La Tour single light and night mood: use strong value contrast for loneliness and waiting.", colourTone: "Cool, low saturation, local warm light" },
     { theme: "The Signpost at the Fork in the Road", concepts: ["Fork in the road", "Alternatives present", "Chosen and unchosen"], visualElements: "Branching, juxtaposed options; road, door, gesture; weight of choices", composition: "Split or branch; focus at point of choice", techniques: "Collage of options, montage", themeLink: "Viewer reads the presence and weight of choice" },
-    { theme: "Hong Kong Public Housing 2040", concepts: ["Vertical forest housing; sustainability", "Cramped space vs high-tech gear", "Digitalised neighbourhood in corridors"], visualElements: "Cold geometric lines; tech blue vs warm interior light; metal and transparent texture", composition: "Bird's eye for urban pressure; vanishing point into deep corridor", techniques: "Digital (light), fineliner + watercolour, mixed-media collage", themeLink: "Must show 'future' + 'Hong Kong identity', not generic sci-fi", starTips: "Use strong fluorescent light to emphasise 2040 atmosphere", partALink: "Reference 2018 David Hockney multi-viewpoint/converging lines: use multi-view or perspective for urban space and depth.", colourTone: "Cool tech blue, local warm interior, fluorescent accent", commonMistakes: ["Mistake: No link to Part A works (e.g. Do Ho Suh net house, Whiteread negative space).", "Note: Use Strategy 1 'worm's eye' or 'bird's eye' to strengthen urban pressure or scale.", "Note: 50-word statement must explain how the work responds to Part A on 'space' or 'home'."] },
+    { theme: "Hong Kong Public Housing 2040", concepts: ["Vertical forest housing; sustainability", "Cramped space vs high-tech gear", "Digitalised neighbourhood in corridors"], visualElements: "Cold geometric lines; tech blue vs warm interior light; metal and transparent texture", composition: "Bird's eye for urban pressure; vanishing point into deep corridor", techniques: "Digital (light), fineliner + watercolour, mixed-media collage", themeLink: "Must show 'future' + 'Hong Kong identity', not generic sci-fi", starTips: "Use strong fluorescent light to emphasise 2040 atmosphere", partALink: "Reference 2018 David Hockney multi-viewpoint/converging lines: use multi-view or perspective for urban space and depth.", colourTone: "Cool tech blue, local warm interior, fluorescent accent", commonMistakes: ["Mistake: No link to Part A works (e.g. Do Ho Suh net house, Whiteread negative space).", "Note: Use 'worm's eye' or 'bird's eye' perspective to strengthen urban pressure or scale.", "Note: 50-word statement must explain how the work responds to Part A on 'space' or 'home'."] },
     { theme: "Transparent Pressure", concepts: ["Body trapped in shrinking glass box; social anxiety", "Invisible gravity flattening buildings", "Air as liquid; suffocation"], visualElements: "Twisted, compressed contours; cool blue/grey vs bruised purple; smooth transparent vs rough skin", composition: "Claustrophobic layout; objects at edges, tense centre", techniques: "Watercolour (transparency), fineliner (cracks), spray", themeLink: "Make 'invisible' pressure visible; viewer reads shape change", starTips: "Refraction and shadow for glass/liquid; strengthen mood", partALink: "Reference 2016 Kim Tschang-yeul water droplets: extreme realist texture to strengthen sensory translation of 'pressure'.", colourTone: "Cool blue/grey; bruised purple at pressure points" },
     { theme: "Dinner Isolated by Screens", concepts: ["Table lit by cold screens; modern alienation", "Screen light distorting faces; real vs digital", "Grey reality vs vivid virtual world"], visualElements: "Cold screen glow vs warm room; square screens vs round bowls", composition: "Bird's eye; circle of table vs square screens", techniques: "Digital light, fluorescent paper collage, mixed media", themeLink: "Show 'isolation'; reference 'inside/outside lens' logic", starTips: "Screen as main light; strong contrast for lonely tech mood", partALink: "Contrast method: clearly show 'reality vs digital' or 'inside vs outside' as in 2024 'inside/outside lens'.", colourTone: "Screen cold glow vs room warm; high sat vs grey" },
     { theme: "When the Mountain Stream Flows Time", concepts: ["Waterfall of clocks/gears; motion and time", "Rocks as stacked decaying books; history", "Sun as giant hourglass"], visualElements: "Flowing curves vs static gear lines; earth tones vs metal", composition: "Vanishing point at hourglass sun; deep stream; scale perspective", techniques: "Ink line + oil pastel, mixed media for rock", themeLink: "Landscape + time symbols; viewer feels time passing", starTips: "God rays from summit for mystery and depth" },
     { theme: "If I Were a Melting Ice Sculpture", concepts: ["Melting in the city; reflection in droplets", "Clutching ice to survive; anxiety", "Melt becoming ocean; individual to environment"], visualElements: "Crystalline to fluid; sharp edges to smooth flow", composition: "Eye level; close to 'me' for empathy", techniques: "Transparent collage, wax resist, watercolour gradient", themeLink: "First-person feel; reference 'if I were chopsticks' logic", starTips: "Analogous colours (blue, green, purple) + highlights for cold transparency", partALink: "Reference 2015 Magritte and 2023 'if I were chopsticks': transform body/self into the object; surreal symbol juxtaposition.", colourTone: "Analogous blue, green, purple; local highlight; transparent/fluid" },
     { theme: "Neon Forest 2080", concepts: ["HK neon signs as glowing organic plants", "Abandoned drones as nests; tech and nature", "Floating islands and underwater city"], visualElements: "High saturation magenta, green, indigo; circuit and organic lines", composition: "Worm's eye view; monumental future architecture", techniques: "Digital layers, spray, foil etc. for metal", themeLink: "Keep HK elements (type, sign shapes); avoid generic sci-fi", starTips: "Environmental light on surfaces; neon halo on figures and buildings" },
     { theme: "Inside and Outside the Lens: The Sports Day", concepts: ["Inside lens: athletes and crowd", "Outside: photographer, gear, bystander view", "Clear boundary between inside/outside"], visualElements: "Frame (lens/screen) vs open space; colour: saturated inside, grey/cool outside", composition: "Clearly divide 'inside' and 'outside'; frame within frame", techniques: "Collage, digital crop and juxtapose", themeLink: "Viewer must instantly recognise what is 'inside the lens'.", commonMistakes: ["Mistake: Boundary between 'inside' and 'outside' is blurred.", "Mistake: Ignoring Part A (e.g. Murakami, Chen) symbol or layout weakens Part B link.", "Note: Capture lens–athlete interaction; viewer must identify 'inside' at a glance."] },
-    { theme: "If I Were a Pair of Chopsticks", concepts: ["First person as chopsticks", "Texture transformation (wood, metal, surreal)", "User and used relationship"], visualElements: "Texture: reference Oppenheim fur teacup; line: chopsticks extending, scale perspective", composition: "Strategy 1 scale: chopsticks as main subject in space; overhead or close-up", techniques: "Mixed media, surreal texture shift, realist and symbolic", themeLink: "Must show 'if I' first-person role play, not just static chopsticks.", commonMistakes: ["Mistake: Drawing chopsticks as still object, ignoring 'if I' first-person.", "Note: Reference Part A object transformation (e.g. Oppenheim fur teacup) for surreal quality.", "Note: Use Strategy 1 scale (near big, far small) for chopsticks in space."] },
-    { theme: "The Call of the Forest", concepts: ["Layers and depth of forest", "Mystery and life in nature", "Translating 'call' from sound to image"], visualElements: "Overlapping trunks, distance; green gradation, light patches; bark, leaf, mist texture", composition: "Overlap and atmospheric perspective for depth; avoid flat row of trees", techniques: "Watercolour layers, ink wash; fine natural texture (e.g. Wu Guanzhong, Gong Xian)", themeLink: "Viewer reads forest depth and 'call' atmosphere.", starTips: "Strategy 2 'god rays' or natural light for mystery and life.", commonMistakes: ["Mistake: Trees in a single row; no overlap or depth.", "Note: Use Strategy 2 'god rays' or natural light for forest mood.", "Note: Reference Wu Guanzhong or Gong Xian for natural texture."] },
-    { theme: "Woken by Music in the Deep Night", concepts: ["Strong night light/shadow", "Sound as visual (lines, flow, rhythm)", "Moment of waking"], visualElements: "Single main light (lamp or moon); lines or colour for sound (twisted, flowing)", composition: "Single source guides focus; make 'sound' visible in the image", techniques: "Charcoal or pastel value; collage or flowing strokes for music", themeLink: "Make 'sound' visible—e.g. twisted lines or flowing colour for music.", partALink: "Reference 2014 La Tour single light for night theatrical mood.", colourTone: "Dark base, single warm or cool source, local contrast", commonMistakes: ["Mistake: Light too even; no strong value contrast for 'deep night'.", "Note: Set one main light (lamp or moon); Strategy 2 to guide focus.", "Note: Make sound visible—e.g. twisted lines or flowing colour."] }
+    { theme: "If I Were a Pair of Chopsticks", concepts: ["First person as chopsticks", "Texture transformation (wood, metal, surreal)", "User and used relationship"], visualElements: "Texture: reference Oppenheim fur teacup; line: chopsticks extending, scale perspective", composition: "Composition and scale: chopsticks as main subject in space; overhead or close-up", techniques: "Mixed media, surreal texture shift, realist and symbolic", themeLink: "Must show 'if I' first-person role play, not just static chopsticks.", commonMistakes: ["Mistake: Drawing chopsticks as still object, ignoring 'if I' first-person.", "Note: Reference Part A object transformation (e.g. Oppenheim fur teacup) for surreal quality.", "Note: Use scale (near big, far small) for chopsticks in space."] },
+    { theme: "The Call of the Forest", concepts: ["Layers and depth of forest", "Mystery and life in nature", "Translating 'call' from sound to image"], visualElements: "Overlapping trunks, distance; green gradation, light patches; bark, leaf, mist texture", composition: "Overlap and atmospheric perspective for depth; avoid flat row of trees", techniques: "Watercolour layers, ink wash; fine natural texture (e.g. Wu Guanzhong, Gong Xian)", themeLink: "Viewer reads forest depth and 'call' atmosphere.", starTips: "Light: 'god rays' or natural light for mystery and life.", commonMistakes: ["Mistake: Trees in a single row; no overlap or depth.", "Note: Use 'god rays' or natural light for forest mood.", "Note: Reference Wu Guanzhong or Gong Xian for natural texture."] },
+    { theme: "Woken by Music in the Deep Night", concepts: ["Strong night light/shadow", "Sound as visual (lines, flow, rhythm)", "Moment of waking"], visualElements: "Single main light (lamp or moon); lines or colour for sound (twisted, flowing)", composition: "Single source guides focus; make 'sound' visible in the image", techniques: "Charcoal or pastel value; collage or flowing strokes for music", themeLink: "Make 'sound' visible—e.g. twisted lines or flowing colour for music.", partALink: "Reference 2014 La Tour single light for night theatrical mood.", colourTone: "Dark base, single warm or cool source, local contrast", commonMistakes: ["Mistake: Light too even; no strong value contrast for 'deep night'.", "Note: Set one main light (lamp or moon) to guide focus.", "Note: Make sound visible—e.g. twisted lines or flowing colour."] },
+    { theme: "The Studio After AI Replaced It", concepts: ["Conflict of tech and art", "Emptiness and abandoned tools", "Human trace vs machine precision"], visualElements: "Lines: hand stroke vs digital precision; texture: brushes, paint, empty chair vs screen or robot arm; colour: faded human trace vs cold tech light", composition: "Juxtapose studio remains with AI/machine intrusion; emptiness or clutter for 'replaced'", techniques: "Mixed media (object collage and digital), subtraction and white space, contrasting stroke vs flat surface", themeLink: "Guide reflection on 'human trace' vs 'machine precision'; viewer reads tension or desolation after replacement.", partALink: "Reference 2022 digital art and traditional painting: contrast traditional media with digital/mechanical visual language.", difficultyLevel: "high" },
+    { theme: "Neon Forest in the Deep Sea", concepts: ["Surreal juxtaposition: deep sea and neon", "Light-shadow contrast and ecological metaphor", "Oppression and escape coexisting"], visualElements: "Colour: complementary for deep-sea pressure vs neon escape; lines: waves, creatures and neon tubes; texture: transparent water vs glowing tubes", composition: "Layers: depth of sea and neon forest in foreground/mid; focus on light spreading in darkness", techniques: "Watercolour or acrylic transparent layers, fluorescent colour, mixed media for luminous bodies", themeLink: "Use complementary colour to stress deep sea vs neon; viewer feels tension of surreal juxtaposition.", starTips: "Light: self-luminous diffusion—neon creates halo and reflection in deep sea for mystery and life.", colourTone: "Deep blue-green and neon orange-red complementary; local high-saturation glow", difficultyLevel: "medium-high" }
   ]
 };

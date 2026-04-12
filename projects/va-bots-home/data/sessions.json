@@ -1,0 +1,37 @@
+{
+  "sessions": [
+    {
+      "id": "7d3ada04-17e3-4281-b196-e5d9b62fb264",
+      "title": "想要奶白底色，整體輕盈啲。",
+      "createdAt": "2026-03-27T08:02:59.710Z",
+      "updatedAt": "2026-03-27T08:03:16.153Z",
+      "pinned": true,
+      "versions": [
+        {
+          "id": "b8b40029-e13d-4255-b841-65f39e18503f",
+          "savedAt": "2026-03-27T08:02:59.710Z",
+          "messages": [
+            {
+              "role": "user",
+              "text": "想要奶白底色，整體輕盈啲。"
+            },
+            {
+              "role": "user",
+              "text": "字重再輕啲，卡片圓角多啲。"
+            },
+            {
+              "role": "user",
+              "text": "動畫慢 15%，唔好彈跳，要平滑。"
+            }
+          ],
+          "curatorText": "",
+          "currentCode": "",
+          "tasteProfile": {
+            "error": "Taste extraction failed",
+            "detail": "Failed after 3 attempts. Last error: Cannot connect to API: connect ECONNREFUSED 127.0.0.1:8080"
+          }
+        }
+      ]
+    }
+  ]
+}

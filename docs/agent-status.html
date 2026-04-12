@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent / Cron 狀態</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 1rem; background: #1a1a1a; color: #e0e0e0; }
+    h1 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+    .meta { font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid #333; }
+    th { color: #aaa; font-weight: 600; }
+    .name { font-weight: 500; }
+    .id { font-size: 0.75rem; color: #666; }
+    .ok { color: #6bcf7b; }
+    .err { color: #e07070; }
+    .warn { color: #d4a84b; }
+    .err-msg { font-size: 0.8rem; color: #a66; max-width: 20rem; overflow: hidden; text-overflow: ellipsis; }
+    tr:hover { background: #252525; }
+    .errors-section { margin-bottom: 1.5rem; padding: 1rem; background: #252525; border-radius: 8px; border-left: 4px solid #e07070; }
+    .errors-section h2 { font-size: 1rem; margin: 0 0 0.5rem 0; color: #e07070; }
+    .errors-section table { margin: 0; }
+    .badge { font-size: 0.65rem; padding: 1px 5px; border-radius: 4px; font-weight: 600; margin-left: 4px; vertical-align: middle; }
+    .badge.agent { background: #2a4f7c; color: #7ab3ef; }
+    .badge.event { background: #3d5a3d; color: #8fcf8f; }
+    .overdue { color: #e07070; font-weight: 500; }
+    .muted { color: #555; }
+    tr.overdue-row { background: #2a1a1a; }
+  </style>
+</head>
+<body>
+  <h1>Agent / Cron 狀態</h1>
+  <p class="meta">更新時間: 2026-04-10T13:38:40.109Z · 共 26 個 job · 來源: /Users/timnewmac/.openclaw/cron/jobs.json</p>
+  <section class="errors-section">
+    <h2>⚠️ 錯誤 / 需注意 (4)</h2>
+    <table>
+      <thead><tr><th>Job</th><th>狀態</th><th>錯誤訊息</th></tr></thead>
+      <tbody><tr>
+    <td><span class="name">早晨心智富足提醒</span></td>
+    <td><span class="err">error</span></td>
+    <td class="err-msg">⚠️ ✉️ Message failed</td>
+  </tr><tr>
+    <td><span class="name">proactive-task-scan</span></td>
+    <td><span class="err">error</span></td>
+    <td class="err-msg">cron: job execution timed out</td>
+  </tr><tr>
+    <td><span class="name">content-digest-summary</span></td>
+    <td><span class="err">error</span></td>
+    <td class="err-msg">⚠️ ✉️ Message failed</td>
+  </tr><tr>
+    <td><span class="name">50周年場地申請提醒</span></td>
+    <td><span class="err">error</span></td>
+    <td class="err-msg">⚠️ ✉️ Message failed</td>
+  </tr>
+      </tbody>
+    </table>
+  </section>
+  <h2>全部 Job</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Job</th>
+        <th>排程</th>
+        <th>啟用</th>
+        <th>上次跑</th>
+        <th>狀態</th>
+        <th>耗時</th>
+        <th>下次跑</th>
+        <th>錯誤</th>
+      </tr>
+    </thead>
+    <tbody>
+  <tr>
+    <td><span class="name">overnight-build-or-compact</span> <span class="badge agent">agent</span><br><span class="id">overnight-app-001</span></td>
+    <td>0 3 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午3:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>31.3s</td>
+    <td class="">4月11日 上午03:00 (5h 21m)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">wong-daily-post-draft</span> <span class="badge event">event</span><br><span class="id">320ad9be-c98f-4ef9-8e83-cbf5c3c50984</span></td>
+    <td>30 21 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>25/2/2026 下午9:30</td>
+    <td><span class="ok">ok</span></td>
+    <td>20.8s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">weekly-self-iteration</span> <span class="badge agent">agent</span><br><span class="id">self-iteration-001</span></td>
+    <td>0 22 * * 0 (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>5/4/2026 下午10:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>368.9s</td>
+    <td class="">4月12日 下午10:00 (2d 0h)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">早晨心智富足提醒</span> <span class="badge agent">agent</span><br><span class="id">b885b9a2-f13c-46d9-87e6-e7c9642d0f8e</span></td>
+    <td>0 6 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午6:00</td>
+    <td><span class="err">error</span></td>
+    <td>19.5s</td>
+    <td class="">4月11日 上午06:00 (8h 21m)</td>
+    <td class="err-msg">⚠️ ✉️ Message failed</td>
+  </tr>
+  <tr>
+    <td><span class="name">gateway-health-monitor</span> <span class="badge agent">agent</span><br><span class="id">a194bcd8-5ac6-45c1-9434-f3e81a7e275c</span></td>
+    <td>*/15 * * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>25/2/2026 上午5:15</td>
+    <td><span class="ok">ok</span></td>
+    <td>18.4s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">daily-trends-research</span> <span class="badge agent">agent</span><br><span class="id">54e0e9f9-dea3-4888-b546-4f76f950c84b</span></td>
+    <td>0 8 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>26/2/2026 上午8:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>172.2s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">proactive-task-scan</span> <span class="badge agent">agent</span><br><span class="id">proactive-task-001</span></td>
+    <td>0 10 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>26/2/2026 下午2:20</td>
+    <td><span class="err">error</span></td>
+    <td>600.0s</td>
+    <td class="">—</td>
+    <td class="err-msg">cron: job execution timed out</td>
+  </tr>
+  <tr>
+    <td><span class="name">weekly-aeo-intent-scan</span> <span class="badge agent">agent</span><br><span class="id">weekly-aeo-intent-001</span></td>
+    <td>30 9 * * 1 (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>—</td>
+    <td><span class="warn">pending</span></td>
+    <td>—</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">clawfeed-daily-digest</span> <span class="badge agent">agent</span><br><span class="id">b0b50050-70a4-40a7-aa6c-4f416b5b2e99</span></td>
+    <td>30 8 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>26/2/2026 下午2:30</td>
+    <td><span class="ok">ok</span></td>
+    <td>80.5s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">content-digestion-collect</span> <span class="badge agent">agent</span><br><span class="id">ff1faddc-cb83-465e-9b12-283cdfe3e485</span></td>
+    <td>0 */6 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 下午6:03</td>
+    <td><span class="ok">ok</span></td>
+    <td>156.7s</td>
+    <td class="">4月11日 上午12:03 (2h 24m)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">content-digestion-watchdog</span> <span class="badge agent">agent</span><br><span class="id">b1c92d60-7a9f-4cd7-a790-eb88f094f83f</span></td>
+    <td>0 2 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午2:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>17.7s</td>
+    <td class="">4月11日 上午02:00 (4h 21m)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">portfolio-dashboard-daily</span> <span class="badge agent">agent</span><br><span class="id">6b27744d-fd3b-458f-9034-9e195d832abd</span></td>
+    <td>30 8 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>24/3/2026 下午12:26</td>
+    <td><span class="ok">ok</span></td>
+    <td>29.9s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">content-digest-summary</span> <span class="badge agent">agent</span><br><span class="id">253f55b0-e13e-4133-8bb6-2712068926b8</span></td>
+    <td>0 7 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午7:00</td>
+    <td><span class="err">error</span></td>
+    <td>80.8s</td>
+    <td class="">4月11日 上午07:00 (9h 21m)</td>
+    <td class="err-msg">⚠️ ✉️ Message failed</td>
+  </tr>
+  <tr>
+    <td><span class="name">SBA 中五課前10分鐘提醒</span> <span class="badge agent">agent</span><br><span class="id">sba-pre-class-001</span></td>
+    <td>45 9 * * 1,2,5 (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>1/4/2026 上午6:09</td>
+    <td><span class="ok">ok</span></td>
+    <td>37.5s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">Config check weekly (SBA + cron)</span> <span class="badge agent">agent</span><br><span class="id">config-check-weekly-001</span></td>
+    <td>0 8 * * 0 (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>5/4/2026 上午8:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>142.0s</td>
+    <td class="">4月12日 上午08:00 (1d 10h)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">Weekly MEMORY compact（量化門檻+archive）</span> <span class="badge agent">agent</span><br><span class="id">memory-compact-weekly-001</span></td>
+    <td>0 9 * * 0 (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>5/4/2026 上午9:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>167.3s</td>
+    <td class="">4月12日 上午09:00 (1d 11h)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">Daily self-improvement (Felix-style)</span> <span class="badge agent">agent</span><br><span class="id">daily-self-improvement-001</span></td>
+    <td>0 2 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午2:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>18.4s</td>
+    <td class="">4月11日 上午02:00 (4h 21m)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">主腦 review SBA 助手（階段 2）</span> <span class="badge agent">agent</span><br><span class="id">master-review-sba-001</span></td>
+    <td>0 21 * * 6 (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>—</td>
+    <td><span class="warn">—</span></td>
+    <td>—</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">10條中文總結</span> <span class="badge agent">agent</span><br><span class="id">content-digest-10-001</span></td>
+    <td>0 12 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 下午12:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>39.1s</td>
+    <td class="">4月11日 下午12:00 (14h 21m)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">50周年展覽Research</span> <span class="badge agent">agent</span><br><span class="id">19b70857-ac61-4e2e-983d-5fe5f41c171e</span></td>
+    <td>0 4 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>23/3/2026 上午4:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>157.8s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">Art Prompt Generator Daily Research</span> <span class="badge agent">agent</span><br><span class="id">70db4d18-6a6d-43cb-8603-1c40ebc138c9</span></td>
+    <td>30 4 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>23/3/2026 上午4:30</td>
+    <td><span class="ok">ok</span></td>
+    <td>98.1s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">JUMP Art Teacher Vacancy Scan</span> <span class="badge agent">agent</span><br><span class="id">790804a3-f06f-4064-85c3-f138599b868e</span></td>
+    <td>0 9 * * 1-5 (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午9:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>261.8s</td>
+    <td class="">4月13日 上午09:00 (2d 11h)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">Remind Tim: 凌晨思考記錄</span> <span class="badge agent">agent</span><br><span class="id">8b0ad479-34be-44d0-8feb-df81d13a5a03</span></td>
+    <td>30 10 * * * (Asia/Hong_Kong)</td>
+    <td><span class="muted">—</span></td>
+    <td>2/4/2026 上午10:30</td>
+    <td><span class="ok">ok</span></td>
+    <td>142.9s</td>
+    <td class="">—</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">50周年場地申請提醒</span> <span class="badge agent">agent</span><br><span class="id">1b4ca6af-0420-4d26-853b-8d4a6b599058</span></td>
+    <td>2026-04-01T01:00:00.000Z</td>
+    <td><span class="muted">—</span></td>
+    <td>1/4/2026 上午4:45</td>
+    <td><span class="err">error</span></td>
+    <td>47.5s</td>
+    <td class="">—</td>
+    <td class="err-msg">⚠️ ✉️ Message failed</td>
+  </tr>
+  <tr>
+    <td><span class="name">每日對話 capture</span> <span class="badge agent">agent</span><br><span class="id">0fc2e54f-db64-4fa8-99da-020a4d091a5f</span></td>
+    <td>0 21 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 下午9:00</td>
+    <td><span class="ok">ok</span></td>
+    <td>26.5s</td>
+    <td class="">4月11日 下午09:00 (23h 21m)</td>
+    <td class="err-msg"></td>
+  </tr>
+  <tr>
+    <td><span class="name">Art Prompt Generator — 2:30am Research &amp; Refine</span> <span class="badge agent">agent</span><br><span class="id">cfeb35f2-335a-4735-a520-4a18d5a410cd</span></td>
+    <td>30 2 * * * (Asia/Hong_Kong)</td>
+    <td><span class="ok">✓</span></td>
+    <td>10/4/2026 上午2:30</td>
+    <td><span class="ok">ok</span></td>
+    <td>26.5s</td>
+    <td class="">4月11日 上午02:30 (4h 51m)</td>
+    <td class="err-msg"></td>
+  </tr>
+    </tbody>
+  </table>
+</body>
+</html>

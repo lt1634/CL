@@ -2,7 +2,7 @@
 
 > **用途**：減少 `~/Desktop/CL/openclaw` 同 `~/.openclaw` 混淆。  
 > **相關**：Harness 檢查清單 [`CL-AGENT-HARNESS-CHECKLIST.md`](./CL-AGENT-HARNESS-CHECKLIST.md)、優化計劃 [`OPENCLAW_OPTIMIZATION_PLAN.md`](./OPENCLAW_OPTIMIZATION_PLAN.md)。  
-> **注意**：本文 **唔** 記載任何 token／password；秘密喺 `~/.openclaw/.env`、`openclaw.json` 嘅 `gateway.auth` 等。
+> **注意**：本文 **唔** 記載任何 token／password。建議用 **`${OPENCLAW_GATEWAY_TOKEN}`**、**`${BRAVE_API_KEY}`** 等佔位寫入 `openclaw.json`，實際值放 `~/.openclaw/.env`（`chmod 600`）。詳見 [OPENCLAW_INDEX.md](./OPENCLAW_INDEX.md)。
 
 ---
 
@@ -37,6 +37,25 @@
 
 ---
 
+## `~/.openclaw` 體積與維護（holistic）
+
+| 路徑（約略） | 說明 | 可否亂刪 |
+|--------------|------|----------|
+| **`workspace/memory/notion-archive/`** | Notion 匯出／封存，常佔 **數 GB** | **唔好**；要騰空間請你自己決定保留邊啲頁再搬去外置碟。 |
+| **`whisper-models/`** | 本機轉寫模型 | 刪咗要重新下載；唔用 Whisper 可先停服再刪。 |
+| **`browser/`**、**`media/`** | 瀏覽／下載緩存 | 可刪以騰位；可能令要重新登入／重載。 |
+| **`agents/`** | sessions、狀態 | **唔好**亂刪（對話歷史）。 |
+| **`workspace/node_modules/`** | workspace 內腳本依賴 | 可 `rm -rf` 後按需再 `pnpm install`（視乎你有咩 workflow）。 |
+| **`logs/gateway*.log`** | Gateway 日誌 | 可用 `tail -n N` 截斷保留尾段（已做過一次範例維護）。 |
+
+**已做過嘅低風險清理（可重複）**：刪樹內所有 **`.DS_Store`**；刪與主檔 **內容完全相同** 嘅備份（例如曾出現嘅 **`IDENTITY.md.bak`**）；刪 **`antfarm/landing/index.html.bak`**（與 `index.html` 重複）；**截短** `logs/gateway.err.log`／`gateway.log` 只保留最後萬餘行。
+
+**Spotlight 負載**：若機身發熱／索引狂轉，可將 **`browser/`**、**`media/`**、**`whisper-models/`**、**`workspace/memory/notion-archive/`** 加入 **Spotlight 私隱**（見 [MAC_THERMAL_SPOTLIGHT_ANALYSIS.md](./MAC_THERMAL_SPOTLIGHT_ANALYSIS.md)）。
+
+**若用 Cursor 開本目錄**：已可放 **`~/.openclaw/.cursorignore`**（忽略 `node_modules`、`.venv` 等），與 CL repo 策略一致。
+
+---
+
 ## 日常操作口訣
 
 1. **起 Gateway / 跑 CLI**：先 `cd ~/Desktop/CL/openclaw`。
@@ -56,4 +75,5 @@ alias ocdev='cd ~/Desktop/CL/openclaw'
 
 ## 修訂記錄
 
+- 2026-04-03：補充 `~/.openclaw` 體積／維護與 Spotlight 建議。
 - 2026-03-20：初版（對齊 Tim／CL 慣用路徑與「程式 vs 狀態」模型）。

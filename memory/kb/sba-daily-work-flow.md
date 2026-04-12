@@ -9,7 +9,7 @@
 3. **Cron 做**：  
    - 掃 `sba-students-work/` 每個學生 folder 嘅**最新一批圖**（按日期）；  
    - **睇圖分析**（用 vision 模型）：做咗咩、媒材、有冇跟主題、值得讚／要跟進嘅地方；  
-   - **Update**：將「上堂完成咗咩」寫入進度（可更新 `sba-students.md` 或寫入 `sba-students-work/review-{日期}.md`）；  
+   - **Update**：將「上堂完成咗咩」寫入進度（優先更新該生 **`sba-students-work/<名>/student-profile.md`**，或寫入 `sba-students-work/review-{日期}.md`）；  
    - **出 comment + 新任務**：為每位學生出簡短評語同下堂 1–2 個任務 + success criteria；  
    - **Delivery**：結果送去你指定地方（例如 WhatsApp、或寫入檔案你開 SBA 助手時用）。
 
@@ -50,7 +50,7 @@
   - 用 **OpenAI GPT-4V / Claude Vision / 其他 vision API** 逐個學生呼叫：輸入 = 該學生喺 `sba-students.md` 嘅摘要 + 圖片，prompt = 「分析呢位學生今次交嘅 daily work：做咗咩、媒材、有冇跟主題、值得讚／要跟進；用 2–3 句總結，再建議下堂 1–2 個任務同 success criteria」；  
   - 將每位嘅輸出寫入一個 **review 檔**，例如 `sba-students-work/review-{下堂日期}.md`。
 - Cron 先跑呢個腳本，跑完之後：  
-  - 再觸發一次 SBA 助手（或另一條 cron），payload = 「讀 `memory/kb/sba-students-work/review-{日期}.md` 同 `sba-students.md`，將 review 入面嘅進度 update 入 sba-students.md（如有需要），然後將 comment + 新任務 list 送去 WhatsApp」；  
+  - 再觸發一次 SBA 助手（或另一條 cron），payload = 「讀 `memory/kb/sba-students-work/review-{日期}.md` 同各生 `student-profile.md`／`sba-students.md`，將 review 入面嘅進度 update 入對應 **`student-profile.md`**（如有需要），然後將 comment + 新任務 list 送去 WhatsApp」；  
   或  
   - 直接將 `review-{日期}.md` 嘅內容（或精簡版）經 webhook / 電郵 / 你現有嘅 WhatsApp 管道送去你。
 
@@ -59,8 +59,8 @@
 ## 4. Update 同 Output 格式
 
 - **Update**（二揀一或一齊做）：  
-  - 更新 **`sba-students.md`**：喺每位學生底下加一節「上堂完成（YYYY-MM-DD）」或改「進度」一欄；或  
-  - 只寫入 **`sba-students-work/review-{日期}.md`**，唔改 `sba-students.md`，下堂你開 SBA 助手時可以叫佢「讀 review-{日期}.md 同 sba-students.md」再出任務。
+  - 更新該生 **`sba-students-work/<名>/student-profile.md`**：加「上堂完成（YYYY-MM-DD）」或改「進度」；必要時先改 **`sba-students.md`** 速覽一句；或  
+  - 只寫入 **`sba-students-work/review-{日期}.md`**，唔改 profile，下堂叫助手「讀 review-{日期}.md 同相關 `student-profile.md`」再出任務。
 - **Comment + 新任務**：每位學生一段，包含  
   - **Comment**：2–3 句（做咗咩、好唔好、要跟進咩）；  
   - **下堂任務**：1–2 項，每項有簡單 **Success criteria**；  

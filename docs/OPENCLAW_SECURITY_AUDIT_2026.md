@@ -58,6 +58,12 @@ chmod 600 ~/.openclaw/.env
 stat -f "%A" ~/.openclaw/.env   # 应为 600
 ```
 
+### Y7 补充（env 占位符）
+
+- 在 `openclaw.json` 中可用 **`${VAR_NAME}`** 引用環境變數（見官方 [Environment](https://docs.clawd.bot/help/environment)）。
+- 已將 **`gateway.auth.token`** 改為 **`${OPENCLAW_GATEWAY_TOKEN}`**、**`tools.web.search.apiKey`** 改為 **`${BRAVE_API_KEY}`** 時，請把對應值寫入 **`~/.openclaw/.env`**，勿在文檔或截圖中泄露。
+- 若密鑰曾暴露：輪換後更新 `.env` 並重啟 Gateway。
+
 ---
 
 ### R2: 创建独立 agent 用户（可选，春节版可暂缓）

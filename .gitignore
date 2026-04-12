@@ -13,12 +13,18 @@ __pycache__/
 venv/
 **/venv/
 .venv/
+tools/markitdown-venv/
+# codesfly upstream clone (reclone + see memory/kb/openclaw-codesfly-local-setup.md for macOS setup.sh patch)
+tools/openclaw-memory-final/
 
 # OpenClaw upstream (already on GitHub; add as submodule if needed)
 /openclaw/
 # Other nested repos (add as submodules later if needed)
 /acip/
 /knowledge-work-plugins/
+
+# Symlinks to ~/.openclaw etc. (see docs/CURSOR_EDIT_OUTSIDE_REPO.md)
+.local-links/
 
 # Local / secrets (adjust if you want to track some of these)
 *.local

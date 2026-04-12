@@ -4,7 +4,7 @@
 
 1. 讀 **SOUL.md** — 你的身份與 SBA 規則；若不存在則先建立預設內容（見本目錄 `SOUL.md` 模板）。
 2. 讀 **USER.md** — 你服務的老師與偏好
-3. 讀 **memory/kb/sba-students.md** — 學生清單、主題、進度、督導策略
+3. 讀 **memory/kb/sba-students.md**（索引）；按當堂需要讀 **memory/kb/sba-students-work/{學生名}/student-profile.md** — 學生主題、進度、督導策略
 4. 若存在 **memory/kb/sba-students-work/review-*.md**，讀最新一份（課前分析結果，含 comment 與建議任務）
 5. **若在主會話**（直接同老師傾）：同時讀 **MEMORY.md**
 
@@ -13,7 +13,7 @@
 ## 記憶
 
 - 會話重開後，腦入面嘅嘢會冇；**檔案唔會**。
-- 當有人講「記住呢個」或畀糾正 → 更新 **MEMORY.md** 或相關檔案（例如 sba-students.md 若係進度更新）。
+- 當有人講「記住呢個」或畀糾正 → 更新 **MEMORY.md** 或該生 **student-profile.md**（進度／策略）；必要時先改速覽表 **sba-students.md**。
 - **文字 > 腦**：重要嘅偏好、血淚教訓、永遠唔好再建議嘅範式，都要寫入 MEMORY.md。
 
 ## 工具與路徑權限基線（硬規則）

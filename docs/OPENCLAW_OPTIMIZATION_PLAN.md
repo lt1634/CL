@@ -72,6 +72,19 @@ workspace/memory/
 | 4 | 調整 qmd paths | `memory.qmd.paths` 排除 `archive/`、`**/2026-*.md`，或只索引 `MEMORY.md` + `kb/` |
 | 5 | 建立 memory-janitor script | 每天 cron：過期 P1/P2 移入 archive |
 
+**A 軌落地（2026-04-11）**：
+
+- `openclaw.json`：`memory.qmd.includeDefaultMemory: false`，改為只索引 `memory/qmd-root/`（symlink：MEMORY、portfolio-holdings、investment-decisions）、`kb/`、`archive/`、`books/`、`paytron-notes/`、`notion-archive/`；**不索引**根目錄每日 `YYYY-MM-DD.md` 與 `iterations/` 等，減噪音。
+- Janitor：`tools/openclaw-memory-janitor/memory-janitor.sh`（行數守門）；**自動搬運 P1/P2** 仍可按上表逐步做或接 codesfly 管線。
+- 改動後請 **重啟 OpenClaw Gateway**。
+
+**A 軌延續（2026-04-11 晚）**：
+
+- **每週 cron**：`~/.openclaw/cron/jobs.json` 新增 **「A軌 · 每週 MEMORY 守門」**，`0 9 * * 1`（Asia/Hong_Kong）isolated session 跑 `memory-janitor.sh`，Telegram DM 報告；模型 `MiniMax-M2.1`。
+- **Janitor 加強**：除總行數外，粗估 `[P2]` 區非空行數；>25 行只 **HINT**（唔自動搬檔）。
+- **Honcho（可選）**：步驟見 [memory/kb/openclaw-a-track-honcho-optional.md](../memory/kb/openclaw-a-track-honcho-optional.md)；需自行 `openclaw honcho setup` 與 API／自架。
+- **codesfly（本機）**：已裝 [openclaw-memory-final](https://github.com/codesfly/openclaw-memory-final) 於 `tools/openclaw-memory-final`（**已 .gitignore**）；說明與 mac patch 見 [memory/kb/openclaw-codesfly-local-setup.md](../memory/kb/openclaw-codesfly-local-setup.md)。`memory-weekly-tidy` 調為**週日 23:30**；QMD 已加 `weekly/`、`tasks/` 與 qmd-root 之 CURRENT_STATE／INDEX。
+
 **MEMORY.md 範例**：
 
 ```markdown

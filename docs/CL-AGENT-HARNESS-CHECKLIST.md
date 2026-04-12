@@ -23,7 +23,7 @@
 - [ ] **記憶分層**：程式性流程 → Skills／文檔；情景 → `memory/YYYY-MM-DD.md`；穩定事實 → `MEMORY.md`（P0/P1/P2）；唔好單靠對話窗口撐長任務。
 - [ ] **壓縮／整合**：若有 compact，保留優先級寫喺文檔（決策、已改檔、驗證狀態、TODO）；**唔好改壞** UUID / commit hash / 路徑。
 
-參考文檔（若有用 OpenClaw）：[`docs/OPENCLAW-TWO-FOLDERS.md`](./OPENCLAW-TWO-FOLDERS.md)（程式目錄 vs `~/.openclaw` 狀態）、`docs/OPENCLAW_OPTIMIZATION_PLAN.md`、`docs/OPENCLAW_SECURITY_AUDIT_2026.md`、`memory/kb/openclaw-config-check-setup.md`。
+參考文檔（若有用 OpenClaw）：[`docs/OPENCLAW_INDEX.md`](./OPENCLAW_INDEX.md)（索引）、[`docs/OPENCLAW-TWO-FOLDERS.md`](./OPENCLAW-TWO-FOLDERS.md)（程式目錄 vs `~/.openclaw` 狀態）、`docs/OPENCLAW_OPTIMIZATION_PLAN.md`、`docs/OPENCLAW_SECURITY_AUDIT_2026.md`、`memory/kb/openclaw-config-check-setup.md`。
 
 ---
 

@@ -4,6 +4,15 @@
 
 Cron API (`cron.add`, `cron.update`) 對 JSON 格式敏感：
 
+## Session 可視性限制（點解會「capture 唔到」）
+
+有啲 cron 會喺 **isolated session** 跑（例如 `agent:main:cron:...`）。呢種 session 通常 **睇唔到 main session 嘅對話 history**（visibility restricted to tree），所以如果你嘅任務係「回顧今日 main 對話／抽取重點／capture」，就會出現「冇特別對話，skip」但其實只係 **睇唔到**。
+
+**建議：**
+
+- **要讀 main history**：用 `sessionTarget: "main"`，同時 payload 用 `{"kind":"systemEvent","text":"..."}`（main 唔可以用 `agentTurn`）。
+- **要對外發送／重任務**：用 `sessionTarget: "isolated"` + `agentTurn`，並且把「需要跨 session 留痕」改為**寫入檔案**（例如 append 到 `~/.openclaw/workspace/memory/...`），唔好依賴讀 main history。
+
 ### ❌ 錯誤：nested string（物件被 stringify 咗）
 
 ```json

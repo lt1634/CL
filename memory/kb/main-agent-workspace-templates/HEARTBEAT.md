@@ -20,6 +20,11 @@
 - [ ] **P0**：有冇過期/緊急事項要提醒用戶？（睇 memory 或 USER 備註）
 - [ ] **P1**：今日/本週 focus 有冇更新？（USER.md / FOCUS.md）
 - [ ] **P2**：有冇未處理嘅用戶請求或跟進？（sessions / memory 近期）
+- [ ] **P2**：有冇「待補做 capture」標記？（cron 只 queue，連返 main 先做）
+  - 標記路徑（建議）：`~/.openclaw/workspace/memory/inbox/pending-capture/YYYY-MM-DD.txt`
+  - 若存在：
+    - 以 **main session** 讀 `agent:main:main` 今日對話 history（例如 `sessions_history`），做一份「今日摘要 / 決策 / 待辦」寫入 `memory/YYYY-MM-DD.md`
+    - 成功後刪除該標記檔（避免重複跑）
 - [ ] **P2**：gateway / cron 狀態正常？（可選，或交俾專門 cron）
 
 ---

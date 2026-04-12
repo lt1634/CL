@@ -8,6 +8,7 @@
 sba-students-work/
 ├── README.md                    ← 本說明
 ├── Cassy/
+│   ├── student-profile.md       ← 該生主題／進度／督導（長文放呢度）
 │   └── 2025-03-10.jpg           ← 按日期命名，可多張
 ├── Crystal/
 │   ├── 2025-03-10_p1.jpg
@@ -19,7 +20,7 @@ sba-students-work/
 └── review-2025-03-11.md         ← 由 cron/分析腳本自動生成（可選）
 ```
 
-- **每位學生一個 folder**，名要同 `sba-students.md` 入面嘅**學生名一致**（Cassy, Crystal, Megumi, Daisy, Jayden, Ichigo）。
+- **每位學生一個 folder**，名要同 **`sba-students.md` 速覽表**嘅學生名一致（Cassy, Crystal, Megumi, Daisy, Jayden, Ichigo）。詳細文字喺 **`student-profile.md`**。
 - **檔名建議**：`YYYY-MM-DD`（當堂日期），可加後綴如 `_p1`, `_workbook`, `_detail`。Cron 會用**最新日期**嘅檔案做「上一堂嘅 daily work」分析。
 
 ## 上傳方式

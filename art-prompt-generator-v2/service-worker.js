@@ -1,4 +1,4 @@
-const CACHE_NAME = "art-prompt-generator-v2-v5";
+const CACHE_NAME = "art-prompt-generator-v2-v6";
 const ASSETS = [
   "./",
   "./index.html",

@@ -1,8 +1,8 @@
 {
-  "id": "va-star-getter-v2",
-  "name": "DSE 視藝：練拆奪星王",
-  "short_name": "VA Star-Getter",
-  "description": "隨機生成模擬題，一鍵拆解扣題位。對齊四項評分準則（媒材技法、視覺元素與設計原理、創意與想像力、主題傳意）",
+  "id": "art-prompt-generator",
+  "name": "Art Prompt Generator",
+  "short_name": "Art Prompt Gen",
+  "description": "AI Art 提示生成 — 為下一幅作品加靈感（Spark creativity for your next piece）。",
   "lang": "zh-HK",
   "dir": "ltr",
   "start_url": "./index.html",

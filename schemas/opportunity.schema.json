@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/cl/opportunity.schema.json",
+  "title": "Opportunity scan output (one JSONL line)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "topic_id",
+    "domain",
+    "headline",
+    "relevance_score",
+    "confidence",
+    "urgency",
+    "suggested_action",
+    "created_at"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "topic_id": { "type": "string", "description": "24h dedupe key" },
+    "domain": { "enum": ["investment", "hk", "tech-ai"] },
+    "headline": { "type": "string" },
+    "relevance_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "confidence": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "urgency": { "enum": ["low", "medium", "high"] },
+    "linked_projects": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "suggested_action": { "type": "string" },
+    "counterpoint": { "type": ["string", "null"] },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string" },
+          "excerpt": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "pushed_at": { "type": ["string", "null"], "format": "date-time" }
+  }
+}

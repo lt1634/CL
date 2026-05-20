@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "last_ingest_at": null,
+  "last_scan_at": null,
+  "last_digest_at": null,
+  "candidates": [],
+  "pushed_topic_ids": {},
+  "daily_token_budget": {
+    "max_estimated_tokens": 80000,
+    "used_estimate": 0,
+    "date": null
+  }
+}

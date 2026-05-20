@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/cl/world_event.schema.json",
+  "title": "World ingest event (one JSONL line)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "domain",
+    "source_url",
+    "published_at",
+    "ingested_at",
+    "confidence"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "summary": { "type": ["string", "null"] },
+    "domain": { "enum": ["investment", "hk", "local", "tech-ai"] },
+    "source_name": { "type": ["string", "null"] },
+    "source_url": { "type": "string" },
+    "published_at": { "type": "string", "description": "ISO8601 or date" },
+    "ingested_at": { "type": "string", "format": "date-time" },
+    "entities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "linked_projects": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "title_hash": { "type": "string", "description": "dedupe key" }
+  }
+}

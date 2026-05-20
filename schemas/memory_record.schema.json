@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/cl/memory_record.schema.json",
+  "title": "Unified memory record (personal or world)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "content", "metadata"],
+  "properties": {
+    "id": { "type": "string", "description": "UUID" },
+    "content": { "type": "string" },
+    "embedding": {
+      "type": "array",
+      "items": { "type": "number" },
+      "description": "Optional; Phase 4a Chroma/pgvector"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["type", "timestamp"],
+      "properties": {
+        "type": {
+          "enum": [
+            "conversation",
+            "preference",
+            "fact",
+            "world_event",
+            "opportunity"
+          ]
+        },
+        "domain": {
+          "enum": ["investment", "hk", "tech-ai", "personal", null]
+        },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "last_accessed": { "type": ["string", "null"], "format": "date-time" },
+        "importance_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "linked_projects": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "supersedes_id": { "type": ["string", "null"] },
+        "deleted": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ import assert from "assert";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WRITER = path.join(__dirname, "board-writer.mjs");
+const ROTATE = path.join(__dirname, "rotate-board.mjs");
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -58,6 +59,20 @@ async function cliAppend(payload, extraEnv = {}) {
         reject(new Error(`exit ${code}: ${err || "(no stderr)"}`));
       }
     });
+    child.on("error", reject);
+  });
+}
+
+/** Run the daily rotation helper and return its exit details. */
+async function runRotate(extraEnv = {}) {
+  return new Promise((resolve, reject) => {
+    const env = { ...process.env, ...extraEnv };
+    const child = spawn("node", [ROTATE], { env, cwd: "/tmp" });
+    let out = "";
+    let err = "";
+    child.stdout.on("data", (c) => (out += c));
+    child.stderr.on("data", (c) => (err += c));
+    child.on("close", (code) => resolve({ code, out, err }));
     child.on("error", reject);
   });
 }
@@ -358,6 +373,42 @@ async function runTests() {
         if (!l.seq || !l.ts || !l.type) throw new Error("line missing required fields");
       }
       fs.rmSync(dir, { recursive: true });
+    }
+  );
+
+  await test(
+    "rotate respects active writer lock and leaves board untouched",
+    async () => {
+      const dir = mkTmpDir();
+      const board = tmpBoard(dir);
+      const initial = {
+        type: "evidence",
+        task_id: "TR1",
+        actor: "lt1634",
+        summary: "must survive blocked rotation",
+      };
+      fs.writeFileSync(board, JSON.stringify(initial) + "\n", "utf8");
+      fs.writeFileSync(`${board}.writer.lock`, String(process.pid), "utf8");
+
+      try {
+        const result = await runRotate({
+          COMPANY_BOARD_FILE: board,
+          BOARD_LOCK_MAX_MS: "120",
+          BOARD_LOCK_RETRY_MS: "10",
+        });
+        if (result.code === 0) throw new Error("rotate should fail while writer lock is active");
+        if (!result.err.includes("lock timeout")) throw new Error(`expected lock timeout, got: ${result.err}`);
+
+        const lines = tailBoard(board);
+        if (lines.length !== 1) throw new Error(`expected board to keep 1 line, got ${lines.length}`);
+        if (lines[0].summary !== initial.summary) throw new Error("board content changed during locked rotate");
+
+        const day = new Date().toISOString().slice(0, 10);
+        const rotated = path.join(dir, `company-board-${day}.jsonl`);
+        if (fs.existsSync(rotated)) throw new Error("rotate created archive despite active writer lock");
+      } finally {
+        fs.rmSync(dir, { recursive: true });
+      }
     }
   );
 

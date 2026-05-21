@@ -21,7 +21,7 @@
 - [x] 使用 **獨立 `~/.hermes`**（唔覆蓋 `~/.openclaw`）；`hermes` → `~/.local/bin/hermes`。
 - [x] **`config.yaml`**：`model.provider=openrouter`，`model.default=google/gemma-4-31b-it`。
 - [ ] **`~/.hermes/.env`**：補齊 **`OPENROUTER_API_KEY`**、**`TELEGRAM_BOT_TOKEN`**（Hermes 專用新 bot）；`TELEGRAM_ALLOWED_USERS` 已預填。
-- [x] **`hermes gateway install`**（LaunchAgent `ai.hermes.gateway`）；填好 token 後跑 [`projects/hermes-standalone/post-install.sh`](../../projects/hermes-standalone/post-install.sh) 或 `hermes gateway restart`。
+- [x] **`hermes gateway install`**（LaunchAgent `ai.hermes.gateway`）；填好 token 後跑 [`ops/hermes/post-install.sh`](../../ops/hermes/post-install.sh) 或 `hermes gateway restart`。
 - [ ] 完成 **`hermes` CLI** 試對話：`hermes`（需 OpenRouter key 先有效）。
 - [ ] （可選）README 若仍寫 **從 OpenClaw import**：**第一階段建議唔做全量 import**，避免同 A 軌 **MEMORY／skills 定義混淆**；最多手動種子：`USER`／3 條 P0 事實。
 

@@ -22,10 +22,10 @@ hermes gateway status
 改咗 **`~/.hermes/config.yaml`** 或 **`~/.hermes/.env`** 之後，一樣要 **`hermes gateway restart`** 先食到新設定。
 
 本 repo 有一鍵檢查尾 log + doctor（會順便 restart）：  
-[`projects/hermes-standalone/post-install.sh`](../../projects/hermes-standalone/post-install.sh)
+[`ops/hermes/post-install.sh`](../../ops/hermes/post-install.sh)
 
 ```bash
-bash /path/to/CL/projects/hermes-standalone/post-install.sh
+bash ~/Desktop/CL/ops/hermes/post-install.sh
 ```
 
 ---

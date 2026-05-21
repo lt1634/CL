@@ -7,8 +7,8 @@
 
 | Project | 簡介 | 關鍵路徑 | 狀態 |
 |---------|------|---------|------|
-| **OpenClaw** | 多 Agent 協作框架，本機樞紐 | `~/Desktop/CL/openclaw/` `~/.openclaw/` | Active |
-| **Hermes Agent** | Nous Research Agent v0.10.0，Telegram 主力 | `~/.hermes/` | Active |
+| **OpenClaw** | 多 Agent 協作框架，本機樞紐 | `~/.openclaw/` · 運維腳本 `~/Desktop/CL/ops/openclaw/` | Active |
+| **Hermes Agent** | Nous Research Agent，Telegram 主力 | `~/.hermes/` · 源碼 `vendor/hermes-agent` · `ops/hermes/` | Active |
 | **MindForge** | Tim 個人知識系統設計（進行中） | `~/Desktop/CL/docs/` 相關 doc | Active |
 
 ---
@@ -61,7 +61,7 @@
 | **brainrot-youtube-pipeline** | YouTube pipeline | 需要深入了解 |
 | **free-chinese-book-daily** | 每日免費中文書 | 需要深入了解 |
 | **polymarket-log-only** | Polymarket 記錄工具 | 需要深入了解 |
-| **hermes-standalone** | Hermes 獨立部署 | post-install script |
+| **hermes-standalone** | （已遷移） | → `ops/hermes/post-install.sh` |
 | **va-bots-home** | 家居 bots | 需要深入了解 |
 | **未命名檔案夾** | 待清理 | Skip，人手處理 |
 
@@ -76,12 +76,13 @@
 | [HERMES_ROUTING_DECISION_TREE.md](./HERMES_ROUTING_DECISION_TREE.md) | Hermes 路由決策樹 |
 | [CL-AGENT-HARNESS-CHECKLIST.md](./CL-AGENT-HARNESS-CHECKLIST.md) | Agent harness 檢查清單 |
 | [OPENCLAW_OPTIMIZATION_PLAN.md](./OPENCLAW_OPTIMIZATION_PLAN.md) | 優化方案 |
+| [DUAL-STAR-OPS.md](./DUAL-STAR-OPS.md) | 雙星運維 SSOT（install / doctor） |
 
 ---
 
 ## ⚠️ 待確認（Shallow Scan 標記）
 
-- [ ] `~/Desktop/CL/projects/hermes-standalone/` — post-install script，具體功能未知
+- [x] `~/Desktop/CL/ops/hermes/` — Hermes post-install；見 [DUAL-STAR-OPS.md](./DUAL-STAR-OPS.md)
 - [ ] `~/Desktop/CL/projects/va-bots-home/` — 家居 bots 用途未知
 - [ ] `~/Desktop/CL/projects/brainrot-youtube-pipeline/` — 未讀取 README
 - [ ] `~/Desktop/CL/projects/free-chinese-book-daily/` — 未讀取 README

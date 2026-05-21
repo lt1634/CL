@@ -1,0 +1,18 @@
+# 雙星版本錨點 — 改 CLI / bump submodule 後請更新 recorded_at 並跑 ops/dual-star/doctor.sh
+recorded_at: "2026-05-22"
+
+openclaw:
+  cli_expected: "2026.5.7"
+  config_home: "~/.openclaw"
+  gateway_port: 18789
+  launchd_label: "ai.openclaw.gateway"
+  note: "Installed via Homebrew or official installer; not vendored in CL."
+
+hermes:
+  cli_expected: "0.14.0"
+  release_tag: "v2026.5.16"
+  submodule_path: "vendor/hermes-agent"
+  config_home: "~/.hermes"
+  api_default: "127.0.0.1:8642"
+  launchd_label: "ai.hermes.gateway"
+  note: "Submodule is source reference; runtime uses ~/.hermes/hermes-agent venv + hermes CLI."

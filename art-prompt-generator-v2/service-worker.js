@@ -1,7 +1,9 @@
-const CACHE_NAME = "art-prompt-generator-v2-v6";
+const CACHE_NAME = "art-prompt-generator-v2-v7";
+const DSE_ENTRY = "./index-dse-va-star-getter.html";
 const ASSETS = [
   "./",
   "./index.html",
+  DSE_ENTRY,
   "./prompts-dse.js",
   "./manifest.webmanifest",
   "./icon.svg",
@@ -36,10 +38,18 @@ self.addEventListener("fetch", (event) => {
         const copy = resp.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
         return resp;
-      }).catch(() => caches.match("./index.html"));
+      }).catch(() => caches.match(DSE_ENTRY));
     })
   );
 });
+
+function samePath(clientUrl, targetUrl) {
+  try {
+    return new URL(clientUrl).pathname === new URL(targetUrl).pathname;
+  } catch (_) {
+    return false;
+  }
+}
 
 /** Web Push：由伺服器送來的訊息 */
 self.addEventListener("push", (event) => {
@@ -55,7 +65,7 @@ self.addEventListener("push", (event) => {
       } catch (_) {}
     }
   }
-  const url = self.registration.scope + "index.html";
+  const url = new URL(DSE_ENTRY, self.registration.scope).href;
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
@@ -70,11 +80,11 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const url = (event.notification.data && event.notification.data.url) || self.registration.scope + "index.html";
+  const url = (event.notification.data && event.notification.data.url) || new URL(DSE_ENTRY, self.registration.scope).href;
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
       for (const c of list) {
-        if (c.url && "focus" in c) return c.focus();
+        if (c.url && "focus" in c && samePath(c.url, url)) return c.focus();
       }
       if (clients.openWindow) return clients.openWindow(url);
     })

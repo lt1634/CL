@@ -17,6 +17,9 @@ tools/markitdown-venv/
 # codesfly upstream clone (reclone + see memory/kb/openclaw-codesfly-local-setup.md for macOS setup.sh patch)
 tools/openclaw-memory-final/
 
+# GA ingest: extracted chats & chunks (sensitive; regenerate locally)
+tools/ga-ingest/output/
+
 # OpenClaw upstream (already on GitHub; add as submodule if needed)
 /openclaw/
 # Other nested repos (add as submodules later if needed)

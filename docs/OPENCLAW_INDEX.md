@@ -10,7 +10,15 @@
 |------|------|
 | [OPENCLAW-TWO-FOLDERS.md](./OPENCLAW-TWO-FOLDERS.md) | 程式 repo vs `~/.openclaw` 狀態目錄 |
 | [OPENCLAW_SECURITY_AUDIT_2026.md](./OPENCLAW_SECURITY_AUDIT_2026.md) | 安全審計、`.env` 權限、風險清單 |
-| [OPENCLAW_OPTIMIZATION_PLAN.md](./OPENCLAW_OPTIMIZATION_PLAN.md) | 優化與落地項 |
+| [OPENCLAW_OPTIMIZATION_PLAN.md](./OPENCLAW_OPTIMIZATION_PLAN.md) | 優化與落地項（含 **§六 多 Agent 公司**） |
+| [COMPANY_BOARD_SCHEMA.md](./COMPANY_BOARD_SCHEMA.md) | 任務板 `company-board.jsonl` 憲法（可休眠；資料保留） |
+| [project-state/](./project-state/) | **Project state**（跨 session：`T58` 展覽、`T56`、LCSD 等；唔塞滿 conversation） |
+| [HANDOFF_HERMES.md](./HANDOFF_HERMES.md) | Albert → Hermes 8642 payload |
+| [HERMES_ROUTING_DECISION_TREE.md](./HERMES_ROUTING_DECISION_TREE.md) | 何時轉 Hermes（決策樹 + 任務板事件順序） |
+| [HERMES_WEB_FETCH_TIMEOUT.md](./HERMES_WEB_FETCH_TIMEOUT.md) | Hermes web／fetch 60s 問題與本機 timeout 設定 |
+| [HITL_BOSS_TEMPLATES.md](./HITL_BOSS_TEMPLATES.md) | 老闆收件匣 IM 模版 |
+| [OPENCLAW_AGENT_COMMS.md](./OPENCLAW_AGENT_COMMS.md) | 多 Agent 通信任務核對 |
+| [THIRD_PARTY_EVAL_CHECKLIST.md](./THIRD_PARTY_EVAL_CHECKLIST.md) | 第三方 dashboard／A2A 評估 |
 | [WHATSAPP_SELF_CHAT_LOOP.md](./WHATSAPP_SELF_CHAT_LOOP.md) | self-chat／WhatsApp 注意 |
 | [CRON-API-FORMAT.md](../CRON-API-FORMAT.md) | `jobs.json` 欄位格式（object 唔好串成 string） |
 | [CL-AGENT-HARNESS-CHECKLIST.md](./CL-AGENT-HARNESS-CHECKLIST.md) | Agent 工作區與 harness 檢查 |
@@ -29,7 +37,7 @@
 | 位置 | 說明 |
 |------|------|
 | `~/.openclaw/cron/jobs.json` | Cron 定義與 `lastError`／delivery 狀態 |
-| `~/.openclaw/workspace/memory/kb/whatsapp-issues.md` | WhatsApp 斷線、Message failed、PATH／sleep 實務 |
+| `~/.openclaw/workspace/memory/kb/whatsapp-issues.md` | （歷史存檔）以往 WhatsApp channel 斷線記錄；OpenClaw 已移除該 channel |
 
 ---
 
@@ -38,6 +46,9 @@
 | 項目 | 路徑 |
 |------|------|
 | Cron 狀態頁產生器 | [agent-status-page.mjs](../agent-status-page.mjs) → 預設輸出 `docs/agent-status.html` |
+| 任務板單一寫入 | [tools/company-board-writer/](../tools/company-board-writer/) `board-writer.mjs`、`rotate-board.mjs` |
+| 世界 ingest / cron | [tools/world-ingest/](../tools/world-ingest/) `fetch_feeds.py`、`install-world-cron.sh` |
+| OpenClaw 三 Agent 範本 | [templates/openclaw-company/](../templates/openclaw-company/) |
 | 用法說明 | [memory/kb/agent-cron-狀態頁用法.md](../memory/kb/agent-cron-狀態頁用法.md) |
 
 預設讀取：`$HOME/.openclaw/cron/jobs.json`。自訂：`CRON_FILE=... OUT=... node agent-status-page.mjs`。
@@ -48,6 +59,8 @@
 
 - [polymarket-learning-playbook.md](../memory/kb/polymarket-learning-playbook.md) — 月 ≤50 USD 學習實驗、決策日誌邊界；配套 [polymarket-api-cheatsheet.md](../memory/kb/polymarket-api-cheatsheet.md)、[polymarket-cron-instructions.md](../memory/kb/polymarket-cron-instructions.md)、[openclaw-polymarket-log-only-spec-and-env.md](../memory/kb/openclaw-polymarket-log-only-spec-and-env.md)（Log-only 日誌 spec + env）；個人檔案喺 `~/.openclaw/workspace/memory/polymarket/`；NBA 單場見 [nba-match-analysis-framework.md](../memory/kb/nba-match-analysis-framework.md)（`/poly` 會套用）
 - [openclaw-config-check-setup.md](../memory/kb/openclaw-config-check-setup.md) — 每週 config check cron
+- [openclaw-world-awareness-setup.md](../memory/kb/openclaw-world-awareness-setup.md) — 世界模型 RSS/cron/Telegram 摘要
+- [memory/kb/world/README.md](../memory/kb/world/README.md) — WORLD_STATE、watchlist、評分規則
 - [agent-cron-錯誤修復記錄.md](../memory/kb/agent-cron-錯誤修復記錄.md) — timeout、Edit 失敗、main vs isolated
 - [tui-gateway-disconnected-whatsapp-works.md](../memory/kb/tui-gateway-disconnected-whatsapp-works.md) — TUI disconnected 唔等於 WhatsApp 全壞
 - [openclaw-b-track-hermes-checklist.md](../memory/kb/openclaw-b-track-hermes-checklist.md) — B 軌：Hermes 小範圍實驗 checklist（與 OpenClaw 並行、唔搶 channel）

@@ -43,6 +43,12 @@
 
 ---
 
+## 3b. Provider ReadTimeout（Hermes log）
+
+若見 **`Connection to provider dropped (ReadTimeout). Reconnecting…`**：屬 **LLM provider** 連線，唔係 web 抓取；見 [hermes-provider-readtimeout-reconnecting.md](./hermes-provider-readtimeout-reconnecting.md)。
+
+---
+
 ## 4. 第 2–4 週：對照 A 軌
 
 每週填一次（可複製到 `memory/YYYY-MM-DD.md`）：

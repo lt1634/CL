@@ -342,7 +342,7 @@ def main() -> None:
         "--engine",
         choices=("minimax-direct", "openclaw-infer", "openclaw-agent", "openai", "ollama"),
         default=None,
-        help="預設：有 MINIMAX_API_KEY 則 minimax-direct；否則 PATH 有 openclaw 則 openclaw-infer；否則 openai／ollama",
+        help="預設：PATH 有 openclaw → openclaw-infer；否則有 OPENAI_API_KEY → openai；否則 ollama。要用 MiniMax 直連需明確 --engine minimax-direct。",
     )
     ap.add_argument(
         "--openclaw-bin",
@@ -372,9 +372,7 @@ def main() -> None:
     engine = args.engine
     minimax_key = os.environ.get("MINIMAX_API_KEY", "").strip()
     if engine is None:
-        if minimax_key:
-            engine = "minimax-direct"
-        elif oc_bin:
+        if oc_bin:
             engine = "openclaw-infer"
         elif os.environ.get("OPENAI_API_KEY"):
             engine = "openai"

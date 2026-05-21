@@ -67,7 +67,7 @@ python3 pdf_to_image_epub.py --pdf "/path/cards.pdf" --out "/path/cards_x4.epub"
 
 若你有 **英文 PDF**（例如 Naval Almanack），可用同資料夾嘅 `pdf_to_zh_tw_epub.py`：先 `pdftotext`，再逐段翻譯，最後打包 EPUB。
 
-- **預設**：若已 `export MINIMAX_API_KEY=...`，會用 **`minimax-direct`**（直連 MiniMax Anthropic 相容 API，**唔經 Gateway**，避免 session lock）。key 同 MiniMax 控制台／OpenClaw 用開嘅一樣。
+- **MiniMax 直連（需明確指定）**：`--engine minimax-direct` + `MINIMAX_API_KEY`（直連 MiniMax Anthropic 相容 API，**唔經 Gateway**）。為避免其他工具誤用 key，已改為**預設唔會自動選 minimax-direct**。
 - **否則** PATH 有 `openclaw` → **`openclaw infer model run`**（經 Gateway；若 TUI 或其他 client 拎鎖可能失敗）。
 - **要用某個 agent 人格**（較重）：`--engine openclaw-agent --openclaw-agent main`
 - **其他**：`--engine ollama`；或設 `OPENAI_API_KEY` 後 `--engine openai`
@@ -77,7 +77,7 @@ python3 pdf_to_image_epub.py --pdf "/path/cards.pdf" --out "/path/cards_x4.epub"
 ```bash
 cd "/Users/timnewmac/Desktop/CL/tools/xtcify"
 export MINIMAX_API_KEY="你的key"   # 同 OpenClaw MiniMax 用同一把即可
-python3 pdf_to_zh_tw_epub.py --pdf "/path/book.pdf" --work "/path/out_dir"
+python3 pdf_to_zh_tw_epub.py --engine minimax-direct --pdf "/path/book.pdf" --work "/path/out_dir"
 # 或強制經 Gateway：--engine openclaw-infer
 node xtcify.mjs "/path/out_dir/book_zh-Hant.epub" --font-tc --out "/path/out_dir"
 ```

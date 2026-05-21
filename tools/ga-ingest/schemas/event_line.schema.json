@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/ga/event_line.schema.json",
+  "title": "GA WhatsApp-derived event (one JSONL line)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "event_kind",
+    "anchor",
+    "source_chat",
+    "confidence"
+  ],
+  "properties": {
+    "date": {
+      "type": ["string", "null"],
+      "description": "ISO date YYYY-MM-DD if known (2526 school year)"
+    },
+    "title": { "type": "string" },
+    "owner": { "type": ["string", "null"] },
+    "helpers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "event_kind": {
+      "type": "string",
+      "description": "Controlled vocabulary; see event_kind_vocab.yaml"
+    },
+    "lead_days": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "Reminder offsets before date anchor, e.g. [14, 7, 3]"
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": [
+            "calendar_named_event",
+            "absolute_date",
+            "relative_to_term",
+            "dynamic_holiday_anchor",
+            "unknown"
+          ]
+        },
+        "name": { "type": ["string", "null"] },
+        "iso_date": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "source_chat": { "type": "string", "description": "e.g. T Yim.zip chunk_0003" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "ga_role": {
+      "type": ["string", "null"],
+      "enum": ["predecessor_tyim", "incoming_you", "team"]
+    },
+    "handover_status": {
+      "type": ["string", "null"],
+      "enum": ["tyim_done", "tyim_pending", "your_action"]
+    },
+    "confirmation_needed_from": {
+      "type": ["string", "null"],
+      "description": "e.g. T Yim"
+    },
+    "long_cycle_note": {
+      "type": ["string", "null"],
+      "description": "Warranty / contract end / next inspection — prefer your_action"
+    }
+  }
+}

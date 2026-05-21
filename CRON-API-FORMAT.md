@@ -43,8 +43,8 @@ Cron API (`cron.add`, `cron.update`) 對 JSON 格式敏感：
   },
   "delivery": {
     "mode": "announce",
-    "channel": "whatsapp",
-    "to": "+85212345678"
+    "channel": "telegram",
+    "to": "8527502358"
   }
 }
 ```

@@ -15,9 +15,8 @@
 ## 一日時間軸（HKT）
 
 ```
-03:00  Hermes  overnight-content-pipeline
-       └─ overnight-build.mjs = collect → triage → grade → overnight-suggestion.md
-       └─ Telegram：🏆 Top 3（含約 50 字摘要）
+03:00  Hermes  overnight-content-pipeline【背景 only，唔推 Telegram】
+       └─ overnight-build.mjs → overnight-suggestion.md
 
 04:31  OpenClaw overnight-app-001（記憶整理／小改進，唔係內容 digest）
 
@@ -25,22 +24,21 @@
        └─ morning-world-ingest.sh → fetch_feeds + agent 精簡 WORLD_STATE
        └─ 無 Telegram
 
-08:00  Hermes  雙星系統晨報（讀 summary / project-state，可選讀 WORLD_STATE [P0]）
+08:00  Hermes  ☀️ 梅窩晨報（三合一：Top3 + summary + WORLD [P0]/機會 ≤2）
 
-08:15  OpenClaw world-opportunity-scan-001（L1 ≤3 條；高相關 Telegram）
+08:15  ~~world-opportunity-scan~~【Phase1 停用，併入 08:00】
 
-14:00  OpenClaw world-opportunity-scan-afternoon-001（L1 ≤2 條；午間新 events）
+14:00  ~~world-opportunity-scan-afternoon~~【Phase1 停用】
 
-12:00  OpenClaw content-digest-hybrid-001【僅 exec】
-20:00  同上（第二轉）
-       └─ hobby pipeline + daily-digest-*.md
-       └─ Telegram：📰 內容精選
+12:10  LaunchAgent content-digest-hybrid【純腳本】→ 📰 Telegram
 
-13:00  Hermes  午後 Research（讀 hobby/triage/summary.md，web 補充）
+13:00  Hermes  午後 Research
 
-21:00  OpenClaw world-digest-evening-001
-       └─ fetch + Brave（≤12/日）+ 粵語 🌍 晚報；可補寫 opportunity
-       └─ 可引用當日 daily-digest Top 3（避免重複講同一條）
+20:10  LaunchAgent content-digest-hybrid【純腳本】→ 📰 Telegram
+
+21:00  OpenClaw world-digest-evening-001【只寫 digest 檔，唔推 Telegram】
+
+21:30  Hermes  🎯 睡前回顧（GEPA + 晚報精華 + 靈魂拷問）
 
 週日   world-consolidate + world-reflection
 ```

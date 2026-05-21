@@ -212,3 +212,23 @@ graph LR
 1. 加 `model.fallbacks`
 2. 建 `MEMORY.md` 並從 tim-context 提煉 P0/P1
 3. 把 agent2/3/4 改名為「工作」「Coding」「生活」
+
+---
+
+## 六、多 Agent「一人公司」架構（2026.4 落地摘錄）
+
+與 **OpenClaw 編排優先 + Next 唯讀中控台 + Hermes B 軌** 對齊；詳細憲法見同目錄：
+
+| 文檔 | 用途 |
+|------|------|
+| [COMPANY_BOARD_SCHEMA.md](./COMPANY_BOARD_SCHEMA.md) | `company-board.jsonl` SSOT、權限、欄位 |
+| [HANDOFF_HERMES.md](./HANDOFF_HERMES.md) | Albert → Hermes 8642 payload |
+| [HITL_BOSS_TEMPLATES.md](./HITL_BOSS_TEMPLATES.md) | `blocked` IM 模版與快捷回覆 |
+| [OPENCLAW_AGENT_COMMS.md](./OPENCLAW_AGENT_COMMS.md) | `sessions_send` 等核對清單 |
+| [THIRD_PARTY_EVAL_CHECKLIST.md](./THIRD_PARTY_EVAL_CHECKLIST.md) | Mission Control／A2A 引入門檻 |
+| [BLOCKED_SLA_REMINDER.md](./BLOCKED_SLA_REMINDER.md) | `blocked` 逾 30 分鐘再提醒 |
+
+**範本**：`templates/openclaw-company/`（Albert / Antithesis / lt1634）。  
+**寫入代理**：`tools/company-board-writer/board-writer.mjs`（單一 append、檔案鎖）。  
+**中控台**：`projects/va-bots-home` 內 `/company`（SSE tail board）、`/company/inbox`（`blocked`）。  
+**原則**：Mission Control／A2A **MVP 唔引入**；中控台 **唔操作** Gateway；Hermes **分 bot**。

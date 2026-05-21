@@ -46,6 +46,34 @@ HTTP 超時、5xx、或 Hermes 回傳 error → append `error` + `state_set` →
 
 **`hermes_result` 跳過句式（建議原文）：** `Hermes B軌跳過（web timeout，基建問題）` —— 寫入 `summary` 即可與歷史任務（T51／T52 等）對齊口徑。
 
+## 附件（PDF／相片）處理（Hermes 目前只穩定吃文字）
+
+Hermes（同大多數「文字為主」代理）對 **PDF / JPEG / 相片**通常無法「直接讀內容」；**標準做法係先轉成純文字**再派工。
+
+### 推薦流程（可上雲端版本，免費）
+
+- **若 PDF 本身可選字**（電腦輸出 PDF）  
+  用 macOS「預覽」直接全選複製 → 貼成文字 → 交俾 Hermes。
+
+- **若係掃描 PDF／照片／截圖**  
+  用 Google Drive：上傳 → 右鍵「以 Google 文件開啟」→ 讓 Google OCR → 複製文字 → 交俾 Hermes。  
+  （私隱：上傳雲端有風險；敏感文件唔建議）
+
+### 派工 payload 建議
+
+將 OCR 文字包一層 metadata（避免 Hermes 亂理解）：
+
+```text
+【來源】<檔名>
+【檔案類型】PDF-scan / photo / screenshot / PDF-text
+【語言】zh-TW / en / mixed
+【任務】請做摘要 / 抽取欄位 / 翻譯 / 核對與列疑點
+
+【OCR 文字開始】
+...
+【OCR 文字結束】
+```
+
 ### Research prompt 長時間無回（實務）
 
 **Web fetch timeout（已調整 2026-04）：** Hermes `web_tools.py` 原本將 **Tavily HTTP** 同 **Firecrawl scrape** **硬編碼 60s**，PubMed/PMC 類頁面好易撞牆。已改為 **`_web_fetch_timeout_seconds()`**：預設 **180s**，可用 **`HERMES_WEB_FETCH_TIMEOUT_SECONDS`**（15–900，你本機已寫 **240**）或 `config.yaml` → `auxiliary.web_extract.fetch_timeout_seconds` 覆蓋；改完 **重啟 Hermes gateway**。若仍 timeout，再查 DNS／代理／Firecrawl 額度／改用 `browser_navigate` 等。

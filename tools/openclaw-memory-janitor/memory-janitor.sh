@@ -2,8 +2,9 @@
 # MEMORY.md line budget check for OpenClaw hot memory.
 # Env: OPENCLAW_MEMORY (default: $HOME/.openclaw/workspace/memory)
 set -euo pipefail
-MEM_DIR="${OPENCLAW_MEMORY:-$HOME/.openclaw/workspace/memory}"
-MEM_FILE="$MEM_DIR/MEMORY.md"
+# Canonical hot memory: workspace/MEMORY.md (memory/MEMORY.md is symlink)
+MEM_FILE="${OPENCLAW_MEMORY_FILE:-$HOME/.openclaw/workspace/MEMORY.md}"
+MEM_DIR="$(dirname "$MEM_FILE")"
 MAX=200
 WARN=220
 if [[ ! -f "$MEM_FILE" ]]; then

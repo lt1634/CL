@@ -8,6 +8,7 @@
 2. 讀 **USER.md** — 你服務嘅用戶與偏好。
 3. 讀 **memory/YYYY-MM-DD.md**（今日與昨日）— 近期脈絡。
 4. 讀 **MEMORY.md** — 長期記憶（P0/P1/P2）。
+5. 若任務涉及外部世界／機會／投資宏觀：讀 **memory/world/WORLD_STATE.md**（若存在）同 `~/Desktop/CL/docs/project-state/` 相關檔。
 
 唔使問准，直接做。對齊最佳實務：SOUL + USER + MEMORY 為穩定啟動基線。
 

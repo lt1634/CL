@@ -20,6 +20,7 @@ def load_hk_entry_module():
     futu.RET_OK = 0
     futu.OpenQuoteContext = DummyQuoteContext
     sys.modules["futu"] = futu
+    sys.modules["pandas"] = types.ModuleType("pandas")
 
     module_path = Path(__file__).with_name("hk_entry.py")
     spec = importlib.util.spec_from_file_location("hk_entry_under_test", module_path)

@@ -38,7 +38,7 @@
 
 ## 使用方法
 
-1. 用瀏覽器打開 `index.html`，或部署到靜態空間（如 GitHub Pages、Vercel）
+1. 用瀏覽器打開 `index-dse-va-star-getter.html`，或部署到靜態空間（如 GitHub Pages、Vercel）
 2. 按 **「✨ 生成題目」** 取得一條 DSE 風格題目：**同一分頁、同一語言**會先以「洗牌輪替」形式出題，題庫幾多條就一輪內各出一次，出晒先再重新洗牌（關閉分頁即重置）
 3. 可切換 **簡潔模式** 只睇命題與方向提示
 4. 需要時按 **★ 收藏**、**📋 複製** 或 **↗ 分享**
@@ -74,7 +74,8 @@
 
 ## 檔案結構
 
-- `index.html` — 主頁與邏輯
+- `index-dse-va-star-getter.html` — DSE VA Star-Getter 主頁與邏輯
+- `index.html` — 通用 Art Prompt Generator 主頁
 - `prompts-dse.js` — 題目庫（32 題 × 中英，每題含命題／Concept／視覺／構圖／技法／扣題等；部分含 starTips）
 - `docs/product-how-to.html` — **產品向**圖解（使用方法與準則對照）
 - `docs/infographic.html` — 獲利化／路線圖資訊圖（與教學向分開）

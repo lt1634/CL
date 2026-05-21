@@ -17,6 +17,21 @@ restart_gateway() {
   echo "Gateway restarted."
 }
 
+run_with_gateway_stopped() {
+  local status
+  echo "Stopping Gateway..."
+  launchctl unload "$PLIST" 2>/dev/null || true
+  sleep 2
+
+  set +e
+  "$@"
+  status=$?
+  set -e
+
+  restart_gateway
+  return "$status"
+}
+
 cron_list() {
   if [[ ! -f "$CRON_FILE" ]]; then
     echo "No cron file at $CRON_FILE"
@@ -51,11 +66,17 @@ cron_add() {
   
   [[ -z "$payload" && "$session" == "main" ]] && payload="Reminder: $name"
   [[ -z "$payload" && "$session" == "isolated" ]] && payload="$name"
-  
-  echo "Stopping Gateway..."
-  launchctl unload "$PLIST" 2>/dev/null || true
-  sleep 2
-  
+
+  mkdir -p "$(dirname "$CRON_FILE")"
+  run_with_gateway_stopped cron_add_write "$name" "$schedule" "$session" "$payload"
+}
+
+cron_add_write() {
+  local name="$1"
+  local schedule="$2"
+  local session="$3"
+  local payload="$4"
+
   CRON_FILE="$CRON_FILE" NAME="$name" SCHEDULE="$schedule" SESSION="$session" PAYLOAD="$payload" node -e '
     const fs = require("fs");
     const path = process.env.CRON_FILE;
@@ -108,8 +129,6 @@ cron_add() {
     fs.writeFileSync(path, JSON.stringify(data, null, 2));
     console.log("Added job:", id, "-", name);
   '
-  
-  restart_gateway
 }
 
 cron_remove() {
@@ -119,11 +138,13 @@ cron_remove() {
     cron_list
     exit 1
   fi
-  
-  echo "Stopping Gateway..."
-  launchctl unload "$PLIST" 2>/dev/null || true
-  sleep 2
-  
+
+  run_with_gateway_stopped cron_remove_write "$job_id"
+}
+
+cron_remove_write() {
+  local job_id="$1"
+
   CRON_FILE="$CRON_FILE" JOB_ID="$job_id" node -e '
     const fs = require("fs");
     const path = process.env.CRON_FILE;
@@ -135,8 +156,6 @@ cron_remove() {
     fs.writeFileSync(path, JSON.stringify(data, null, 2));
     console.log(removed ? "Removed job: " + targetId : "Job not found: " + targetId);
   '
-  
-  restart_gateway
 }
 
 case "${1:-}" in

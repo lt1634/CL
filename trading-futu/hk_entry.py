@@ -14,6 +14,24 @@ MAX_CAPITAL = 30000
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 
+def load_trade_state(state_file=None):
+    state_file = state_file or STATE_FILE
+    if not os.path.exists(state_file):
+        return {}
+    try:
+        with open(state_file, 'r') as f:
+            return json.load(f) or {}
+    except (json.JSONDecodeError, OSError) as exc:
+        print(f"❌ 無法讀取持倉狀態，為免覆寫資料，停止掃描: {exc}")
+        return None
+
+
+def save_trade_state(trade_data, state_file=None):
+    state_file = state_file or STATE_FILE
+    with open(state_file, 'w') as f:
+        json.dump(trade_data, f)
+
+
 def get_snapshot(code_list):
     ret, data = quote_ctx.get_market_snapshot(code_list)
     if ret == RET_OK:
@@ -62,10 +80,20 @@ def enhanced_entry_signal(code, hsi_change_pct):
 def run_entry_task():
     print(f"\n--- 啟動掃描: {datetime.datetime.now()} ---")
 
+    existing_state = load_trade_state()
+    if existing_state is None:
+        quote_ctx.close()
+        return
+    if existing_state.get('status') == 'OPEN':
+        print(f"📌 已有活躍持倉 {existing_state.get('code')}，跳過今日入場掃描")
+        quote_ctx.close()
+        return
+
     # 1. 獲取大盤狀況
     hsi_snap = get_snapshot([HSI_CODE])
     if hsi_snap is None:
         print("❌ 無法獲取恒指數據")
+        quote_ctx.close()
         return
 
     hsi_last = hsi_snap.loc[HSI_CODE]['last_price']
@@ -99,10 +127,12 @@ def run_entry_task():
         }
     else:
         print("😴 今日無信號")
+        print("💾 未建立新持倉，保留現有狀態檔")
+        quote_ctx.close()
+        return
 
-    # 4. 持久化數據 (Save to JSON)
-    with open(STATE_FILE, 'w') as f:
-        json.dump(trade_data, f)
+    # 4. 持久化數據 (Save to JSON)；只在新開倉時寫入，避免清空既有狀態。
+    save_trade_state(trade_data)
     print(f"💾 狀態已保存至 {STATE_FILE}")
 
     quote_ctx.close()

@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# Wrapper — canonical script: ops/openclaw/openclaw-cron.sh
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-exec "${ROOT}/ops/openclaw/openclaw-cron.sh" "$@"

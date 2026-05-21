@@ -18,7 +18,7 @@
 ## 每次只做 2–4 項（輪流或揀最相關）
 
 - [ ] **P0**：下一堂 SBA 係幾時？有冇要提早準備嘅嘢？（睇 sba-timetable.md）
-- [ ] **P1**：sba-students.md 有冇更新？有冇學生進度要記低？
+- [ ] **P1**：`sba-students.md`／各生 `student-profile.md` 有冇更新？有冇學生進度要記低？
 - [ ] **P2**：有冇老師留低嘅跟進或糾正要寫入 MEMORY.md？
 - [ ] **P2**：上堂日課前任務已由 cron 出？唔使喺 heartbeat 重複出題。
 

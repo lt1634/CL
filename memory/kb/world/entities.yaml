@@ -1,0 +1,16 @@
+# Graph-lite：實體關係（手動維護 + ingest 可補）
+
+entities:
+  - [tim, lives_in, 梅窩, memory-index.md]
+  - [tim, holds, "03110", investment.md]
+  - [tim, holds, "02834", investment.md]
+  - [tim, holds, VT, investment.md]
+  - [tim, holds, IDEV, investment.md]
+  - [tim, holds, ICE, investment.md]
+  - [tim, project, T58, project-state/T58.md]
+  - [tim, project, LCSD, project-state/LCSD.md]
+  - [tim, project, doudou, memory-index.md]
+  - [tim, project, MindForge, memory-index.md]
+  - [tim, parent_of, Audrey, memory-index.md]
+  - [tim, uses, OpenClaw, memory-index.md]
+  - [tim, uses, Hermes, memory-index.md]

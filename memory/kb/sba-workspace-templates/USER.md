@@ -7,7 +7,7 @@
 
 ## 背景
 
-- 視藝科老師，負責中五 SBA；學生清單與進度見 `memory/kb/sba-students.md`。
+- 視藝科老師，負責中五 SBA；學生索引見 `memory/kb/sba-students.md`，每人詳情見 `memory/kb/sba-students-work/<名>/student-profile.md`。
 - 每堂後會將學生 daily work 相片上傳到 `memory/kb/sba-students-work/{學生名}/`；下堂前 cron 會睇圖分析並出 review。
 
 ## 敏感資料處理（與 AGENTS.md 一致）

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "mode": "aggressive",
+  "notes": "MiniMax quota resets every 4-5h — use world-layer LLM jobs freely within daily caps below.",
+  "reset_window_hours": 5,
+  "daily_max_estimated_tokens": 250000,
+  "per_job": {
+    "world-ingest-morning-001": 35000,
+    "world-opportunity-scan-001": 45000,
+    "world-opportunity-scan-afternoon-001": 35000,
+    "world-digest-evening-001": 60000,
+    "world-consolidate-weekly-001": 40000,
+    "world-reflection-weekly-001": 30000
+  },
+  "on_budget_exceeded": "continue_scans_and_digest_no_disable",
+  "brave_max_queries_per_day": 12
+}

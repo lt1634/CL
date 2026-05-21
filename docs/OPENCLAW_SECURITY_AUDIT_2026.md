@@ -33,7 +33,7 @@
 | # | 检查项 | 当前状态 |
 |---|--------|----------|
 | G1 | **Gateway 仅 loopback** | `gateway.bind: "loopback"`, 127.0.0.1:18789 |
-| G2 | **WhatsApp DM/群策略** | `dmPolicy: allowlist`, `groupPolicy: allowlist`, `allowFrom: ["+85267605407"]` |
+| G2 | **Telegram DM/群策略** | `dmPolicy: allowlist`, `groupPolicy: allowlist`, `allowFrom` 限本人 Telegram user id |
 | G3 | **openclaw.json 权限** | `600` ✓ |
 | G4 | **~/.openclaw 权限** | `700` ✓ |
 | G5 | **credentials 目录** | `700` ✓ |
@@ -57,6 +57,12 @@ chmod 600 ~/.openclaw/.env
 ```bash
 stat -f "%A" ~/.openclaw/.env   # 应为 600
 ```
+
+### Y7 补充（env 占位符）
+
+- 在 `openclaw.json` 中可用 **`${VAR_NAME}`** 引用環境變數（見官方 [Environment](https://docs.clawd.bot/help/environment)）。
+- 已將 **`gateway.auth.token`** 改為 **`${OPENCLAW_GATEWAY_TOKEN}`**、**`tools.web.search.apiKey`** 改為 **`${BRAVE_API_KEY}`** 時，請把對應值寫入 **`~/.openclaw/.env`**，勿在文檔或截圖中泄露。
+- 若密鑰曾暴露：輪換後更新 `.env` 並重啟 Gateway。
 
 ---
 
@@ -175,7 +181,7 @@ npx openclaw security audit --fix
 |------|-----------|
 | **网络暴露** | Gateway `bind: "loopback"`，不对公网开端口 ✓ |
 | **远程访问** | 仅通过 SSH（端口转发）或 Tailscale，不开放 18789 到公网 |
-| **消息通道** | WhatsApp `allowFrom` + `groupPolicy: allowlist` ✓ |
+| **消息通道** | Telegram `allowFrom` + `groupPolicy: allowlist` ✓（WhatsApp channel 已移除） |
 | **目录权限** | `~/.openclaw` 700，`openclaw.json` 600 ✓ |
 | **敏感文件** | `.env` 改为 600；memory 路径不放置明文凭证 |
 | **磁盘加密** | FileVault 开启 ✓ |

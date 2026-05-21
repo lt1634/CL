@@ -1,0 +1,55 @@
+# Controlled vocabulary for event_kind (iterate with school context).
+# Default lead_days suggestions for exam / large events: [14, 7, 3]
+
+kinds:
+  - id: TERM_START
+    description: First school day / term start
+    default_lead_days: [14, 7, 1]
+  - id: TERM_END
+    description: Last day before break / term end
+    default_lead_days: [14, 7]
+  - id: EXAM_PREP
+    description: Preparation window before exams
+    default_lead_days: [14, 7, 3]
+  - id: EXAM_WEEK
+    description: Exam period (quiet campus / rooms)
+    default_lead_days: [14, 7, 3, 1]
+  - id: SPORTS_DAY
+    description: Sports day / 陸運會
+    default_lead_days: [21, 14, 7, 3]
+  - id: INFO_DAY
+    description: School info day / 資訊日
+    default_lead_days: [21, 14, 7]
+  - id: PARENT_DAY
+    description: Parents' day
+    default_lead_days: [14, 7, 3]
+  - id: PD_DAY
+    description: Teacher development / staff day
+    default_lead_days: [7, 3]
+  - id: MAINTENANCE
+    description: Repairs / building / AC / contractor site work
+    default_lead_days: [7, 3, 1]
+  - id: SUPPLIER_PAYMENT
+    description: Invoices / deposits / renewals
+    default_lead_days: [14, 7, 1]
+  - id: STOCK_CHECK
+    description: Inventory / consumables
+    default_lead_days: [7, 1]
+  - id: STAFF_MEETING
+    description: Internal coordination meetings
+    default_lead_days: [3, 1]
+  - id: OTHER
+    description: Fallback
+    default_lead_days: [7]
+
+anchor_types:
+  - calendar_named_event
+  - absolute_date
+  - relative_to_term
+  - dynamic_holiday_anchor
+  - unknown
+
+dynamic_holiday_examples:
+  - Mid-Autumn / 中秋活動（農曆）
+  - Easter break 前後清場
+  - 颱風假／補課（以當年校曆／教育局公布為準）

@@ -1,0 +1,11 @@
+{
+  "name": "xtcify",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "CLI: EPUB -> XTC for Xteink X4 (forces CJK font to avoid ???)",
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}
+

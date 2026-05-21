@@ -1,0 +1,13 @@
+# macOS：cron 無法讀寫 ~/Desktop/CL/...（TCC → Operation not permitted），唔好將本腳本放 crontab。
+#
+# 做法：喺專案目錄跑一次（會複製腳本到 ~/Library、載入 LaunchAgent、每日 08:00）：
+#   ./install-launchd.sh
+# 輸出目錄：$HOME/Library/Application Support/com.timnewmac.xteink/data（環境變數 XTEINK_DATA_DIR）
+# 日誌：     同上目錄 cron.log
+# 手動觸發： launchctl kickstart -k gui/$(id -u)/com.timnewmac.xteink-daily
+# 終端互動（仍寫 Desktop/XTEINK-書庫）：cd .../free-chinese-book-daily && python3 daily_research.py
+#
+# 0 8 * * * /usr/bin/python3 .../daily_research.py --no-download >> .../cron.log 2>&1
+
+# 手動下載（不經確認，最多 3 本）— 一般不建議放 cron
+# 0 8 * * * /usr/bin/python3 .../daily_research.py -y --max-downloads 3 >> .../cron.log 2>&1

@@ -1,0 +1,7 @@
+# Cursor：減少索引／檔案監看負載（巨型 monorepo 長期預防）
+# 與 .gitignore 互補；僅影響 Cursor，不影響 git 追蹤與否。
+**/node_modules/
+**/dist/
+**/build/
+**/.next/
+**/.venv/

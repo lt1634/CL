@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.timnewmac.xteink-daily</string>
+	<key>LimitLoadToSessionType</key>
+	<string>Aqua</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PYTHONUNBUFFERED</key>
+		<string>1</string>
+		<key>XTEINK_DATA_DIR</key>
+		<string>/Users/timnewmac/Library/Application Support/com.timnewmac.xteink/data</string>
+	</dict>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/python3</string>
+		<string>/Users/timnewmac/Library/Application Support/com.timnewmac.xteink/daily_research.py</string>
+		<string>--no-download</string>
+	</array>
+	<key>WorkingDirectory</key>
+	<string>/Users/timnewmac/Library/Application Support/com.timnewmac.xteink</string>
+	<key>StandardOutPath</key>
+	<string>/Users/timnewmac/Library/Application Support/com.timnewmac.xteink/data/cron.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/timnewmac/Library/Application Support/com.timnewmac.xteink/data/cron.log</string>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>8</integer>
+		<key>Minute</key>
+		<integer>0</integer>
+	</dict>
+</dict>
+</plist>

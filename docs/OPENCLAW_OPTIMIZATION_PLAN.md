@@ -72,6 +72,19 @@ workspace/memory/
 | 4 | 調整 qmd paths | `memory.qmd.paths` 排除 `archive/`、`**/2026-*.md`，或只索引 `MEMORY.md` + `kb/` |
 | 5 | 建立 memory-janitor script | 每天 cron：過期 P1/P2 移入 archive |
 
+**A 軌落地（2026-04-11）**：
+
+- `openclaw.json`：`memory.qmd.includeDefaultMemory: false`，改為只索引 `memory/qmd-root/`（symlink：MEMORY、portfolio-holdings、investment-decisions）、`kb/`、`archive/`、`books/`、`paytron-notes/`、`notion-archive/`；**不索引**根目錄每日 `YYYY-MM-DD.md` 與 `iterations/` 等，減噪音。
+- Janitor：`tools/openclaw-memory-janitor/memory-janitor.sh`（行數守門）；**自動搬運 P1/P2** 仍可按上表逐步做或接 codesfly 管線。
+- 改動後請 **重啟 OpenClaw Gateway**。
+
+**A 軌延續（2026-04-11 晚）**：
+
+- **每週 cron**：`~/.openclaw/cron/jobs.json` 新增 **「A軌 · 每週 MEMORY 守門」**，`0 9 * * 1`（Asia/Hong_Kong）isolated session 跑 `memory-janitor.sh`，Telegram DM 報告；模型 `MiniMax-M2.1`。
+- **Janitor 加強**：除總行數外，粗估 `[P2]` 區非空行數；>25 行只 **HINT**（唔自動搬檔）。
+- **Honcho（可選）**：步驟見 [memory/kb/openclaw-a-track-honcho-optional.md](../memory/kb/openclaw-a-track-honcho-optional.md)；需自行 `openclaw honcho setup` 與 API／自架。
+- **codesfly（本機）**：已裝 [openclaw-memory-final](https://github.com/codesfly/openclaw-memory-final) 於 `tools/openclaw-memory-final`（**已 .gitignore**）；說明與 mac patch 見 [memory/kb/openclaw-codesfly-local-setup.md](../memory/kb/openclaw-codesfly-local-setup.md)。`memory-weekly-tidy` 調為**週日 23:30**；QMD 已加 `weekly/`、`tasks/` 與 qmd-root 之 CURRENT_STATE／INDEX。
+
 **MEMORY.md 範例**：
 
 ```markdown
@@ -199,3 +212,23 @@ graph LR
 1. 加 `model.fallbacks`
 2. 建 `MEMORY.md` 並從 tim-context 提煉 P0/P1
 3. 把 agent2/3/4 改名為「工作」「Coding」「生活」
+
+---
+
+## 六、多 Agent「一人公司」架構（2026.4 落地摘錄）
+
+與 **OpenClaw 編排優先 + Next 唯讀中控台 + Hermes B 軌** 對齊；詳細憲法見同目錄：
+
+| 文檔 | 用途 |
+|------|------|
+| [COMPANY_BOARD_SCHEMA.md](./COMPANY_BOARD_SCHEMA.md) | `company-board.jsonl` SSOT、權限、欄位 |
+| [HANDOFF_HERMES.md](./HANDOFF_HERMES.md) | Albert → Hermes 8642 payload |
+| [HITL_BOSS_TEMPLATES.md](./HITL_BOSS_TEMPLATES.md) | `blocked` IM 模版與快捷回覆 |
+| [OPENCLAW_AGENT_COMMS.md](./OPENCLAW_AGENT_COMMS.md) | `sessions_send` 等核對清單 |
+| [THIRD_PARTY_EVAL_CHECKLIST.md](./THIRD_PARTY_EVAL_CHECKLIST.md) | Mission Control／A2A 引入門檻 |
+| [BLOCKED_SLA_REMINDER.md](./BLOCKED_SLA_REMINDER.md) | `blocked` 逾 30 分鐘再提醒 |
+
+**範本**：`templates/openclaw-company/`（Albert / Antithesis / lt1634）。  
+**寫入代理**：`tools/company-board-writer/board-writer.mjs`（單一 append、檔案鎖）。  
+**中控台**：`projects/va-bots-home` 內 `/company`（SSE tail board）、`/company/inbox`（`blocked`）。  
+**原則**：Mission Control／A2A **MVP 唔引入**；中控台 **唔操作** Gateway；Hermes **分 bot**。

@@ -1,0 +1,171 @@
+{
+  "version": 3,
+  "timezone": "Asia/Hong_Kong",
+  "opportunity_profile": "memory/kb/world/tim-opportunity-profile.md",
+  "domains": {
+    "investment": {
+      "label": "投資與市場",
+      "source_trust": 0.85,
+      "linked_projects": ["investment"],
+      "opportunity_types": ["investment"],
+      "brave_queries": [
+        "Hong Kong stock market ETF news",
+        "Federal Reserve interest rate markets"
+      ],
+      "rss": [
+        {
+          "name": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/news/rssindex",
+          "source_trust": 0.85,
+          "brave_fallback": ["Yahoo Finance markets today VT 03110"]
+        }
+      ],
+      "entities": ["VT", "03110", "02834", "IDEV", "ICE"]
+    },
+    "local": {
+      "label": "本地·梅窩·離島·社區",
+      "source_trust": 0.8,
+      "linked_projects": ["personal", "T58", "audrey", "studio"],
+      "opportunity_types": ["local-life", "collab"],
+      "require_any": [
+        "梅窩|大嶼山|離島|東涌|坪洲|長洲",
+        "社區|市集|親子|家長| ferry|渡輪",
+        "佛行|筏可|佛教筏可|T58|校慶"
+      ],
+      "exclude_any": [
+        "四川|重慶|廣東|廣西|北京|上海|天津|武漢|西安",
+        "內地|全國|習近平|普京|俄羅斯|烏克蘭|以巴|加沙"
+      ],
+      "brave_queries": [
+        "梅窩 社區 活動 2026",
+        "大嶼山 文化 展覽 活動",
+        "離島 親子 活動 香港"
+      ],
+      "rss": [
+        {
+          "name": "Google News 梅窩大嶼山",
+          "url": "https://news.google.com/rss/search?q=%E6%A2%85%E7%AA%9F+OR+%E5%A4%A7%E5%B6%B5%E5%B1%B1+%E9%A6%99%E6%B8%AF&hl=zh-HK&gl=HK&ceid=HK:zh-Hant&when=7d",
+          "source_trust": 0.65,
+          "brave_fallback": ["梅窩 最新消息", "大嶼山 社區"]
+        },
+        {
+          "name": "Google News 離島親子社區",
+          "url": "https://news.google.com/rss/search?q=%E9%9B%A2%E5%B3%B6+%E8%A6%AA%E5%AD%90+%E7%A4%BE%E5%8D%80+%E9%A6%99%E6%B8%AF+when:7d&hl=zh-HK&gl=HK&ceid=HK:zh-Hant",
+          "source_trust": 0.6,
+          "brave_fallback": ["香港 離島 親子 活動"]
+        }
+      ],
+      "entities": ["梅窩", "大嶼山", "佛行", "T58", "Audrey"]
+    },
+    "hk": {
+      "label": "香港政策·文化·教育·藝術",
+      "source_trust": 0.75,
+      "linked_projects": ["T58", "LCSD", "T56", "jump", "feng-shui-lin", "doudou"],
+      "opportunity_types": ["education-hk", "arts-culture", "creative-ip"],
+      "require_any": [
+        "香港|港|Hong Kong|H\\.?K\\.?",
+        "康文署|LCSD|文化|藝術|展覽|教育|課程|學校|津貼|政策|grant|資助",
+        "T58|梅窩|佛行|校慶|視藝|香港大會堂|HKAC",
+        "粵語|兒歌|小學|教師|JUMP"
+      ],
+      "exclude_any": [
+        "四川|重慶|廣東|廣西|北京|上海|天津|武漢|西安",
+        "內地|全國|習近平|普京|俄羅斯|烏克蘭|以巴|加沙",
+        "美國總統|特朗普|拜登|國債孳息|Wall Street"
+      ],
+      "brave_queries": [
+        "Hong Kong education policy site:news.gov.hk",
+        "LCSD Hong Kong arts exhibition grant",
+        "香港 視覺藝術 教育 展覽 2026"
+      ],
+      "rss": [
+        {
+          "name": "明報 教育",
+          "url": "https://news.mingpao.com/rss/ins/s00007.xml",
+          "source_trust": 0.8,
+          "brave_fallback": ["明報 香港 教育 政策"]
+        },
+        {
+          "name": "明報 文化",
+          "url": "https://news.mingpao.com/rss/ins/s00002.xml",
+          "source_trust": 0.8,
+          "brave_fallback": ["明報 香港 文化 藝術"]
+        },
+        {
+          "name": "Google News 香港教育政策",
+          "url": "https://news.google.com/rss/search?q=%E9%A6%99%E6%B8%AF+%E6%95%99%E8%82%B2+%E6%94%BF%E7%AD%96+when:7d&hl=zh-HK&gl=HK&ceid=HK:zh-Hant",
+          "source_trust": 0.6,
+          "stale_item_days": 7,
+          "brave_fallback": ["香港 教育 政策 2026"]
+        },
+        {
+          "name": "Google News 香港文化藝術",
+          "url": "https://news.google.com/rss/search?q=%E9%A6%99%E6%B8%AF+%E6%96%87%E5%8C%96+%E8%97%9D%E8%A1%93+when:7d&hl=zh-HK&gl=HK&ceid=HK:zh-Hant",
+          "source_trust": 0.6,
+          "stale_item_days": 7,
+          "brave_fallback": ["香港 文化 藝術 展覽"]
+        },
+        {
+          "name": "Google News 康文署 LCSD",
+          "url": "https://news.google.com/rss/search?q=%E5%BA%B7%E6%96%87%E7%BD%B2+OR+LCSD+%E9%A6%99%E6%B8%AF+when:7d&hl=zh-HK&gl=HK&ceid=HK:zh-Hant",
+          "source_trust": 0.6,
+          "stale_item_days": 7,
+          "brave_fallback": ["康文署 香港 展覽", "LCSD grant"]
+        },
+        {
+          "name": "Google News 香港視藝展覽",
+          "url": "https://news.google.com/rss/search?q=%E9%A6%99%E6%B8%AF+%E8%A6%96%E8%97%9D+%E5%B1%95%E8%A6%BD+OR+%E8%97%9D%E8%A1%93+when:7d&hl=zh-HK&gl=HK&ceid=HK:zh-Hant",
+          "source_trust": 0.65,
+          "brave_fallback": ["香港 視藝 展覽 2026", "香港大會堂 展覽"]
+        }
+      ],
+      "entities": ["T58", "LCSD", "康文署", "視藝", "展覽"]
+    },
+    "tech-ai": {
+      "label": "科技與 AI 工具",
+      "source_trust": 0.7,
+      "linked_projects": ["openclaw", "hermes", "mindforge"],
+      "opportunity_types": ["tech-ai"],
+      "brave_queries": [
+        "AI agent OpenClaw",
+        "Anthropic Claude tools",
+        "local LLM agent memory"
+      ],
+      "rss": [],
+      "rss_policy": "brave_only",
+      "entities": ["OpenClaw", "Hermes", "MiniMax", "MindForge"]
+    }
+  },
+  "rss_deprecated": [
+    {
+      "name": "明報 港聞",
+      "url": "https://news.mingpao.com/rss/ins/s00004.xml",
+      "reason": "內地噪音過高，已移除",
+      "brave_fallback": ["香港 新聞 政策 文化"]
+    },
+    {
+      "name": "HKET RSS",
+      "url": "https://www.hket.com/rss/news",
+      "reason": "HTTP 403",
+      "brave_fallback": ["香港 財經 新聞 HKET"]
+    },
+    {
+      "name": "政府新聞處 topstories.xml",
+      "url": "https://www.news.gov.hk/tc/common/html/topstories.xml",
+      "reason": "非標準 RSS",
+      "brave_fallback": ["site:news.gov.hk 香港 政策"]
+    },
+    {
+      "name": "RTHK express RSS",
+      "url": "https://news.rthk.hk/rthk/news/rss/c_expressnews_clocal.xml",
+      "reason": "URL 回傳 HTML",
+      "brave_fallback": ["RTHK 香港 本地 新聞"]
+    },
+    {
+      "name": "LCSD topnews RSS",
+      "url": "https://www.lcsd.gov.hk/en/rss/topnews.xml",
+      "reason": "HTTP 404",
+      "brave_fallback": ["LCSD Hong Kong exhibition news"]
+    }
+  ]
+}

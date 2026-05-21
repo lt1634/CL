@@ -83,7 +83,7 @@ function normalizeEvent(obj) {
   if (!o.seq) o.seq = ulidLike();
   // Hermes 直接寫入時自動標示 writer
   if (!o.writer && o.actor === "hermes") o.writer = "hermes";
-  console.log("board-writer: appending event", JSON.stringify(o));
+  console.error("board-writer: appending event", JSON.stringify(o));
   return o;
 }
 

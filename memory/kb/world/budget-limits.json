@@ -12,6 +12,9 @@
     "world-consolidate-weekly-001": 40000,
     "world-reflection-weekly-001": 30000
   },
-  "on_budget_exceeded": "continue_scans_and_digest_no_disable",
-  "brave_max_queries_per_day": 12
+  "optional_l1_scans_enabled": true,
+  "on_budget_exceeded": "skip_optional_llm_scans_digest_continues",
+  "budget_exceeded_flag": "staging/budget-exceeded.flag",
+  "brave_max_queries_per_day": 12,
+  "notes_budget": "When over daily cap: touch budget-exceeded.flag OR set optional_l1_scans_enabled=false. Evening digest still runs (summary-only in prompt)."
 }

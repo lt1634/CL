@@ -1,0 +1,40 @@
+{
+  "_comment": "Merge into ~/.openclaw/openclaw.json → memory.qmd. Raw YYYY-MM-DD.md at memory/ root are NEVER listed here.",
+  "includeDefaultMemory": false,
+  "paths": [
+    {
+      "name": "memory-curated-root",
+      "path": "~/.openclaw/workspace/memory/qmd-root",
+      "pattern": "**/*.md"
+    },
+    {
+      "name": "memory-kb",
+      "path": "~/.openclaw/workspace/memory/kb",
+      "pattern": "**/*.md"
+    },
+    {
+      "name": "memory-world",
+      "path": "~/.openclaw/workspace/memory/world",
+      "pattern": "**/*.{md,json}"
+    },
+    {
+      "name": "memory-weekly",
+      "path": "~/.openclaw/workspace/memory/weekly",
+      "pattern": "**/*.md"
+    },
+    {
+      "name": "memory-tasks",
+      "path": "~/.openclaw/workspace/memory/tasks",
+      "pattern": "**/*.md"
+    }
+  ],
+  "_excluded_by_design": [
+    "memory/archive (cold — read explicitly, not semantic noise)",
+    "memory/YYYY-MM-DD.md (bootstrap read only today+yesterday)",
+    "~/.openclaw/credentials/** (never index)"
+  ],
+  "_optional_paths": [
+    "memory/books",
+    "memory/paytron-notes"
+  ]
+}

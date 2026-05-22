@@ -1,6 +1,6 @@
-# MEMORY.md — 1號 agent 長期記憶
+# MEMORY.md — 1號 agent 長期記憶（熱層）
 
-（精煉內容：重要決定、血淚教訓、你嘅偏好、「永遠不要再」嘅範式。會話重開後會讀呢度。保持精簡，減少上下文負擔。）
+（精煉內容：重要決定、血淚教訓、偏好、「永遠不要再」。會話重開後必讀。**硬上限 ≤200 行**；超標先 archive P2。原始日誌喺 `memory/YYYY-MM-DD.md`，唔塞入本檔。）
 
 ---
 
@@ -19,7 +19,7 @@
 
 | 項目 | 規格 | 驗收 |
 |------|------|------|
-| MEMORY.md 長度 | ≤ 3000 tokens | 超標則先 compact P2 → archive，再精煉 P1 |
+| MEMORY.md 長度 | **≤200 行**（約 ≤3000 tokens） | 超標則先 compact P2 → archive，再精煉 P1 |
 | P2 單條保留 | 最長 14 日（跟進）或 30 日（備忘） | 過期移入 archive，唔留喺 MEMORY |
 | Weekly compact 產出 | `memory/archive/YYYY-MM-DD.md` | 檔內含當日歸檔項 + 檔首一行 compact 摘要（例：`## 2026-03-08 compact — 移出 3 項 P2`） |
 

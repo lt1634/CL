@@ -1,0 +1,15 @@
+{
+  "_comment": "Merge into ~/.openclaw/openclaw.json → agents.defaults.model. Requires API keys in ~/.openclaw/.env",
+  "primary": "minimax/MiniMax-M2.7",
+  "fallbacks": [
+    "minimax/MiniMax-M2.1",
+    "openrouter/google/gemini-2.5-flash-preview",
+    "moonshot/kimi-k2-turbo-preview"
+  ],
+  "_notes": {
+    "minimax": "Primary; quota resets ~4–5h",
+    "openrouter": "Set OPENROUTER_API_KEY — pick a cheap fast model you trust",
+    "moonshot": "Set MOONSHOT_API_KEY — Kimi fallback; remove if unused",
+    "heartbeat": "Use MiniMax-M2.1 or cheapest fallback for HEARTBEAT checks"
+  }
+}

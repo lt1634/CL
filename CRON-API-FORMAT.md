@@ -44,10 +44,19 @@ Cron API (`cron.add`, `cron.update`) 對 JSON 格式敏感：
   "delivery": {
     "mode": "announce",
     "channel": "telegram",
-    "to": "8527502358"
+    "to": "__OPENCLAW_TELEGRAM_TO__"
   }
 }
 ```
+
+實際數字只放 `~/.openclaw/.env`：
+
+```bash
+# ~/.openclaw/.env（勿 commit）
+OPENCLAW_TELEGRAM_TO=<your-telegram-user-id-from-allowlist>
+```
+
+合併 world cron 時，`install-world-cron.sh` / `apply-digest-schedule.mjs` 會把 placeholder 換成 env 值。
 
 ### cron.add 完整參數
 

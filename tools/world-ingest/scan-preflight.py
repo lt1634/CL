@@ -15,6 +15,7 @@ CL_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_WORLD = Path.home() / ".openclaw/workspace/memory/world"
 WATCHLIST = CL_ROOT / "memory/kb/world/watchlist.json"
 ENTITIES = CL_ROOT / "memory/kb/world/entities.yaml"
+BUDGET_LIMITS = CL_ROOT / "memory/kb/world/budget-limits.json"
 
 MIN_NEW_EVENTS = 3
 MIN_HK_VOLUME = 8
@@ -63,6 +64,25 @@ def count_opportunities_today(world: Path, today: str) -> int:
     if not path.is_file():
         return 0
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
+
+
+def load_budget_blocker(world: Path) -> str | None:
+    if not BUDGET_LIMITS.is_file():
+        return None
+    try:
+        budget = json.loads(BUDGET_LIMITS.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    if budget.get("optional_l1_scans_enabled") is False:
+        return "budget: optional_l1_scans_enabled=false"
+    policy = budget.get("on_budget_exceeded", "")
+    if policy != "skip_optional_llm_scans_digest_continues":
+        return None
+    rel = budget.get("budget_exceeded_flag", "staging/budget-exceeded.flag")
+    flag = world / rel
+    if flag.is_file():
+        return "budget exceeded: skip optional L1 scan (evening digest continues)"
+    return None
 
 
 def keywords_from_entities_yaml(path: Path) -> list[str]:
@@ -150,6 +170,10 @@ def main() -> int:
 
     blockers: list[str] = []
     signals: list[str] = []
+
+    budget_block = load_budget_blocker(world)
+    if budget_block:
+        blockers.append(budget_block)
 
     if not summary:
         blockers.append("no ingest-summary today (run fetch_feeds first)")

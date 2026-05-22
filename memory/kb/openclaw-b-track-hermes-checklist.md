@@ -2,6 +2,8 @@
 
 **目標**：驗證 Hermes **learning loop**（自動生成／改進 skills 等）係咪真省維護；**主戰場仍係 OpenClaw**（現有 Telegram、cron、A 軌記憶）。
 
+**硬邊界（週檢）**：見 [hermes-b-track-guardrails.md](./hermes-b-track-guardrails.md)（獨立 bot、`HERMES_HOME`、`max_iterations` 8–12、web 唔覆蓋 system）。
+
 **官方入口**：[hermes-agent.org](https://hermes-agent.org/) · [NousResearch/hermes-agent](https://github.com/nousresearch/hermes-agent)
 
 ---

@@ -31,6 +31,9 @@ git clone --recursive https://github.com/lt1634/CL.git   # 或 clone 後：
 | 做咩 | 指令 |
 |------|------|
 | 健康檢查 | `./ops/dual-star/doctor.sh` |
+| 權限硬化 | `./ops/openclaw/harden-openclaw.sh` |
+| 分層記憶 setup | `./ops/openclaw/setup-memory-tiered.sh`（可選 `--apply-qmd`） |
+| Cron 安全編輯 | `./openclaw-cron.sh validate` / `list`（原子寫入 + lock） |
 | OpenClaw cron | `./openclaw-cron.sh list`（wrapper → `ops/openclaw/`） |
 | 重啟 OpenClaw Gateway | `./openclaw-cron.sh restart` 或 `openclaw gateway restart` |
 | Hermes 重啟 + doctor | `./ops/hermes/post-install.sh` |
@@ -42,6 +45,23 @@ git clone --recursive https://github.com/lt1634/CL.git   # 或 clone 後：
 2. 用 `openclaw-cron.sh` / Hermes cron API 改 **本機** `jobs.json`，或日後把範本放入 `ops/openclaw/cron/`。
 3. 驗證：`./ops/dual-star/doctor.sh`。
 4. 重要變更寫入 memory KB 或 project-state。
+
+## 秘密與 delivery（勿 commit）
+
+| 變數 | 位置 | 用途 |
+|------|------|------|
+| `OPENCLAW_TELEGRAM_TO` | `~/.openclaw/.env` | world cron `delivery.to`（合併時由 `resolve-cron-delivery.mjs` 注入） |
+| API keys | `~/.openclaw/.env`、`~/.hermes/.env` | 各星獨立 |
+
+Repo 內 cron 範本只用 placeholder `__OPENCLAW_TELEGRAM_TO__`。
+
+## Compaction 與 WORKFLOW_AUTO
+
+1. 各 agent workspace 根目錄放 **WORKFLOW_AUTO.md**（模板：`memory/kb/main-agent-workspace-templates/`）。
+2. `AGENTS.md` 啟動順序：**WORKFLOW_AUTO → SOUL → USER → MEMORY**。
+3. 本機 `openclaw.json` 合併 [`ops/openclaw/compaction-recommended.json`](../ops/openclaw/compaction-recommended.json) 的 `memoryFlush`。
+
+週檢記錄：`memory/kb/openclaw-hermes-weekly-ops-2026-05-22.md`
 
 ## 版本鎖
 
@@ -59,6 +79,8 @@ cd ../.. && git add vendor/hermes-agent ops/versions.lock.yaml
 
 ## 相關文檔
 
+- [openclaw-hermes-weekly-ops-2026-05-22.md](../memory/kb/openclaw-hermes-weekly-ops-2026-05-22.md) — 週檢短報與三項改善
+- [hermes-b-track-guardrails.md](../memory/kb/hermes-b-track-guardrails.md)
 - [HANDOFF_HERMES.md](./HANDOFF_HERMES.md) — OpenClaw → Hermes 8642
 - [OPENCLAW_INDEX.md](./OPENCLAW_INDEX.md)
 - [PROJECTS-INDEX.md](./PROJECTS-INDEX.md)

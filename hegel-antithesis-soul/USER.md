@@ -10,7 +10,7 @@
 </basic_info>
 
 <delivery_allowlist>
-- **對 Tim 嘅對外通知：只用 Telegram DM**（與 `~/.openclaw/cron/jobs.json` 內 main／default bot 嘅 Telegram chat id 一致，例如 **8527502358**）。
+- **對 Tim 嘅對外通知：只用 Telegram DM**（與 `OPENCLAW_TELEGRAM_TO`／allowlist 一致；實值只放 `~/.openclaw/.env`）。
 - **唔再使用 OpenClaw WhatsApp channel**。
 </delivery_allowlist>
 

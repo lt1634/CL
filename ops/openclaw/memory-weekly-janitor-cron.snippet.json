@@ -1,0 +1,23 @@
+[
+  {
+    "id": "memory-weekly-janitor-001",
+    "name": "A軌 · 每週 MEMORY 守門",
+    "enabled": true,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 9 * * 1",
+      "tz": "Asia/Hong_Kong"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "next-heartbeat",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "【每週 MEMORY 守門】模型：minimax/MiniMax-M2.1（慳 token）。\n\n1) exec：bash /Users/timnewmac/Desktop/CL/tools/openclaw-memory-janitor/memory-janitor.sh\n2) exec：bash /Users/timnewmac/Desktop/CL/tools/openclaw-memory-janitor/archive-daily-logs.sh\n3) 若 janitor 失敗或 [P2] 過多：精煉 MEMORY.md（移細節到 memory/archive/MEMORY-shed-今日.md），保持 ≤200 行\n4) exec：openclaw security audit 2>&1 | tail -5\n5) Telegram 一句報告行數 + 有無 WARN。唔改 HEARTBEAT。"
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "telegram",
+      "to": "__OPENCLAW_TELEGRAM_TO__"
+    }
+  }
+]

@@ -1,27 +1,63 @@
 #!/usr/bin/env bash
 # OpenClaw Cron 管理腳本 - 繞過 API，直接編輯 jobs.json
-# 用法: ./openclaw-cron.sh add|list|remove|restart
+# 用法: ./openclaw-cron.sh add|list|remove|restart|validate
 #
-# 若用 Cron API：schedule/payload/delivery 必須係 nested object，唔係 string。
+# 安全：flock 風格 lock、原子寫入、寫前 .bak、Gateway 停等較長 grace
 # 詳見: CRON-API-FORMAT.md
 
-set -e
-CRON_FILE="${HOME}/.openclaw/cron/jobs.json"
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CRON_FILE="${CRON_FILE:-${HOME}/.openclaw/cron/jobs.json}"
 PLIST="${HOME}/Library/LaunchAgents/ai.openclaw.gateway.plist"
+GATEWAY_PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
+GRACE_STOP_SEC="${OPENCLAW_CRON_GRACE_STOP:-5}"
+GRACE_START_SEC="${OPENCLAW_CRON_GRACE_START:-5}"
+IO="${SCRIPT_DIR}/cron-jobs-io.mjs"
+
+wait_port() {
+  local host="$1" port="$2" want_up="$3" max="${4:-30}"
+  local i=0
+  while [[ "$i" -lt "$max" ]]; do
+    if nc -z "$host" "$port" 2>/dev/null; then
+      [[ "$want_up" == "1" ]] && return 0
+    else
+      [[ "$want_up" == "0" ]] && return 0
+    fi
+    sleep 1
+    i=$((i + 1))
+  done
+  return 1
+}
 
 restart_gateway() {
   echo "Restarting Gateway..."
+  if [[ ! -f "$PLIST" ]]; then
+    echo "WARN: No LaunchAgent at $PLIST — restart gateway manually."
+    return 0
+  fi
   launchctl unload "$PLIST" 2>/dev/null || true
-  sleep 2
+  sleep "$GRACE_STOP_SEC"
+  wait_port 127.0.0.1 "$GATEWAY_PORT" 0 15 || echo "WARN: port $GATEWAY_PORT still open after unload"
   launchctl load "$PLIST"
-  echo "Gateway restarted."
+  sleep "$GRACE_START_SEC"
+  if wait_port 127.0.0.1 "$GATEWAY_PORT" 1 20; then
+    echo "Gateway restarted (port $GATEWAY_PORT up)."
+  else
+    echo "WARN: port $GATEWAY_PORT not up after load — check launchctl / logs."
+  fi
 }
 
 run_with_gateway_stopped() {
   local status
   echo "Stopping Gateway..."
-  launchctl unload "$PLIST" 2>/dev/null || true
-  sleep 2
+  if [[ -f "$PLIST" ]]; then
+    launchctl unload "$PLIST" 2>/dev/null || true
+    sleep "$GRACE_STOP_SEC"
+    wait_port 127.0.0.1 "$GATEWAY_PORT" 0 15 || echo "WARN: port may still be bound"
+  else
+    echo "WARN: No plist — editing cron without stopping gateway"
+  fi
 
   set +e
   "$@"
@@ -37,33 +73,26 @@ cron_list() {
     echo "No cron file at $CRON_FILE"
     exit 1
   fi
-  CRON_FILE="$CRON_FILE" node -e '
-    const fs = require("fs");
-    const path = process.env.CRON_FILE;
-    const d = JSON.parse(fs.readFileSync(path, "utf8"));
-    console.log("Cron jobs:");
-    (d.jobs || []).forEach((job, i) => {
-      const s = job.schedule || {};
-      const when = s.kind === "at" ? s.at : s.kind === "cron" ? (s.expr || "") + " (" + (s.tz || "local") + ")" : s.kind === "every" ? "every " + Math.floor((s.everyMs||0)/60000) + "m" : "?";
-      console.log("  " + (i+1) + ". [" + job.id + "] " + job.name + " - " + when + " (enabled: " + job.enabled + ")");
-    });
-  '
+  echo "Cron jobs:"
+  CRON_FILE="$CRON_FILE" node "$IO" list
+}
+
+cron_validate() {
+  CRON_FILE="$CRON_FILE" node "$IO" validate
 }
 
 cron_add() {
   local name="$1"
-  local schedule="$2"   # cron:0 7 * * *:Asia/Taipei 或 every:3600000 或 at:2026-02-10T09:00:00Z
+  local schedule="$2"
   local session="${3:-main}"
   local payload="${4:-}"
-  
+
   if [[ -z "$name" || -z "$schedule" ]]; then
     echo "Usage: $0 add <name> <schedule> [session] [payload]"
     echo "  schedule: cron:EXPR:TZ | every:MS | at:ISO"
-    echo "  example: cron:0 7 * * *:Asia/Taipei"
-    echo "  example: every:3600000  (every hour)"
     exit 1
   fi
-  
+
   [[ -z "$payload" && "$session" == "main" ]] && payload="Reminder: $name"
   [[ -z "$payload" && "$session" == "isolated" ]] && payload="$name"
 
@@ -72,63 +101,7 @@ cron_add() {
 }
 
 cron_add_write() {
-  local name="$1"
-  local schedule="$2"
-  local session="$3"
-  local payload="$4"
-
-  CRON_FILE="$CRON_FILE" NAME="$name" SCHEDULE="$schedule" SESSION="$session" PAYLOAD="$payload" node -e '
-    const fs = require("fs");
-    const path = process.env.CRON_FILE;
-    const crypto = require("crypto");
-    const id = "job-" + crypto.randomUUID().replace(/-/g, "").slice(0, 12);
-    const now = Date.now();
-    const name = process.env.NAME || "unnamed";
-    const scheduleRaw = process.env.SCHEDULE || "";
-    const sessionTarget = process.env.SESSION || "main";
-    const payloadText = process.env.PAYLOAD || name;
-
-    let data = { version: 1, jobs: [] };
-    if (fs.existsSync(path)) {
-      data = JSON.parse(fs.readFileSync(path, "utf8"));
-    }
-    data.jobs = data.jobs || [];
-
-    let schedule = {};
-    if (scheduleRaw.startsWith("cron:")) {
-      const parts = scheduleRaw.slice(5).split(":");
-      schedule = { kind: "cron", expr: parts[0] || "0 7 * * *", tz: parts[1] || "Asia/Taipei" };
-    } else if (scheduleRaw.startsWith("every:")) {
-      const ms = parseInt(scheduleRaw.slice(6), 10) || 3600000;
-      schedule = { kind: "every", everyMs: ms };
-    } else if (scheduleRaw.startsWith("at:")) {
-      schedule = { kind: "at", at: scheduleRaw.slice(3) };
-    } else {
-      schedule = { kind: "cron", expr: "0 7 * * *", tz: "Asia/Taipei" };
-    }
-
-    const payloadKind = sessionTarget === "main" ? "systemEvent" : "agentTurn";
-    const payload = payloadKind === "systemEvent"
-      ? { kind: "systemEvent", text: payloadText }
-      : { kind: "agentTurn", message: payloadText };
-
-    const job = {
-      id,
-      name,
-      enabled: true,
-      createdAtMs: now,
-      updatedAtMs: now,
-      schedule,
-      sessionTarget,
-      wakeMode: "next-heartbeat",
-      payload,
-      state: {}
-    };
-
-    data.jobs.push(job);
-    fs.writeFileSync(path, JSON.stringify(data, null, 2));
-    console.log("Added job:", id, "-", name);
-  '
+  CRON_FILE="$CRON_FILE" NAME="$1" SCHEDULE="$2" SESSION="$3" PAYLOAD="$4" node "$IO" add
 }
 
 cron_remove() {
@@ -138,31 +111,19 @@ cron_remove() {
     cron_list
     exit 1
   fi
-
   run_with_gateway_stopped cron_remove_write "$job_id"
 }
 
 cron_remove_write() {
-  local job_id="$1"
-
-  CRON_FILE="$CRON_FILE" JOB_ID="$job_id" node -e '
-    const fs = require("fs");
-    const path = process.env.CRON_FILE;
-    const targetId = process.env.JOB_ID;
-    const data = JSON.parse(fs.readFileSync(path, "utf8"));
-    const before = data.jobs.length;
-    data.jobs = (data.jobs || []).filter(j => j.id !== targetId && j.id !== "job-" + targetId);
-    const removed = before - data.jobs.length;
-    fs.writeFileSync(path, JSON.stringify(data, null, 2));
-    console.log(removed ? "Removed job: " + targetId : "Job not found: " + targetId);
-  '
+  CRON_FILE="$CRON_FILE" JOB_ID="$1" node "$IO" remove
 }
 
 case "${1:-}" in
-  list)   cron_list ;;
-  add)    cron_add "${2:-}" "${3:-}" "${4:-main}" "${5:-}" ;;
+  list) cron_list ;;
+  add) cron_add "${2:-}" "${3:-}" "${4:-main}" "${5:-}" ;;
   remove) cron_remove "${2:-}" ;;
   restart) restart_gateway ;;
+  validate) cron_validate ;;
   *)
     echo "OpenClaw Cron (shell) - bypass API"
     echo ""
@@ -171,6 +132,7 @@ case "${1:-}" in
     echo "  add <name> <sched> [session] [payload]  - 新增工作"
     echo "  remove <jobId>    - 移除工作"
     echo "  restart           - 重啟 Gateway"
+    echo "  validate          - 驗證 jobs.json（不修改）"
     echo ""
     echo "Schedule 格式:"
     echo "  cron:0 7 * * *:Asia/Taipei   - 每天 7:00"

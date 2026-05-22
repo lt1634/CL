@@ -240,4 +240,35 @@ npx openclaw update status
 
 ---
 
+---
+
+## 六、2026-05 複查狀態（main 分支 + 本機）
+
+| 項 | 2 月狀態 | 2026-05 複查 |
+|----|----------|--------------|
+| R1 `.env` 644 | 🔴 | ✅ 本機已 `600`（openclaw + hermes） |
+| R2 獨立用戶 | 🔴 | ⏳ 仍 timnewmac admin；見 `ops/openclaw/dedicated-user-migration.md` |
+| R3 memory 明文憑證 | 🔴 | ✅ `instagram-credentials.md` 已不在 memory 路徑 |
+| Cron 腳本 | — | ✅ `openclaw-cron.sh`：lock + 原子寫入 + `.bak` + 較長 gateway grace |
+| 一鍵硬化 | — | ✅ `./ops/openclaw/harden-openclaw.sh` |
+
+**仍須關注（`openclaw security audit` WARN）**：
+
+- `tools.exec.security=full` 多 agent — 考慮改 allowlist
+- `safeBins` 含 awk/sed、trusted dirs 含 homebrew
+- 多 agent `sandbox=off` — 個人助理模型可接受，非多租戶隔離
+- npm plugin 未 pin 版本
+
+**立即指令**：
+
+```bash
+cd ~/Desktop/CL
+chmod +x ops/openclaw/harden-openclaw.sh ops/openclaw/openclaw-cron.sh
+./ops/openclaw/harden-openclaw.sh
+./ops/dual-star/doctor.sh
+openclaw security audit --deep
+```
+
+---
+
 *报告生成：OpenClaw 安全审计官 | 基于 openclaw/docs/gateway/security/index.md 与部署指南 Checklist*

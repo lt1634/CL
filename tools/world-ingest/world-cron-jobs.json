@@ -42,7 +42,7 @@
     "delivery": {
       "mode": "announce",
       "channel": "telegram",
-      "to": "8527502358",
+      "to": "__OPENCLAW_TELEGRAM_TO__",
       "accountId": "main",
       "bestEffort": true
     },
@@ -68,7 +68,7 @@
     "delivery": {
       "mode": "announce",
       "channel": "telegram",
-      "to": "8527502358",
+      "to": "__OPENCLAW_TELEGRAM_TO__",
       "accountId": "main",
       "bestEffort": true
     },
@@ -94,7 +94,7 @@
     "delivery": {
       "mode": "announce",
       "channel": "telegram",
-      "to": "8527502358",
+      "to": "__OPENCLAW_TELEGRAM_TO__",
       "accountId": "main",
       "bestEffort": true
     },
@@ -120,7 +120,7 @@
     "delivery": {
       "mode": "announce",
       "channel": "telegram",
-      "to": "8527502358",
+      "to": "__OPENCLAW_TELEGRAM_TO__",
       "accountId": "main",
       "bestEffort": true
     },
@@ -146,7 +146,7 @@
     "delivery": {
       "mode": "announce",
       "channel": "telegram",
-      "to": "8527502358",
+      "to": "__OPENCLAW_TELEGRAM_TO__",
       "accountId": "main",
       "bestEffort": true
     },
@@ -172,7 +172,7 @@
     "delivery": {
       "mode": "announce",
       "channel": "telegram",
-      "to": "8527502358",
+      "to": "__OPENCLAW_TELEGRAM_TO__",
       "accountId": "main",
       "bestEffort": true
     },

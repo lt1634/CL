@@ -17,8 +17,14 @@ if [[ -f .gitmodules ]]; then
   TAG="$(grep -A5 '^hermes:' ops/versions.lock.yaml | grep 'release_tag:' | sed 's/.*"\(.*\)".*/\1/' || true)"
   if [[ -n "$TAG" && -d vendor/hermes-agent ]]; then
     echo ">> Pin submodule to ${TAG} (from versions.lock.yaml)"
-    git -C vendor/hermes-agent fetch --tags --depth 1 origin 2>/dev/null || true
-    git -C vendor/hermes-agent checkout "$TAG" 2>/dev/null || echo "WARN: could not checkout $TAG — using current submodule commit"
+    if ! git -C vendor/hermes-agent fetch --tags --depth 1 origin 2>/dev/null; then
+      echo "WARN: submodule fetch failed — offline or network issue"
+    fi
+    if ! git -C vendor/hermes-agent checkout "$TAG" 2>/dev/null; then
+      echo "FAIL: could not checkout $TAG — run: git -C vendor/hermes-agent fetch --tags && git checkout $TAG"
+      exit 1
+    fi
+    echo "OK  vendor/hermes-agent @ $(git -C vendor/hermes-agent describe --tags --always 2>/dev/null)"
   fi
 else
   echo "WARN: no .gitmodules — skip submodule"

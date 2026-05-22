@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { spawnSync } from "child_process";
+import { resolveJobs } from "./resolve-cron-delivery.mjs";
 
 const CL_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
 const CRON_FILE = process.env.CRON_FILE || path.join(os.homedir(), ".openclaw/cron/jobs.json");
@@ -23,7 +24,7 @@ const WORLD_LLM_IDS = [
 
 function mergeWorldJobs() {
   const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
-  const incoming = JSON.parse(fs.readFileSync(SNIPPET, "utf8"));
+  const incoming = resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")));
   const jobs = data.jobs || [];
   const byId = new Map(jobs.map((j) => [j.id, j]));
   let added = 0;
@@ -75,7 +76,7 @@ function disableLegacy() {
 
 function enableAggressiveWorldMode() {
   const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
-  const snippet = JSON.parse(fs.readFileSync(SNIPPET, "utf8"));
+  const snippet = resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")));
   const snippetById = new Map(snippet.map((j) => [j.id, j]));
   for (const job of data.jobs || []) {
     if (!WORLD_LLM_IDS.includes(job.id)) continue;

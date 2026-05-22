@@ -18,8 +18,9 @@ cd ~/Desktop/CL
 | `fetch_feeds.py` | RSS ingest → events + `staging/feed_health.json` + `ingest-summary`（`--force` 略過去重） |
 | `world-doctor.sh` / `world-doctor.py` | 檢查 feed 成功率、WORLD_STATE 新鮮度、pipeline → `staging/doctor-report.json` |
 | `sync-to-workspace.sh` | 複製 KB → workspace；初始化 pipeline state；symlink project-state |
-| `install-world-cron.sh` | 合併 `world-cron-jobs.json` 到 `jobs.json` 並重啟 gateway |
-| `world-cron-jobs.json` | 世界層 cron 定義（ingest / scan / digest / weekly） |
+| `install-world-cron.sh` | 合併 `world-cron-jobs.json` 到 `jobs.json`（解析 `OPENCLAW_TELEGRAM_TO`）並重啟 gateway |
+| `resolve-cron-delivery.mjs` | 把 `__OPENCLAW_TELEGRAM_TO__` 換成 `~/.openclaw/.env` 值 |
+| `world-cron-jobs.json` | 世界層 cron 定義（ingest / scan / digest / weekly）；repo 內無真實 chat id |
 | `install-all.sh` | sync + ingest + state + cron + qmd |
 | `update_world_state.py` | 從 events 更新 WORLD_STATE |
 | `record_feedback.py` | 記錄用戶 feedback |
@@ -32,6 +33,7 @@ cd ~/Desktop/CL
 ## 環境變數
 
 - `OPENCLAW_WORLD_DIR` — 預設 `~/.openclaw/workspace/memory/world`
+- `OPENCLAW_TELEGRAM_TO` — 合併 cron 時必填（Telegram user id，與 allowlist 一致）；放 `~/.openclaw/.env`
 
 ## 成本
 

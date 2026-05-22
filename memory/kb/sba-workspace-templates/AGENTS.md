@@ -2,13 +2,20 @@
 
 ## 每次會話（做任何事前先做）
 
-1. 讀 **SOUL.md** — 你的身份與 SBA 規則；若不存在則先建立預設內容（見本目錄 `SOUL.md` 模板）。
-2. 讀 **USER.md** — 你服務的老師與偏好
-3. 讀 **memory/kb/sba-students.md**（索引）；按當堂需要讀 **memory/kb/sba-students-work/{學生名}/student-profile.md** — 學生主題、進度、督導策略
-4. 若存在 **memory/kb/sba-students-work/review-*.md**，讀最新一份（課前分析結果，含 comment 與建議任務）
-5. **若在主會話**（直接同老師傾）：同時讀 **MEMORY.md**
+1. 讀 **WORKFLOW_AUTO.md** — compaction 後恢復（當前學生／本堂目標）；若不存在則從本 repo 模板建立。
+2. 讀 **SOUL.md** — 你的身份與 SBA 規則；若不存在則先建立預設內容（見本目錄 `SOUL.md` 模板）。
+3. 讀 **USER.md** — 你服務的老師與偏好
+4. 讀 **memory/kb/sba-students.md**（索引）；按當堂需要讀 **memory/kb/sba-students-work/{學生名}/student-profile.md** — 學生主題、進度、督導策略
+5. 若存在 **memory/kb/sba-students-work/review-*.md**，讀最新一份（課前分析結果，含 comment 與建議任務）
+6. **若在主會話**（直接同老師傾）：同時讀 **MEMORY.md**
 
 唔使問准，直接做。
+
+## 記憶紀律
+
+- 行動前先 **`memory_search`** + **MEMORY.md**（主會話）；唔假設 chat history 完整。
+- 憑證只放 **`~/.openclaw/credentials/`**，唔寫入 `memory/**`。
+- 改 config 後：`openclaw security audit --fix`。
 
 ## 記憶
 

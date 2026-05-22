@@ -49,12 +49,36 @@ echo "--- Config homes ---"
 for d in "${HOME}/.openclaw" "${HOME}/.hermes"; do
   if [[ -d "$d" ]]; then
     echo "OK  $d"
-    [[ -f "$d/.env" ]] && echo "    .env: present" || echo "    .env: missing (create from .env.example if needed)"
+    if [[ -f "$d/.env" ]]; then
+      perm="$(stat -f '%OLp' "$d/.env" 2>/dev/null || echo '?')"
+      if [[ "$perm" == "600" ]]; then
+        echo "    .env: present (600)"
+      else
+        echo "    .env: present but perm=$perm (want 600) — run: ${CL_ROOT}/ops/openclaw/harden-openclaw.sh"
+        warn=$((warn + 1))
+      fi
+    else
+      echo "    .env: missing (create from .env.example if needed)"
+    fi
   else
     echo "WARN $d: not found"
     warn=$((warn + 1))
   fi
 done
+echo ""
+
+echo "--- Security (read-only) ---"
+if command -v openclaw >/dev/null 2>&1; then
+  summary="$(openclaw security audit 2>&1 | grep -E '^Summary:' || true)"
+  [[ -n "$summary" ]] && echo "    $summary" || echo "WARN openclaw security audit failed"
+  crit="$(openclaw security audit 2>&1 | grep -c 'CRITICAL' || true)"
+  [[ "${crit:-0}" -gt 0 ]] && warn=$((warn + 1))
+else
+  echo "SKIP openclaw security audit (CLI missing)"
+fi
+if [[ -f "${HOME}/.openclaw/cron/jobs.json" && -f "${CL_ROOT}/ops/openclaw/cron-jobs-io.mjs" ]]; then
+  CRON_FILE="${HOME}/.openclaw/cron/jobs.json" node "${CL_ROOT}/ops/openclaw/cron-jobs-io.mjs" validate 2>&1 | sed 's/^/    /' || warn=$((warn + 1))
+fi
 echo ""
 
 echo "--- Hermes submodule ---"

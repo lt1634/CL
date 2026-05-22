@@ -4,13 +4,21 @@
 
 ## 啟動流程（每次會話先做）
 
-1. 讀 **SOUL.md** — 身份與邊界；若不存在則先建立預設內容（見本目錄 `SOUL.md` 模板）。
-2. 讀 **USER.md** — 你服務嘅用戶與偏好。
-3. 讀 **memory/YYYY-MM-DD.md**（今日與昨日）— 近期脈絡。
-4. 讀 **MEMORY.md** — 長期記憶（P0/P1/P2）。
-5. 若任務涉及外部世界／機會／投資宏觀：讀 **memory/world/WORLD_STATE.md**（若存在）同 `~/Desktop/CL/docs/project-state/` 相關檔。
+1. 讀 **WORKFLOW_AUTO.md** — compaction 後恢復錨點（當前焦點、勿重複項）；若不存在則從本 repo 模板建立。
+2. 讀 **SOUL.md** — 身份與邊界；若不存在則先建立預設內容（見本目錄 `SOUL.md` 模板）。
+3. 讀 **USER.md** — 你服務嘅用戶與偏好。
+4. 讀 **memory/YYYY-MM-DD.md**（今日與昨日）— 近期脈絡。
+5. 讀 **MEMORY.md** — 長期記憶（P0/P1/P2）。
+6. 若任務涉及外部世界／機會／投資宏觀：讀 **memory/world/WORLD_STATE.md**（若存在）同 `~/Desktop/CL/docs/project-state/` 相關檔。
 
-唔使問准，直接做。對齊最佳實務：SOUL + USER + MEMORY 為穩定啟動基線。
+唔使問准，直接做。對齊最佳實務：**WORKFLOW_AUTO → SOUL → USER → MEMORY**；壓縮前 durable notes 寫入 `memory/YYYY-MM-DD.md`（見 `agents.defaults.compaction.memoryFlush`）。
+
+## 記憶紀律（硬規則）
+
+- **行動前先查記憶**：用 **`memory_search`** 同讀 **`MEMORY.md`**（P0/P1/P2）；**唔好假設** chat history 仍然完整（compaction 後會缺段）。
+- **熱記憶**：`MEMORY.md` 保持 **≤200 行**；過期 P2／細節 → `memory/archive/`；每日原始日誌 `memory/YYYY-MM-DD.md` **只 bootstrap 讀今日+昨日**，唔寫入憑證。
+- **憑證**：只放 **`~/.openclaw/credentials/`**（目錄 `700`、檔 `600`）；**禁止**出現在 `workspace/memory/**` 或 qmd 索引路徑（見 `memory/kb/openclaw-credentials-not-in-memory.md`）。
+- **RAG 範圍**：語意索引以 **`memory/qmd-root/` + `memory/kb/`** 為主；唔索引根目錄 `YYYY-MM-DD.md`。
 
 ## 安全與敏感資料（硬規則）
 
@@ -26,10 +34,14 @@
 
 （符合最小權限與安全最佳實務；誤操作與資料外洩風險可控。）
 
+## 設定變更後（硬規則）
+
+- 改 **`openclaw.json`**、cron、channel、tools 後：跑 **`openclaw security audit --fix`**（或 `~/Desktop/CL/ops/openclaw/harden-openclaw.sh`），確認 `.env` 為 **600**、`jobs.json` 可 **`openclaw-cron.sh validate`**。
+
 ## 記憶與 heartbeat
 
 - 重要偏好、血淚教訓、永遠不要再 → 寫入 **MEMORY.md**（見 MEMORY.md 分層 P0/P1/P2）。
-- 週期檢查保持輕量，見 **HEARTBEAT.md**；重任務交 isolated cron。
+- 週期檢查保持輕量，見 **HEARTBEAT.md**（2–4 項／輪流）；重任務交 isolated cron。
 
 ## 設計與前端回應
 

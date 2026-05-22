@@ -18,6 +18,8 @@ const LOCK_MAX_MS = Number(process.env.BOARD_LOCK_MAX_MS || 30000);
 const LOCK_RETRY_MS = Number(process.env.BOARD_LOCK_RETRY_MS || 50);
 const SERVE_HOST = process.env.BOARD_WRITER_HOST || "127.0.0.1";
 const SERVE_PORT = Number(process.env.BOARD_WRITER_PORT || 8765);
+const BOARD_WRITER_TOKEN = process.env.BOARD_WRITER_TOKEN || "";
+const TOKEN_MIN_LEN = 16;
 
 function ulidLike() {
   const t = Date.now().toString(36).toUpperCase().padStart(8, "0");
@@ -116,6 +118,54 @@ function appendEvent(obj) {
   return JSON.parse(line.slice(0, -1));
 }
 
+function timingSafeEqual(a, b) {
+  const ba = Buffer.from(String(a));
+  const bb = Buffer.from(String(b));
+  if (ba.length !== bb.length) return false;
+  return crypto.timingSafeEqual(ba, bb);
+}
+
+function requireServeToken() {
+  if (!BOARD_WRITER_TOKEN || BOARD_WRITER_TOKEN.length < TOKEN_MIN_LEN) {
+    console.error(
+      `board-writer serve: set BOARD_WRITER_TOKEN (min ${TOKEN_MIN_LEN} chars) in environment`,
+    );
+    process.exit(1);
+  }
+}
+
+function bearerToken(req) {
+  const auth = req.headers.authorization || "";
+  const m = /^Bearer\s+(.+)$/i.exec(auth);
+  return m ? m[1].trim() : "";
+}
+
+function checkHttpAuth(req) {
+  const token = bearerToken(req);
+  if (!token || !timingSafeEqual(token, BOARD_WRITER_TOKEN)) {
+    return { ok: false, status: 401, error: "unauthorized" };
+  }
+  return { ok: true };
+}
+
+/** Reject browser cross-site POSTs (CSRF) while allowing curl / no Origin. */
+function checkHttpOrigin(req) {
+  const raw = req.headers.origin || req.headers.referer;
+  if (!raw) return { ok: true };
+  try {
+    const host = new URL(raw).hostname;
+    if (host === "127.0.0.1" || host === "localhost") return { ok: true };
+    return { ok: false, status: 403, error: "forbidden origin" };
+  } catch {
+    return { ok: false, status: 403, error: "forbidden origin" };
+  }
+}
+
+function jsonResponse(res, status, body) {
+  res.writeHead(status, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(body));
+}
+
 function readBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -136,21 +186,29 @@ function main() {
   const [, , cmd, arg] = process.argv;
 
   if (cmd === "serve") {
+    requireServeToken();
     const server = http.createServer(async (req, res) => {
       if (req.method === "GET" && req.url === "/health") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ ok: true, board: BOARD }));
+        jsonResponse(res, 200, { ok: true, board: BOARD, auth: "required for POST /append" });
         return;
       }
       if (req.method === "POST" && req.url === "/append") {
+        const auth = checkHttpAuth(req);
+        if (!auth.ok) {
+          jsonResponse(res, auth.status, { ok: false, error: auth.error });
+          return;
+        }
+        const origin = checkHttpOrigin(req);
+        if (!origin.ok) {
+          jsonResponse(res, origin.status, { ok: false, error: origin.error });
+          return;
+        }
         try {
           const body = await readBody(req);
           const out = appendEvent(body);
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ ok: true, event: out }));
+          jsonResponse(res, 200, { ok: true, event: out });
         } catch (e) {
-          res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ ok: false, error: String(e.message || e) }));
+          jsonResponse(res, 400, { ok: false, error: String(e.message || e) });
         }
         return;
       }
@@ -186,6 +244,7 @@ function main() {
   node board-writer.mjs append '<json>'
   node board-writer.mjs serve
 Env: COMPANY_BOARD_FILE, BOARD_WRITER_HOST, BOARD_WRITER_PORT
+  BOARD_WRITER_TOKEN (required for serve; min 16 chars; use Bearer on POST /append)
   BOARD_REJECT_EMPTY_BLOCKED_QUESTION=1  (optional: reject type:blocked without question)`);
   process.exit(1);
 }

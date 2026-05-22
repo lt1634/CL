@@ -15,7 +15,7 @@
 
 - **Board writer**（必用）：`echo '<json>' | node <CL>/tools/company-board-writer/board-writer.mjs`  
   環境變數：`COMPANY_BOARD_FILE=/path/to/company-board.jsonl`
-- **可選 HTTP writer**：`node board-writer.mjs serve` → `POST http://127.0.0.1:8765/append`
+- **可選 HTTP writer**：`BOARD_WRITER_TOKEN` 設好後 `node board-writer.mjs serve` → `POST http://127.0.0.1:8765/append`（Header：`Authorization: Bearer <token>`）
 
 ## 標準管線（研究／置信度類）
 

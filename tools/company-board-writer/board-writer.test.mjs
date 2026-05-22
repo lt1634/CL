@@ -13,6 +13,7 @@ import assert from "assert";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WRITER = path.join(__dirname, "board-writer.mjs");
 const ROTATE = path.join(__dirname, "rotate-board.mjs");
+const TEST_TOKEN = "test-board-writer-secret-token";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -416,6 +417,14 @@ async function runTests() {
   // 8. HTTP server — POST /append
   // -------------------------------------------------------------------------
 
+  function httpHeaders(extra = {}) {
+    return {
+      Authorization: `Bearer ${TEST_TOKEN}`,
+      "Content-Type": "application/json",
+      ...extra,
+    };
+  }
+
   /** Start the writer server and return {port, kill}.  Uses a unique port per call. */
   async function startServer(extraEnv = {}) {
     const port = 10000 + (COUNTER.v % 50000);
@@ -424,6 +433,7 @@ async function runTests() {
       ...extraEnv,
       BOARD_WRITER_HOST: "127.0.0.1",
       BOARD_WRITER_PORT: String(port),
+      BOARD_WRITER_TOKEN: TEST_TOKEN,
     };
     const child = spawn("node", [WRITER, "serve"], { env, cwd: "/tmp" });
     // Wait for server to be ready (listen once on stderr)
@@ -451,7 +461,13 @@ async function runTests() {
       });
       const result = await new Promise((resolve, reject) => {
         const req = http.request(
-          { method: "POST", path: "/append", port, host: "127.0.0.1" },
+          {
+            method: "POST",
+            path: "/append",
+            port,
+            host: "127.0.0.1",
+            headers: httpHeaders(),
+          },
           (res) => {
             let body = "";
             res.on("data", (c) => (body += c));
@@ -460,7 +476,7 @@ async function runTests() {
                 return reject(new Error(`HTTP ${res.statusCode}: ${body}`));
               resolve(JSON.parse(body));
             });
-          }
+          },
         );
         req.on("error", reject);
         req.write(payload);
@@ -503,18 +519,99 @@ async function runTests() {
     try {
       const result = await new Promise((resolve, reject) => {
         const req = http.request(
-          { method: "POST", path: "/append", port, host: "127.0.0.1" },
+          {
+            method: "POST",
+            path: "/append",
+            port,
+            host: "127.0.0.1",
+            headers: httpHeaders(),
+          },
           (res) => {
             let body = "";
             res.on("data", (c) => (body += c));
             res.on("end", () => resolve({ statusCode: res.statusCode, body }));
-          }
+          },
         );
         req.on("error", reject);
         req.write("not json{");
         req.end();
       });
       if (result.statusCode !== 400) throw new Error(`expected 400, got ${result.statusCode}`);
+    } finally {
+      kill();
+      fs.rmSync(dir, { recursive: true });
+    }
+  });
+
+  await test("serve: exits when BOARD_WRITER_TOKEN is missing", async () => {
+    const result = await new Promise((resolve, reject) => {
+      const child = spawn("node", [WRITER, "serve"], {
+        env: { ...process.env, BOARD_WRITER_TOKEN: "" },
+        cwd: "/tmp",
+      });
+      let err = "";
+      child.stderr.on("data", (c) => (err += c));
+      child.on("close", (code) => resolve({ code, err }));
+      child.on("error", reject);
+    });
+    if (result.code === 0) throw new Error("expected non-zero exit without token");
+    if (!result.err.includes("BOARD_WRITER_TOKEN")) {
+      throw new Error(`expected token error, got: ${result.err}`);
+    }
+  });
+
+  await test("serve: POST /append without Bearer returns 401", async () => {
+    const dir = mkTmpDir();
+    const board = tmpBoard(dir);
+    const { port, kill } = await startServer({ COMPANY_BOARD_FILE: board });
+    try {
+      const result = await new Promise((resolve, reject) => {
+        const req = http.request(
+          { method: "POST", path: "/append", port, host: "127.0.0.1" },
+          (res) => {
+            let body = "";
+            res.on("data", (c) => (body += c));
+            res.on("end", () => resolve({ statusCode: res.statusCode, body }));
+          },
+        );
+        req.on("error", reject);
+        req.write("{}");
+        req.end();
+      });
+      if (result.statusCode !== 401) throw new Error(`expected 401, got ${result.statusCode}`);
+    } finally {
+      kill();
+      fs.rmSync(dir, { recursive: true });
+    }
+  });
+
+  await test("serve: POST /append with cross-site Origin returns 403", async () => {
+    const dir = mkTmpDir();
+    const board = tmpBoard(dir);
+    const { port, kill } = await startServer({ COMPANY_BOARD_FILE: board });
+    try {
+      const result = await new Promise((resolve, reject) => {
+        const req = http.request(
+          {
+            method: "POST",
+            path: "/append",
+            port,
+            host: "127.0.0.1",
+            headers: httpHeaders({ Origin: "https://evil.example" }),
+          },
+          (res) => {
+            let body = "";
+            res.on("data", (c) => (body += c));
+            res.on("end", () => resolve({ statusCode: res.statusCode, body }));
+          },
+        );
+        req.on("error", reject);
+        req.write(JSON.stringify({ type: "evidence", task_id: "T10", actor: "x", summary: "csrf" }));
+        req.end();
+      });
+      if (result.statusCode !== 403) throw new Error(`expected 403, got ${result.statusCode}`);
+      const lines = tailBoard(board);
+      if (lines.length !== 0) throw new Error("board must not change on CSRF block");
     } finally {
       kill();
       fs.rmSync(dir, { recursive: true });
@@ -531,12 +628,18 @@ async function runTests() {
     try {
       const result = await new Promise((resolve, reject) => {
         const req = http.request(
-          { method: "POST", path: "/append", port, host: "127.0.0.1" },
+          {
+            method: "POST",
+            path: "/append",
+            port,
+            host: "127.0.0.1",
+            headers: httpHeaders(),
+          },
           (res) => {
             let body = "";
             res.on("data", (c) => (body += c));
             res.on("end", () => resolve({ statusCode: res.statusCode, body }));
-          }
+          },
         );
         req.on("error", reject);
         req.write(JSON.stringify({ type: "blocked", task_id: "T9", actor: "albert", question: "" }));

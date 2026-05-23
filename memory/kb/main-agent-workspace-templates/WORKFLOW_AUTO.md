@@ -7,6 +7,8 @@
 ## 當前焦點（1–3 行）
 
 - （由 agent 更新：今日 P0 / 本週 focus / 未完成跟進）
+- **世界層快覽**（若有）：`memory/world/snapshots/latest.md`（早晨 RSS 快照，免 LLM）
+- **運維快覽**：`~/Desktop/CL/docs/agent-status.html`（`ops/openclaw/refresh-status-dashboard.sh` 更新）
 
 ---
 

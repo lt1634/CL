@@ -33,6 +33,9 @@ git clone --recursive https://github.com/lt1634/CL.git   # 或 clone 後：
 | 健康檢查 | `./ops/dual-star/doctor.sh` |
 | 權限硬化 | `./ops/openclaw/harden-openclaw.sh` |
 | 分層記憶 setup | `./ops/openclaw/setup-memory-tiered.sh`（可選 `--apply-qmd`） |
+| **A 軌三件套**（快照 MD + token + 狀態頁） | `./ops/openclaw/run-a-track-ops.sh` |
+| 狀態頁刷新 | `./ops/openclaw/refresh-status-dashboard.sh` |
+| 每日 08:05 cron（可選） | `./ops/openclaw/install-a-track-ops-cron.sh` |
 | Cron 安全編輯 | `./openclaw-cron.sh validate` / `list`（原子寫入 + lock） |
 | OpenClaw cron | `./openclaw-cron.sh list`（wrapper → `ops/openclaw/`） |
 | 重啟 OpenClaw Gateway | `./openclaw-cron.sh restart` 或 `openclaw gateway restart` |
@@ -79,6 +82,7 @@ cd ../.. && git add vendor/hermes-agent ops/versions.lock.yaml
 
 ## 相關文檔
 
+- [openhuman-to-cl-10min.md](../memory/kb/openhuman-to-cl-10min.md) — OpenHuman 三項腳本仿製（唔安裝）
 - [openclaw-hermes-weekly-ops-2026-05-22.md](../memory/kb/openclaw-hermes-weekly-ops-2026-05-22.md) — 週檢短報與三項改善
 - [hermes-b-track-guardrails.md](../memory/kb/hermes-b-track-guardrails.md)
 - [HANDOFF_HERMES.md](./HANDOFF_HERMES.md) — OpenClaw → Hermes 8642

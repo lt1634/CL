@@ -10,8 +10,50 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const CRON_FILE = process.env.CRON_FILE || `${process.env.HOME}/.openclaw/cron/jobs.json`;
+const HOME = process.env.HOME || '';
+const CRON_FILE = process.env.CRON_FILE || `${HOME}/.openclaw/cron/jobs.json`;
 const OUT = process.env.OUT || path.join(__dirname, 'docs', 'agent-status.html');
+const HEALTH_JSON = `${HOME}/.openclaw/backup/health-status.json`;
+const TOKEN_BUDGET = `${HOME}/.openclaw/backup/token-budget.json`;
+const GATEWAY_PORT = process.env.OPENCLAW_GATEWAY_PORT || '18789';
+
+function readJsonSafe(p) {
+  try {
+    return JSON.parse(fs.readFileSync(p, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+function gatewayPanel() {
+  const h = readJsonSafe(HEALTH_JSON);
+  const lines = [];
+  if (h) {
+    lines.push(`<li>Gateway health script: <span class="${h.status === 'ok' ? 'ok' : 'warn'}">${escape(h.status)}</span> · ${escape(h.lastCheck)}</li>`);
+    lines.push(`<li>Critical: ${escape(String(h.critical ?? 0))} · Rate limits: ${escape(String(h.rateLimits ?? 0))}</li>`);
+  } else {
+    lines.push('<li class="muted">No health-status.json — cron runs gateway-health-monitor.sh</li>');
+  }
+  lines.push(`<li>Port <code>${escape(GATEWAY_PORT)}</code> · LaunchAgent <code>ai.openclaw.gateway</code></li>`);
+  lines.push('<li>CLI: <code>openclaw gateway status</code></li>');
+  return `<section class="panel"><h2>🌐 Gateway</h2><ul class="panel-list">${lines.join('')}</ul></section>`;
+}
+
+function memoryPanel() {
+  const t = readJsonSafe(TOKEN_BUDGET);
+  if (!t) {
+    return `<section class="panel"><h2>🧠 Memory budget</h2><p class="muted">Run: <code>ops/openclaw/refresh-status-dashboard.sh</code></p></section>`;
+  }
+  const hot = t.hot_memory_tokens ?? 0;
+  const warn = hot > (t.targets?.memory_md_warn_tokens ?? 3000);
+  const lines = [
+    `<li>MEMORY.md ≈ <span class="${warn ? 'warn' : 'ok'}">${hot}</span> tokens · ${escape(String(t.memory_md_lines ?? '—'))} lines (max ${t.targets?.memory_md_max_lines ?? 200})</li>`,
+    `<li>kb ≈ ${t.memory_kb_tokens ?? 0} · daily logs ≈ ${t.daily_logs_tokens ?? 0} · archive ≈ ${t.archive_tokens ?? 0}</li>`,
+    `<li>World snapshot ≈ ${t.world_snapshot_tokens ?? 0}</li>`,
+  ];
+  const hints = (t.hints || []).map((x) => `<li class="warn">${escape(x)}</li>`).join('');
+  return `<section class="panel"><h2>🧠 Memory budget</h2><ul class="panel-list">${lines.join('')}${hints}</ul><p class="muted">Updated ${escape(t.generated_at || '')}</p></section>`;
+}
 
 function formatWhen(schedule) {
   if (!schedule) return '—';
@@ -84,6 +126,12 @@ try {
 
 const jobs = data.jobs || [];
 const updated = new Date().toISOString();
+const enabled = jobs.filter((j) => j.enabled).length;
+const okCount = jobs.filter((j) => (j.state?.lastRunStatus || j.state?.lastStatus) === 'ok').length;
+const errCount = jobs.filter((j) => {
+  const s = j.state?.lastRunStatus || j.state?.lastStatus;
+  return s === 'error' || !!j.state?.lastError;
+}).length;
 
 // 有錯誤或需注意嘅 job（error / skipped 但有 lastError）
 const errorJobs = jobs.filter((job) => {
@@ -153,11 +201,27 @@ const html = `<!DOCTYPE html>
     .overdue { color: #e07070; font-weight: 500; }
     .muted { color: #555; }
     tr.overdue-row { background: #2a1a1a; }
+    .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .panel { padding: 1rem; background: #252525; border-radius: 8px; }
+    .panel h2 { font-size: 0.95rem; margin: 0 0 0.5rem 0; }
+    .panel-list { margin: 0; padding-left: 1.2rem; font-size: 0.85rem; line-height: 1.5; }
+    .summary { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.9rem; }
+    .summary span { color: #aaa; }
   </style>
 </head>
 <body>
   <h1>Agent / Cron 狀態</h1>
-  <p class="meta">更新時間: ${escape(updated)} · 共 ${jobs.length} 個 job · 來源: ${escape(CRON_FILE)}</p>
+  <p class="meta">更新時間: ${escape(updated)} · 來源: ${escape(CRON_FILE)}</p>
+  <div class="summary">
+    <span>Jobs: <strong>${jobs.length}</strong></span>
+    <span>啟用: <strong class="ok">${enabled}</strong></span>
+    <span>上次 ok: <strong class="ok">${okCount}</strong></span>
+    <span>錯誤/注意: <strong class="${errCount ? 'err' : 'ok'}">${errCount}</strong></span>
+  </div>
+  <div class="panels">
+    ${gatewayPanel()}
+    ${memoryPanel()}
+  </div>
   <section class="errors-section">
     <h2>⚠️ 錯誤 / 需注意 (${errorJobs.length})</h2>
     <table>

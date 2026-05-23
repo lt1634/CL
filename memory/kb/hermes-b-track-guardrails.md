@@ -11,7 +11,7 @@
 | 主目錄 | `~/.openclaw` | `~/.hermes`（`HERMES_HOME`） |
 | Telegram | 現有 main bot + allowlist | **新 bot token** 或僅 CLI |
 | Session | `agent:main:main`、isolated cron | **獨立** `session_key` 前綴 `hermes:` |
-| Cron / HEARTBEAT | 世界層、digest、ingest | **唔接** OpenClaw cron |
+| Cron / HEARTBEAT | 世界層、digest、ingest、`run-a-track-ops.sh` | **唔接** OpenClaw cron |
 | 迭代上限 | cron `timeoutSeconds` 依 job | **`max_iterations` 8–12**（config 設死） |
 
 ---

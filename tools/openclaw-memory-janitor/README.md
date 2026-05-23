@@ -12,6 +12,9 @@
 # 行數守門（週一 cron / 手動）
 ./memory-janitor.sh
 
+# Token 粗估（chars/4）→ ~/.openclaw/backup/token-budget.json
+./token-estimate.sh
+
 # 搬走 >14 日的每日日誌到 archive/dailies/
 ./archive-daily-logs.sh
 DRY_RUN=1 ./archive-daily-logs.sh   # 預覽

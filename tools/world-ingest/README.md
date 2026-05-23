@@ -16,6 +16,7 @@ cd ~/Desktop/CL
 | 腳本 | 用途 |
 |------|------|
 | `fetch_feeds.py` | RSS ingest → events + `staging/feed_health.json` + `ingest-summary`（`--force` 略過去重） |
+| `snapshot-to-markdown.py` | 將今日 ingest 摘要寫成 `world/snapshots/latest.md`（Memory-Tree 式，免 LLM） |
 | `world-doctor.sh` / `world-doctor.py` | 檢查 feed 成功率、WORLD_STATE 新鮮度、pipeline → `staging/doctor-report.json` |
 | `sync-to-workspace.sh` | 複製 KB → workspace；初始化 pipeline state；symlink project-state |
 | `install-world-cron.sh` | 合併 `world-cron-jobs.json` 到 `jobs.json`（解析 `OPENCLAW_TELEGRAM_TO`）並重啟 gateway |

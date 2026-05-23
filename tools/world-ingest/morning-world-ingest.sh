@@ -5,6 +5,7 @@ CL_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$CL_ROOT"
 echo "Morning world ingest — $(date '+%Y-%m-%d %H:%M %Z')"
 python3 tools/world-ingest/fetch_feeds.py "$@"
+python3 tools/world-ingest/snapshot-to-markdown.py
 python3 tools/world-ingest/update_world_state.py
 bash tools/world-ingest/world-doctor.sh || true
 if python3 -c "import chromadb" 2>/dev/null; then

@@ -6,10 +6,14 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { spawnSync } from "child_process";
-import { resolveJobs } from "./resolve-cron-delivery.mjs";
+import { readJobs, writeJobs, withLock } from "../../ops/openclaw/cron-jobs-io.mjs";
+import {
+  resolveJobs,
+  resolveTelegramTo,
+  TELEGRAM_TO_PLACEHOLDER,
+} from "./resolve-cron-delivery.mjs";
 
 const CL_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
-const CRON_FILE = process.env.CRON_FILE || path.join(os.homedir(), ".openclaw/cron/jobs.json");
 const SNIPPET = path.join(CL_ROOT, "tools/world-ingest/world-cron-jobs.json");
 
 const WORLD_LLM_IDS = [
@@ -22,9 +26,33 @@ const WORLD_LLM_IDS = [
   "world-reflection-weekly-001",
 ];
 
-function mergeWorldJobs() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
-  const incoming = resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")));
+function telegramToFromExistingJobs(data) {
+  for (const job of data.jobs || []) {
+    const to = job?.delivery?.to;
+    if (to && to !== TELEGRAM_TO_PLACEHOLDER) return String(to);
+  }
+  return null;
+}
+
+function resolveTelegramToForCron(data) {
+  if (process.env.OPENCLAW_TELEGRAM_TO) return process.env.OPENCLAW_TELEGRAM_TO;
+  try {
+    return resolveTelegramTo();
+  } catch {
+    const existing = telegramToFromExistingJobs(data);
+    if (existing) return existing;
+    throw new Error(
+      "Set OPENCLAW_TELEGRAM_TO in ~/.openclaw/.env or ensure an existing cron job has delivery.to",
+    );
+  }
+}
+
+function resolvedSnippetJobs(data) {
+  return resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")), resolveTelegramToForCron(data));
+}
+
+function mergeWorldJobs(data) {
+  const incoming = resolvedSnippetJobs(data);
   const jobs = data.jobs || [];
   const byId = new Map(jobs.map((j) => [j.id, j]));
   let added = 0;
@@ -40,12 +68,10 @@ function mergeWorldJobs() {
     }
   }
   data.jobs = jobs;
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
   console.log("World cron: added=" + added + " updated=" + updated);
 }
 
-function patchHybridSchedule() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function patchHybridSchedule(data) {
   const job = (data.jobs || []).find((j) => j.id === "content-digest-hybrid-001");
   if (!job) {
     console.warn("content-digest-hybrid-001 not found — skip");
@@ -53,12 +79,10 @@ function patchHybridSchedule() {
   }
   job.schedule = { expr: "0 12,20 * * *", kind: "cron", tz: "Asia/Hong_Kong" };
   job.enabled = true;
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
   console.log("Hybrid digest: 12:00 + 20:00 HKT (aggressive MiniMax usage)");
 }
 
-function disableLegacy() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function disableLegacy(data) {
   const legacyIds = new Set([
     "11fecbfb-46db-44e1-adbb-09662bbb3a31",
     "daily-content-digest",
@@ -71,12 +95,10 @@ function disableLegacy() {
       console.log("Disabled legacy:", job.id);
     }
   }
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
 }
 
-function enableAggressiveWorldMode() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
-  const snippet = resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")));
+function enableAggressiveWorldMode(data) {
+  const snippet = resolvedSnippetJobs(data);
   const snippetById = new Map(snippet.map((j) => [j.id, j]));
   for (const job of data.jobs || []) {
     if (!WORLD_LLM_IDS.includes(job.id)) continue;
@@ -92,7 +114,6 @@ function enableAggressiveWorldMode() {
     }
     console.log("Aggressive:", job.id, "enabled=" + job.enabled);
   }
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
 }
 
 function syncArchitectureDoc() {
@@ -113,8 +134,7 @@ function syncArchitectureDoc() {
   }
 }
 
-function printVerify() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function printVerify(data) {
   const jobs = data.jobs || [];
   const world = jobs.filter((j) => j.id?.startsWith("world-"));
   const hybrid = jobs.find((j) => j.id === "content-digest-hybrid-001");
@@ -133,12 +153,17 @@ function printVerify() {
   }
 }
 
-mergeWorldJobs();
-patchHybridSchedule();
-disableLegacy();
-enableAggressiveWorldMode();
+let cronData;
+withLock(() => {
+  cronData = readJobs();
+  mergeWorldJobs(cronData);
+  patchHybridSchedule(cronData);
+  disableLegacy(cronData);
+  enableAggressiveWorldMode(cronData);
+  writeJobs(cronData);
+});
 syncArchitectureDoc();
-printVerify();
+printVerify(cronData);
 
 const installSh = path.join(CL_ROOT, "tools/world-ingest/install-world-cron.sh");
 if (fs.existsSync(installSh)) {

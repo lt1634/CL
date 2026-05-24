@@ -16,12 +16,41 @@ DEFAULT_WORLD = Path.home() / ".openclaw/workspace/memory/world"
 MAX_EVENTS = 40
 
 
+def today_utc() -> str:
+    override = os.environ.get("OPENCLAW_WORLD_SNAPSHOT_DATE")
+    if override:
+        return override
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def latest_available_day(world: Path, requested_day: str) -> str:
+    events_dir = world / "events"
+    staging_dir = world / "staging"
+    candidates: set[str] = set()
+    if events_dir.is_dir():
+        candidates.update(p.stem for p in events_dir.glob("????-??-??.jsonl") if p.stat().st_size > 0)
+    if staging_dir.is_dir():
+        prefix = "ingest-summary-"
+        candidates.update(
+            p.stem[len(prefix) :]
+            for p in staging_dir.glob(f"{prefix}????-??-??.json")
+            if p.stem.startswith(prefix)
+        )
+    if not candidates:
+        return requested_day
+    return sorted(candidates)[-1]
+
+
 def main() -> int:
     world = Path(os.environ.get("OPENCLAW_WORLD_DIR", str(DEFAULT_WORLD)))
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today = today_utc()
     staging = world / "staging"
     events_path = world / "events" / f"{today}.jsonl"
     summary_path = staging / f"ingest-summary-{today}.json"
+    if not events_path.is_file() and not summary_path.is_file():
+        today = latest_available_day(world, today)
+        events_path = world / "events" / f"{today}.jsonl"
+        summary_path = staging / f"ingest-summary-{today}.json"
     health_path = staging / "feed_health.json"
 
     lines: list[str] = [

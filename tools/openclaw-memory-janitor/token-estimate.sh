@@ -22,8 +22,10 @@ count_dir_md() {
   done | awk '{s+=$1} END {print int(s/4)}'
 }
 
-mem_file="${WS}/MEMORY.md"
-[[ -f "$mem_file" ]] || mem_file="${MEM}/MEMORY.md"
+mem_file="${OPENCLAW_MEMORY_FILE:-${WS}/MEMORY.md}"
+if [[ ! -f "$mem_file" && -f "${MEM}/MEMORY.md" ]]; then
+  mem_file="${MEM}/MEMORY.md"
+fi
 
 hot_tokens=$(count_file "$mem_file")
 kb_tokens=$(count_dir_md "${MEM}/kb")
@@ -36,6 +38,10 @@ world_snap=$(count_file "${MEM}/world/snapshots/latest.md")
 
 total=$((hot_tokens + kb_tokens + daily_tokens))
 now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+memory_md_lines=0
+if [[ -f "$mem_file" ]]; then
+  memory_md_lines=$(wc -l <"$mem_file" | awk '{print $1}')
+fi
 
 cat >"$OUT" <<EOF
 {
@@ -47,7 +53,7 @@ cat >"$OUT" <<EOF
   "archive_tokens": $archive_tokens,
   "world_snapshot_tokens": $world_snap,
   "indexed_estimate_tokens": $((hot_tokens + kb_tokens)),
-  "memory_md_lines": $(wc -l <"$mem_file" 2>/dev/null | awk '{print $1}' || echo 0),
+  "memory_md_lines": $memory_md_lines,
   "targets": {
     "memory_md_max_lines": 200,
     "memory_md_warn_tokens": 3000
@@ -58,7 +64,7 @@ EOF
 
 # Hints
 hints=()
-if [[ $(wc -l <"$mem_file" 2>/dev/null | awk '{print $1}') -gt 200 ]]; then
+if [[ $memory_md_lines -gt 200 ]]; then
   hints+=("MEMORY.md over 200 lines — run memory-janitor.sh and archive P2")
 fi
 if [[ $hot_tokens -gt 3000 ]]; then

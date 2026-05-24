@@ -12,14 +12,26 @@ if [[ ! -f "$CRON_FILE" ]]; then
   exit 1
 fi
 
+restart_gateway() {
+  launchctl load "$PLIST"
+  echo "Gateway restarted."
+}
+
+if [[ -f "$PLIST" ]]; then
+  echo "Stopping OpenClaw gateway..."
+  launchctl unload "$PLIST" 2>/dev/null || true
+  sleep 2
+  trap restart_gateway EXIT
+else
+  echo "No LaunchAgent at $PLIST — merging cron without gateway restart."
+fi
+
 CRON_FILE="$CRON_FILE" SNIPPET="$SNIPPET" node "$CL_ROOT/tools/world-ingest/merge-world-cron.mjs"
 
 if [[ -f "$PLIST" ]]; then
+  trap - EXIT
   echo "Restarting OpenClaw gateway..."
-  launchctl unload "$PLIST" 2>/dev/null || true
-  sleep 2
-  launchctl load "$PLIST"
-  echo "Gateway restarted."
+  restart_gateway
 else
-  echo "No LaunchAgent at $PLIST — restart gateway manually if needed."
+  echo "Restart gateway manually if needed."
 fi

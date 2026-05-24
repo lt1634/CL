@@ -128,18 +128,16 @@ const jobs = data.jobs || [];
 const updated = new Date().toISOString();
 const enabled = jobs.filter((j) => j.enabled).length;
 const okCount = jobs.filter((j) => (j.state?.lastRunStatus || j.state?.lastStatus) === 'ok').length;
-const errCount = jobs.filter((j) => {
-  const s = j.state?.lastRunStatus || j.state?.lastStatus;
-  return s === 'error' || !!j.state?.lastError;
-}).length;
-
-// 有錯誤或需注意嘅 job（error / skipped 但有 lastError）
-const errorJobs = jobs.filter((job) => {
+function needsAttention(job) {
   const s = job.state || {};
   const status = s.lastRunStatus || s.lastStatus;
   const hasError = !!s.lastError;
-  return status === 'error' || (hasError && (status === 'skipped' || status !== 'ok'));
-});
+  return status === 'error' || (hasError && status !== 'ok');
+}
+const errCount = jobs.filter(needsAttention).length;
+
+// 有錯誤或需注意嘅 job（error / skipped 但有 lastError）
+const errorJobs = jobs.filter(needsAttention);
 
 const errorRows = errorJobs.length === 0
   ? '<tr><td colspan="3" class="ok">無錯誤</td></tr>'

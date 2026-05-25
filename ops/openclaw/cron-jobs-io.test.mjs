@@ -103,7 +103,9 @@ function testWorldMergeUsesSafeIoAndPreservesState() {
     assert.ok(merged, "expected world-ingest-morning-001 to exist");
     assert.strictEqual(merged.name, "World ingest (RSS)");
     assert.deepStrictEqual(merged.state, { lastRunAtMs: 123, lastError: "keep me" });
-    assert.strictEqual(merged.delivery.to, "123456");
+    const telegramJob = data.jobs.find((job) => job.id === "world-opportunity-scan-001");
+    assert.ok(telegramJob, "expected a Telegram delivery world job to be merged");
+    assert.strictEqual(telegramJob.delivery.to, "123456");
     assert.ok(fs.existsSync(`${cronFile}.bak`), "merge should keep a pre-write backup");
     assert.ok(!fs.existsSync(`${cronFile}.lock`), "lock file should be cleaned up");
   } finally {

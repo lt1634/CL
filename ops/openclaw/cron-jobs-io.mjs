@@ -10,6 +10,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import crypto from "crypto";
+import { fileURLToPath } from "url";
 
 const CRON_FILE = process.env.CRON_FILE || path.join(os.homedir(), ".openclaw/cron/jobs.json");
 const LOCK_FILE = `${CRON_FILE}.lock`;
@@ -22,7 +23,7 @@ function sleep(ms) {
   }
 }
 
-function withLock(fn) {
+export function withLock(fn) {
   const deadline = Date.now() + 30_000;
   while (Date.now() < deadline) {
     try {
@@ -160,16 +161,20 @@ function cmdRemove() {
   });
 }
 
-const cmd = process.argv[2];
-if (cmd === "list") withLock(cmdList);
-else if (cmd === "add") withLock(cmdAdd);
-else if (cmd === "remove") withLock(cmdRemove);
-else if (cmd === "validate") {
-  withLock(() => {
-    readJobs();
-    console.log("OK", CRON_FILE);
-  });
-} else {
-  console.error("Usage: cron-jobs-io.mjs list|add|remove|validate");
-  process.exit(1);
+const isCli = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isCli) {
+  const cmd = process.argv[2];
+  if (cmd === "list") withLock(cmdList);
+  else if (cmd === "add") cmdAdd();
+  else if (cmd === "remove") cmdRemove();
+  else if (cmd === "validate") {
+    withLock(() => {
+      readJobs();
+      console.log("OK", CRON_FILE);
+    });
+  } else {
+    console.error("Usage: cron-jobs-io.mjs list|add|remove|validate");
+    process.exit(1);
+  }
 }

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Merge world-cron-jobs.json into ~/.openclaw/cron/jobs.json (idempotent by job id)
+# Merge world-cron-jobs.json into ~/.openclaw/cron/jobs.json (idempotent by job id).
+# The node merge stops/restarts the OpenClaw Gateway when the LaunchAgent exists.
 set -euo pipefail
 
 CL_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 CRON_FILE="${CRON_FILE:-$HOME/.openclaw/cron/jobs.json}"
 SNIPPET="$CL_ROOT/tools/world-ingest/world-cron-jobs.json"
-PLIST="${HOME}/Library/LaunchAgents/ai.openclaw.gateway.plist"
 
 if [[ ! -f "$CRON_FILE" ]]; then
   echo "Missing $CRON_FILE" >&2
@@ -13,13 +13,3 @@ if [[ ! -f "$CRON_FILE" ]]; then
 fi
 
 CRON_FILE="$CRON_FILE" SNIPPET="$SNIPPET" node "$CL_ROOT/tools/world-ingest/merge-world-cron.mjs"
-
-if [[ -f "$PLIST" ]]; then
-  echo "Restarting OpenClaw gateway..."
-  launchctl unload "$PLIST" 2>/dev/null || true
-  sleep 2
-  launchctl load "$PLIST"
-  echo "Gateway restarted."
-else
-  echo "No LaunchAgent at $PLIST — restart gateway manually if needed."
-fi

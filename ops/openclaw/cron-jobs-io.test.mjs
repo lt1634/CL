@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -36,8 +36,8 @@ function job(id, overrides = {}) {
   };
 }
 
-function runNode(script, args, env) {
-  return execFileSync(process.execPath, [script, ...args], {
+function spawnNode(script, args, env) {
+  return spawnSync(process.execPath, [script, ...args], {
     cwd: CL_ROOT,
     env: {
       ...process.env,
@@ -47,6 +47,15 @@ function runNode(script, args, env) {
     encoding: "utf8",
     timeout: 5_000,
   });
+}
+
+function runNode(script, args, env) {
+  const result = spawnNode(script, args, env);
+  if (result.error) throw result.error;
+  if (result.status !== 0) {
+    throw new Error(result.stderr || `node exited with ${result.status}`);
+  }
+  return result.stdout;
 }
 
 {
@@ -113,13 +122,13 @@ function runNode(script, args, env) {
   fs.writeFileSync(cronFile, '{ "version": 1, "jobs": null }\n');
   writeJson(snippetFile, [job("world-test-001")]);
 
-  assert.throws(() =>
-    runNode(MERGE_WORLD, [], {
-      CRON_FILE: cronFile,
-      SNIPPET: snippetFile,
-      OPENCLAW_TELEGRAM_TO: "12345",
-    }),
-  );
+  const result = spawnNode(MERGE_WORLD, [], {
+    CRON_FILE: cronFile,
+    SNIPPET: snippetFile,
+    OPENCLAW_TELEGRAM_TO: "12345",
+  });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /jobs\.json: jobs must be array/);
   assert.equal(fs.readFileSync(cronFile, "utf8"), '{ "version": 1, "jobs": null }\n');
 }
 

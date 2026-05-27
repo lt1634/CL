@@ -12,7 +12,7 @@
     "wakeMode": "next-heartbeat",
     "payload": {
       "kind": "agentTurn",
-      "message": "【A軌三件套·免長推理】用 minimax/MiniMax-M2.1。\n\n依次 exec（唔好跳步）：\n1) SKIP_FETCH=1 bash /Users/timnewmac/Desktop/CL/ops/openclaw/run-a-track-ops.sh all\n2) 讀 ~/.openclaw/backup/token-budget.json 同 head -20 ~/.openclaw/workspace/memory/world/snapshots/latest.md\n3) Telegram 兩句：① world 新事件數 ② MEMORY 行數/token 是否 WARN\n\n唔改 HEARTBEAT。失敗只報錯唔重試三次。"
+      "message": "【A軌三件套·免長推理】用 minimax/MiniMax-M2.1。\n\n依次 exec（唔好跳步）：\n1) SKIP_FETCH=1 bash __CL_ROOT__/ops/openclaw/run-a-track-ops.sh all\n2) 讀 ~/.openclaw/backup/token-budget.json 同 head -20 ~/.openclaw/workspace/memory/world/snapshots/latest.md\n3) Telegram 兩句：① world 新事件數 ② MEMORY 行數/token 是否 WARN\n\n唔改 HEARTBEAT。失敗只報錯唔重試三次。"
     },
     "delivery": {
       "mode": "announce",

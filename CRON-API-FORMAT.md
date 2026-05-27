@@ -56,7 +56,7 @@ Cron API (`cron.add`, `cron.update`) 對 JSON 格式敏感：
 OPENCLAW_TELEGRAM_TO=<your-telegram-user-id-from-allowlist>
 ```
 
-合併 world cron 時，`install-world-cron.sh` / `apply-digest-schedule.mjs` 會把 placeholder 換成 env 值。
+合併 world cron 時，`install-world-cron.sh` / `apply-digest-schedule.mjs` 會把 `__OPENCLAW_TELEGRAM_TO__` 換成 env 值，並把 `__CL_ROOT__` 換成當前 CL checkout 路徑。
 
 ### cron.add 完整參數
 

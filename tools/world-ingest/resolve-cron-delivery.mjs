@@ -6,9 +6,12 @@
 import fs from "fs";
 import os from "os";
 import path from "path";
-import { pathToFileURL } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 export const TELEGRAM_TO_PLACEHOLDER = "__OPENCLAW_TELEGRAM_TO__";
+export const CL_ROOT_PLACEHOLDER = "__CL_ROOT__";
+const LEGACY_CL_ROOT = "/Users/timnewmac/Desktop/CL";
+const DEFAULT_CL_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
 export function loadDotEnv(envPath) {
   if (!fs.existsSync(envPath)) return {};
@@ -47,8 +50,25 @@ export function resolveJobDelivery(job, telegramTo) {
   return { ...job, delivery: d };
 }
 
-export function resolveJobs(jobs, telegramTo = resolveTelegramTo()) {
-  return jobs.map((j) => resolveJobDelivery(j, telegramTo));
+function resolvePathPlaceholders(value, clRoot) {
+  if (typeof value === "string") {
+    return value.replaceAll(CL_ROOT_PLACEHOLDER, clRoot).replaceAll(LEGACY_CL_ROOT, clRoot);
+  }
+  if (Array.isArray(value)) return value.map((item) => resolvePathPlaceholders(item, clRoot));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, resolvePathPlaceholders(item, clRoot)]),
+    );
+  }
+  return value;
+}
+
+export function resolveJobs(
+  jobs,
+  telegramTo = resolveTelegramTo(),
+  clRoot = process.env.CL_ROOT || DEFAULT_CL_ROOT,
+) {
+  return jobs.map((j) => resolveJobDelivery(resolvePathPlaceholders(j, clRoot), telegramTo));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

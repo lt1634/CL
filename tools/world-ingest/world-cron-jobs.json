@@ -13,7 +13,7 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "【世界層晨間 — ingest + LLM 策展 P0】無 Telegram。\n\n1) exec：bash /Users/timnewmac/Desktop/CL/tools/world-ingest/morning-world-ingest.sh\n2) **必讀** memory/kb/world/tim-opportunity-profile.md（機會唔止投資：本地/梅窩/T58/豆豆/展覽）\n3) 讀今日 events、WORLD_STATE、scoring-rubric、entities.yaml\n4) 讀 investment.md、INVESTMENT_PHILOSOPHY.md、T58.md、PROJECTS-INDEX.md、summary.md\n5) 重寫 WORLD_STATE ## [P0]（≤12 條）：**至少 5 條非 investment**（local/hk 優先）；每條粵語點解對 Tim 可執行；連 linked_projects。投資禁止「立即買賣」。\n6) 更新 last_ingest_at；回覆 events 數 + P0 領域分布\n\n用 minimax/MiniMax-M2.1。",
+      "message": "【世界層晨間 — ingest + LLM 策展 P0】無 Telegram。\n\n1) exec：bash __CL_ROOT__/tools/world-ingest/morning-world-ingest.sh\n2) **必讀** memory/kb/world/tim-opportunity-profile.md（機會唔止投資：本地/梅窩/T58/豆豆/展覽）\n3) 讀今日 events、WORLD_STATE、scoring-rubric、entities.yaml\n4) 讀 investment.md、INVESTMENT_PHILOSOPHY.md、T58.md、PROJECTS-INDEX.md、summary.md\n5) 重寫 WORLD_STATE ## [P0]（≤12 條）：**至少 5 條非 investment**（local/hk 優先）；每條粵語點解對 Tim 可執行；連 linked_projects。投資禁止「立即買賣」。\n6) 更新 last_ingest_at；回覆 events 數 + P0 領域分布\n\n用 minimax/MiniMax-M2.1。",
       "timeoutSeconds": 900
     },
     "delivery": {
@@ -36,7 +36,7 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "【世界機會 L1 — 晨間】**先 preflight，慳 token。**\n\n0) exec：cd /Users/timnewmac/Desktop/CL && python3 tools/world-ingest/scan-preflight.py\n   讀 ~/.openclaw/workspace/memory/world/staging/scan-warranted-今日.json\n   若 warranted=false：只回覆「skip scan: <reasons>」，**唔做 LLM 評分、唔 Telegram**。\n\n若 warranted=true：\n1) 讀 budget-limits.json。唔 call sessions_history。\n2) **必讀** tim-opportunity-profile.md；讀 WORLD_STATE、events、memory-index、T58.md、summary.md、scoring-rubric\n3) 產出 **最多 3 條** opportunity（JSON 一行一條）；**優先 local/hk/展覽/豆豆**，投資最多 1 條\n4) 每條含 opportunity_type、linked_projects、relevance/confidence；投資禁止「立即買賣」\n5) 推送：relevance≥70 且 confidence≥60 且 24h 未推過\n6) relevance≥80 或 (confidence<70 且 investment)：註明「建議 Hermes 8642 核對」\n7) 更新 opportunity-pipeline-state.json last_scan_at\n\n用 minimax/MiniMax-M2.1。",
+      "message": "【世界機會 L1 — 晨間】**先 preflight，慳 token。**\n\n0) exec：cd __CL_ROOT__ && python3 tools/world-ingest/scan-preflight.py\n   讀 ~/.openclaw/workspace/memory/world/staging/scan-warranted-今日.json\n   若 warranted=false：只回覆「skip scan: <reasons>」，**唔做 LLM 評分、唔 Telegram**。\n\n若 warranted=true：\n1) 讀 budget-limits.json。唔 call sessions_history。\n2) **必讀** tim-opportunity-profile.md；讀 WORLD_STATE、events、memory-index、T58.md、summary.md、scoring-rubric\n3) 產出 **最多 3 條** opportunity（JSON 一行一條）；**優先 local/hk/展覽/豆豆**，投資最多 1 條\n4) 每條含 opportunity_type、linked_projects、relevance/confidence；投資禁止「立即買賣」\n5) 推送：relevance≥70 且 confidence≥60 且 24h 未推過\n6) relevance≥80 或 (confidence<70 且 investment)：註明「建議 Hermes 8642 核對」\n7) 更新 opportunity-pipeline-state.json last_scan_at\n\n用 minimax/MiniMax-M2.1。",
       "timeoutSeconds": 900
     },
     "delivery": {
@@ -62,7 +62,7 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "【世界機會 L1 — 午間】**先 preflight。**\n\n0) exec：python3 /Users/timnewmac/Desktop/CL/tools/world-ingest/scan-preflight.py\n   若 warranted=false → 回覆 skip，唔燒 token。\n   若今日 opportunities 已有 ≥5 條 → 回覆 skip（留畀晚報）。\n\n若繼續：只處理 **08:15 之後新 ingest** 嘅 events（對照 last_scan_at）。讀 budget-limits、WORLD_STATE、events/opportunities、investment、INVESTMENT_PHILOSOPHY、scoring-rubric、entities。\n\n產出 **最多 2 條** 新 opportunity（topic_id 唔重複）。推送門檻同晨間。更新 last_scan_at。\n\n用 minimax/MiniMax-M2.1。",
+      "message": "【世界機會 L1 — 午間】**先 preflight。**\n\n0) exec：python3 __CL_ROOT__/tools/world-ingest/scan-preflight.py\n   若 warranted=false → 回覆 skip，唔燒 token。\n   若今日 opportunities 已有 ≥5 條 → 回覆 skip（留畀晚報）。\n\n若繼續：只處理 **08:15 之後新 ingest** 嘅 events（對照 last_scan_at）。讀 budget-limits、WORLD_STATE、events/opportunities、investment、INVESTMENT_PHILOSOPHY、scoring-rubric、entities。\n\n產出 **最多 2 條** 新 opportunity（topic_id 唔重複）。推送門檻同晨間。更新 last_scan_at。\n\n用 minimax/MiniMax-M2.1。",
       "timeoutSeconds": 900
     },
     "delivery": {
@@ -88,7 +88,7 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "【世界晚間摘要 🌍 — Aggressive】粵語。與 Hobby digest 分工：Hobby 已講過嘅標題唔重複展開。\n\n1) bash /Users/timnewmac/Desktop/CL/tools/world-ingest/morning-world-ingest.sh\n2) **必讀** tim-opportunity-profile.md（機會=本地+展覽+創意+投資，唔止 macro）\n3) 讀 WORLD_STATE、events、opportunities、scoring-rubric、budget-limits、T58.md、summary.md、investment.md\n4) 讀 daily-digest-今日.md（若存在）；brave-fallback-hints + Brave 補 **梅窩/展覽/康文署/豆豆** 缺口（唔止 macro）\n5) opportunities<3 可補最多 5 條（優先非 investment）\n6) Telegram：**本地/專案機會 ≥2 條** + P0 delta + 投資≤2 條 + 專案連結表 + 明日跟進 1 項（可執行）\n9) exec 寫 ~/.openclaw/workspace/memory/world/digest-今日.md\n10) 更新 opportunity-pipeline-state.json last_digest_at\n11) Telegram 結尾加 **2 條回饋問題**（例：邊條有用？邊條雜訊？）。若 Tim 回覆，exec：python3 /Users/timnewmac/Desktop/CL/tools/world-ingest/record_feedback.py useful|ignore|wrong <topic_id> [note]\n12) exec：bash /Users/timnewmac/Desktop/CL/tools/world-ingest/world-doctor.sh\n\n投資只「考慮/核對」。用 minimax/MiniMax-M2.1。",
+      "message": "【世界晚間摘要 🌍 — Aggressive】粵語。與 Hobby digest 分工：Hobby 已講過嘅標題唔重複展開。\n\n1) bash __CL_ROOT__/tools/world-ingest/morning-world-ingest.sh\n2) **必讀** tim-opportunity-profile.md（機會=本地+展覽+創意+投資，唔止 macro）\n3) 讀 WORLD_STATE、events、opportunities、scoring-rubric、budget-limits、T58.md、summary.md、investment.md\n4) 讀 daily-digest-今日.md（若存在）；brave-fallback-hints + Brave 補 **梅窩/展覽/康文署/豆豆** 缺口（唔止 macro）\n5) opportunities<3 可補最多 5 條（優先非 investment）\n6) Telegram：**本地/專案機會 ≥2 條** + P0 delta + 投資≤2 條 + 專案連結表 + 明日跟進 1 項（可執行）\n9) exec 寫 ~/.openclaw/workspace/memory/world/digest-今日.md\n10) 更新 opportunity-pipeline-state.json last_digest_at\n11) Telegram 結尾加 **2 條回饋問題**（例：邊條有用？邊條雜訊？）。若 Tim 回覆，exec：python3 __CL_ROOT__/tools/world-ingest/record_feedback.py useful|ignore|wrong <topic_id> [note]\n12) exec：bash __CL_ROOT__/tools/world-ingest/world-doctor.sh\n\n投資只「考慮/核對」。用 minimax/MiniMax-M2.1。",
       "timeoutSeconds": 1200
     },
     "delivery": {
@@ -140,7 +140,7 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "【世界週整合】週日跑。\n\n0) exec：bash /Users/timnewmac/Desktop/CL/tools/world-ingest/world-doctor.sh；讀 staging/doctor-report.json 與 feed_health.json，Telegram 一句列出 error rate≥30% 或 7 日無新稿嘅 feed\n1) 讀 world/events 過去 7 日 jsonl + WORLD_STATE.md\n2) 合併重複事實；衝突寫 supersedes 註記於 archive/world-consolidate-今日.md（exec）\n3) 精簡 WORLD_STATE [P0] 至 ≤12 條；過期移 [P2]\n4) 唔改 HEARTBEAT。用 minimax/MiniMax-M2.1。",
+      "message": "【世界週整合】週日跑。\n\n0) exec：bash __CL_ROOT__/tools/world-ingest/world-doctor.sh；讀 staging/doctor-report.json 與 feed_health.json，Telegram 一句列出 error rate≥30% 或 7 日無新稿嘅 feed\n1) 讀 world/events 過去 7 日 jsonl + WORLD_STATE.md\n2) 合併重複事實；衝突寫 supersedes 註記於 archive/world-consolidate-今日.md（exec）\n3) 精簡 WORLD_STATE [P0] 至 ≤12 條；過期移 [P2]\n4) 唔改 HEARTBEAT。用 minimax/MiniMax-M2.1。",
       "timeoutSeconds": 900
     },
     "delivery": {
@@ -166,7 +166,7 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "【世界反思】週日。\n\n1) 讀 world/feedback.jsonl、本週 opportunities、strategy-patterns.md\n2) 提出最多 3 條 scoring-rubric.md 改動（exec append 到 scoring-rubric 底部「## 自動調整」）\n3) 若有穩定模式，append 一行到 strategy-patterns.md\n4) python3 /Users/timnewmac/Desktop/CL/tools/world-ingest/plur_export_high_confidence.py\n5) 回覆 Telegram 一句：本週學到咩。唔改 HEARTBEAT。用 minimax/MiniMax-M2.1。",
+      "message": "【世界反思】週日。\n\n1) 讀 world/feedback.jsonl、本週 opportunities、strategy-patterns.md\n2) 提出最多 3 條 scoring-rubric.md 改動（exec append 到 scoring-rubric 底部「## 自動調整」）\n3) 若有穩定模式，append 一行到 strategy-patterns.md\n4) python3 __CL_ROOT__/tools/world-ingest/plur_export_high_confidence.py\n5) 回覆 Telegram 一句：本週學到咩。唔改 HEARTBEAT。用 minimax/MiniMax-M2.1。",
       "timeoutSeconds": 600
     },
     "delivery": {

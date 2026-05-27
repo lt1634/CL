@@ -10,10 +10,15 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import crypto from "crypto";
+import { spawnSync } from "child_process";
+import { pathToFileURL } from "url";
 
 const CRON_FILE = process.env.CRON_FILE || path.join(os.homedir(), ".openclaw/cron/jobs.json");
 const LOCK_FILE = `${CRON_FILE}.lock`;
 const BACKUP_SUFFIX = ".bak";
+const GATEWAY_PLIST =
+  process.env.OPENCLAW_GATEWAY_PLIST ||
+  path.join(os.homedir(), "Library/LaunchAgents/ai.openclaw.gateway.plist");
 
 function sleep(ms) {
   const end = Date.now() + ms;
@@ -42,6 +47,38 @@ function withLock(fn) {
     }
   }
   throw new Error(`Could not acquire lock on ${LOCK_FILE} within 30s`);
+}
+
+function runLaunchctl(action) {
+  const result = spawnSync("launchctl", [action, GATEWAY_PLIST], { stdio: "ignore" });
+  if (result.error && result.error.code === "ENOENT") {
+    console.warn("WARN: launchctl not found; restart gateway manually if needed.");
+    return;
+  }
+  if (result.status && action === "load") {
+    console.warn(`WARN: launchctl ${action} exited with ${result.status}; check gateway manually.`);
+  }
+}
+
+function sleepSecondsFromEnv(name, fallback) {
+  const n = Number(process.env[name] || fallback);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+}
+
+export function withGatewayStopped(fn) {
+  if (!fs.existsSync(GATEWAY_PLIST)) {
+    console.warn(`WARN: No LaunchAgent at ${GATEWAY_PLIST} — editing cron without stopping gateway`);
+    return fn();
+  }
+
+  runLaunchctl("unload");
+  sleep(sleepSecondsFromEnv("OPENCLAW_CRON_GRACE_STOP", 5) * 1000);
+  try {
+    return fn();
+  } finally {
+    runLaunchctl("load");
+    sleep(sleepSecondsFromEnv("OPENCLAW_CRON_GRACE_START", 5) * 1000);
+  }
 }
 
 function validateJobs(data) {
@@ -81,6 +118,15 @@ export function writeJobs(data) {
   const tmp = `${CRON_FILE}.${process.pid}.tmp`;
   fs.writeFileSync(tmp, text, { mode: 0o600 });
   fs.renameSync(tmp, CRON_FILE);
+}
+
+export function mutateJobs(mutator) {
+  return withLock(() => {
+    const data = readJobs();
+    const result = mutator(data);
+    writeJobs(data);
+    return result;
+  });
 }
 
 function parseSchedule(scheduleRaw) {
@@ -139,10 +185,8 @@ function cmdAdd() {
     payload,
     state: {},
   };
-  withLock(() => {
-    const data = readJobs();
+  mutateJobs((data) => {
     data.jobs.push(job);
-    writeJobs(data);
   });
   console.log("Added job:", id, "-", name);
 }
@@ -150,26 +194,26 @@ function cmdAdd() {
 function cmdRemove() {
   const targetId = process.env.JOB_ID;
   if (!targetId) throw new Error("JOB_ID required");
-  withLock(() => {
-    const data = readJobs();
+  mutateJobs((data) => {
     const before = data.jobs.length;
     data.jobs = data.jobs.filter((j) => j.id !== targetId && j.id !== `job-${targetId}`);
-    writeJobs(data);
     const removed = before - data.jobs.length;
     console.log(removed ? `Removed job: ${targetId}` : `Job not found: ${targetId}`);
   });
 }
 
-const cmd = process.argv[2];
-if (cmd === "list") withLock(cmdList);
-else if (cmd === "add") withLock(cmdAdd);
-else if (cmd === "remove") withLock(cmdRemove);
-else if (cmd === "validate") {
-  withLock(() => {
-    readJobs();
-    console.log("OK", CRON_FILE);
-  });
-} else {
-  console.error("Usage: cron-jobs-io.mjs list|add|remove|validate");
-  process.exit(1);
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const cmd = process.argv[2];
+  if (cmd === "list") withLock(cmdList);
+  else if (cmd === "add") cmdAdd();
+  else if (cmd === "remove") cmdRemove();
+  else if (cmd === "validate") {
+    withLock(() => {
+      readJobs();
+      console.log("OK", CRON_FILE);
+    });
+  } else {
+    console.error("Usage: cron-jobs-io.mjs list|add|remove|validate");
+    process.exit(1);
+  }
 }

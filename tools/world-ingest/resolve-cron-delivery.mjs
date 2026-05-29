@@ -9,6 +9,7 @@ import path from "path";
 import { pathToFileURL } from "url";
 
 export const TELEGRAM_TO_PLACEHOLDER = "__OPENCLAW_TELEGRAM_TO__";
+export const CL_ROOT_PLACEHOLDER = "__CL_ROOT__";
 
 export function loadDotEnv(envPath) {
   if (!fs.existsSync(envPath)) return {};
@@ -47,8 +48,21 @@ export function resolveJobDelivery(job, telegramTo) {
   return { ...job, delivery: d };
 }
 
-export function resolveJobs(jobs, telegramTo = resolveTelegramTo()) {
-  return jobs.map((j) => resolveJobDelivery(j, telegramTo));
+function resolveClRoot(value, clRoot) {
+  if (!clRoot) return value;
+  if (typeof value === "string") return value.replaceAll(CL_ROOT_PLACEHOLDER, clRoot);
+  if (Array.isArray(value)) return value.map((item) => resolveClRoot(item, clRoot));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, resolveClRoot(item, clRoot)]),
+    );
+  }
+  return value;
+}
+
+export function resolveJobs(jobs, telegramTo = resolveTelegramTo(), options = {}) {
+  const clRoot = options.clRoot || process.env.CL_ROOT || "";
+  return jobs.map((j) => resolveClRoot(resolveJobDelivery(j, telegramTo), clRoot));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

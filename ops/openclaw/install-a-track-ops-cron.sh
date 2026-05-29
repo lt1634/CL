@@ -7,6 +7,7 @@ RUN="${CL_ROOT}/ops/openclaw/run-a-track-ops.sh"
 MARKER="# CL A-track ops (snapshot+memory+status)"
 
 chmod +x "$RUN"
+mkdir -p "${HOME}/.openclaw/backup"
 
 tmp="$(mktemp)"
 (crontab -l 2>/dev/null | grep -v "run-a-track-ops.sh" | grep -v "$MARKER" || true) >"$tmp"

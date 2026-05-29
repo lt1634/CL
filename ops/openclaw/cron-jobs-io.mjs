@@ -10,6 +10,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import crypto from "crypto";
+import { pathToFileURL } from "url";
 
 const CRON_FILE = process.env.CRON_FILE || path.join(os.homedir(), ".openclaw/cron/jobs.json");
 const LOCK_FILE = `${CRON_FILE}.lock`;
@@ -22,7 +23,7 @@ function sleep(ms) {
   }
 }
 
-function withLock(fn) {
+export function withLock(fn) {
   const deadline = Date.now() + 30_000;
   while (Date.now() < deadline) {
     try {
@@ -83,6 +84,15 @@ export function writeJobs(data) {
   fs.renameSync(tmp, CRON_FILE);
 }
 
+export function mutateJobs(mutator) {
+  return withLock(() => {
+    const data = readJobs();
+    const result = mutator(data);
+    writeJobs(data);
+    return result;
+  });
+}
+
 function parseSchedule(scheduleRaw) {
   if (scheduleRaw.startsWith("cron:")) {
     const parts = scheduleRaw.slice(5).split(":");
@@ -139,10 +149,8 @@ function cmdAdd() {
     payload,
     state: {},
   };
-  withLock(() => {
-    const data = readJobs();
+  mutateJobs((data) => {
     data.jobs.push(job);
-    writeJobs(data);
   });
   console.log("Added job:", id, "-", name);
 }
@@ -150,26 +158,30 @@ function cmdAdd() {
 function cmdRemove() {
   const targetId = process.env.JOB_ID;
   if (!targetId) throw new Error("JOB_ID required");
-  withLock(() => {
-    const data = readJobs();
+  const removed = mutateJobs((data) => {
     const before = data.jobs.length;
     data.jobs = data.jobs.filter((j) => j.id !== targetId && j.id !== `job-${targetId}`);
-    writeJobs(data);
-    const removed = before - data.jobs.length;
-    console.log(removed ? `Removed job: ${targetId}` : `Job not found: ${targetId}`);
+    return before - data.jobs.length;
   });
+  console.log(removed ? `Removed job: ${targetId}` : `Job not found: ${targetId}`);
 }
 
-const cmd = process.argv[2];
-if (cmd === "list") withLock(cmdList);
-else if (cmd === "add") withLock(cmdAdd);
-else if (cmd === "remove") withLock(cmdRemove);
-else if (cmd === "validate") {
-  withLock(() => {
-    readJobs();
-    console.log("OK", CRON_FILE);
-  });
-} else {
-  console.error("Usage: cron-jobs-io.mjs list|add|remove|validate");
-  process.exit(1);
+function main() {
+  const cmd = process.argv[2];
+  if (cmd === "list") withLock(cmdList);
+  else if (cmd === "add") cmdAdd();
+  else if (cmd === "remove") cmdRemove();
+  else if (cmd === "validate") {
+    withLock(() => {
+      readJobs();
+      console.log("OK", CRON_FILE);
+    });
+  } else {
+    console.error("Usage: cron-jobs-io.mjs list|add|remove|validate");
+    process.exit(1);
+  }
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
 }

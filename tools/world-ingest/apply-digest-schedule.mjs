@@ -6,10 +6,10 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { spawnSync } from "child_process";
+import { mutateJobs, readJobs, withGatewayStopped } from "../../ops/openclaw/cron-jobs-io.mjs";
 import { resolveJobs } from "./resolve-cron-delivery.mjs";
 
 const CL_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
-const CRON_FILE = process.env.CRON_FILE || path.join(os.homedir(), ".openclaw/cron/jobs.json");
 const SNIPPET = path.join(CL_ROOT, "tools/world-ingest/world-cron-jobs.json");
 
 const WORLD_LLM_IDS = [
@@ -22,8 +22,7 @@ const WORLD_LLM_IDS = [
   "world-reflection-weekly-001",
 ];
 
-function mergeWorldJobs() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function mergeWorldJobs(data) {
   const incoming = resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")));
   const jobs = data.jobs || [];
   const byId = new Map(jobs.map((j) => [j.id, j]));
@@ -40,12 +39,10 @@ function mergeWorldJobs() {
     }
   }
   data.jobs = jobs;
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
   console.log("World cron: added=" + added + " updated=" + updated);
 }
 
-function patchHybridSchedule() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function patchHybridSchedule(data) {
   const job = (data.jobs || []).find((j) => j.id === "content-digest-hybrid-001");
   if (!job) {
     console.warn("content-digest-hybrid-001 not found — skip");
@@ -53,12 +50,10 @@ function patchHybridSchedule() {
   }
   job.schedule = { expr: "0 12,20 * * *", kind: "cron", tz: "Asia/Hong_Kong" };
   job.enabled = true;
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
   console.log("Hybrid digest: 12:00 + 20:00 HKT (aggressive MiniMax usage)");
 }
 
-function disableLegacy() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function disableLegacy(data) {
   const legacyIds = new Set([
     "11fecbfb-46db-44e1-adbb-09662bbb3a31",
     "daily-content-digest",
@@ -71,11 +66,9 @@ function disableLegacy() {
       console.log("Disabled legacy:", job.id);
     }
   }
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
 }
 
-function enableAggressiveWorldMode() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+function enableAggressiveWorldMode(data) {
   const snippet = resolveJobs(JSON.parse(fs.readFileSync(SNIPPET, "utf8")));
   const snippetById = new Map(snippet.map((j) => [j.id, j]));
   for (const job of data.jobs || []) {
@@ -92,7 +85,6 @@ function enableAggressiveWorldMode() {
     }
     console.log("Aggressive:", job.id, "enabled=" + job.enabled);
   }
-  fs.writeFileSync(CRON_FILE, JSON.stringify(data, null, 2) + "\n");
 }
 
 function syncArchitectureDoc() {
@@ -114,7 +106,7 @@ function syncArchitectureDoc() {
 }
 
 function printVerify() {
-  const data = JSON.parse(fs.readFileSync(CRON_FILE, "utf8"));
+  const data = readJobs();
   const jobs = data.jobs || [];
   const world = jobs.filter((j) => j.id?.startsWith("world-"));
   const hybrid = jobs.find((j) => j.id === "content-digest-hybrid-001");
@@ -133,10 +125,14 @@ function printVerify() {
   }
 }
 
-mergeWorldJobs();
-patchHybridSchedule();
-disableLegacy();
-enableAggressiveWorldMode();
+withGatewayStopped(() =>
+  mutateJobs((data) => {
+    mergeWorldJobs(data);
+    patchHybridSchedule(data);
+    disableLegacy(data);
+    enableAggressiveWorldMode(data);
+  }),
+);
 syncArchitectureDoc();
 printVerify();
 
